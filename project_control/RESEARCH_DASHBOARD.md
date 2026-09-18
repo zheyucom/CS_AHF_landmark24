@@ -124,3 +124,4 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [近期文献与 MIMIC 清洗方法复核（2026-09-17）](task_reports/TASK_REPORT_20260917_RECENT_LITERATURE_AND_MIMIC_CLEANING.md)
 - [MIMIC-IV 实验室审计 V2（2026-09-17）](task_reports/TASK_REPORT_20260917_MIMIC_LAB_AUDIT_V2.md)
 - 2026-09-18：确认先采用本地 Git，不配置远程仓库；已记录 Git 作用、远程私有仓库的可选价值及提交前条件。
+- 2026-09-18：本机初始版本基线已提交（2494cc25a3f4ea5dc127687efebb9ab652382520），673 个文件受跟踪、无远程仓库、工作区干净；详见 [Git 基线提交收尾](task_reports/TASK_REPORT_20260918_GIT_BASELINE_COMMIT.md)。
