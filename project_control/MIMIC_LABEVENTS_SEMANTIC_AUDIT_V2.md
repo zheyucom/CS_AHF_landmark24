@@ -1,6 +1,6 @@
 # MIMIC-IV 实验室语义与可用时间审计 v2
 
-状态：`not_run`。2026-09-17 本机 BigQuery dry-run 因无法连接 `bigquery.googleapis.com:443` 而超时；本地结构测试与清洗 Skill 静态审计已通过，但不能据此声称 BigQuery 语法或患者级结果已验证。
+状态：passed（MIMIC-IV v3.1 实际聚合已完成；详见 2026-09-18 执行报告）。
 
 ## 这版解决什么
 
@@ -52,13 +52,15 @@ V2 显式统计但不纳入以下非血液 itemid：
 
 ## raw/derived 对账
 
-- BUN：raw 与 `mimiciv_derived.chemistry` 按 `stay_id + specimen_id` 汇总 `raw_only / derived_only / both`。
-- 乳酸：因 `mimiciv_derived.bg` 不暴露 `specimen_id/storetime`，按 `stay_id + charttime` 对账，并在输出 notes 明示该限制。
+- BUN：raw 与 `mimiciv_3_1_derived.chemistry` 按 `stay_id + specimen_id` 汇总 `raw_only / derived_only / both`。
+- 乳酸：因 `mimiciv_3_1_derived.bg` 不暴露 `specimen_id/storetime`，按 `stay_id + charttime` 对账，并在输出 notes 明示该限制。
 - derived 表没有足够的结果可用时间字段，不能替代 raw 表的 T12 门控。
 
 ## 输出与执行边界
 
 最终输出只有聚合行：字典合同、语义/时间/quarantine 汇总及 raw/derived 覆盖；默认不输出患者标识。
+
+本项目的 GCP 组织策略禁止脚本创建临时数据集；正式执行请使用 project_control/run_mimic_lab_audit_v2.sh，脚本会将中间表写入 ahf_work、设置 20 GB 计费上限并在退出时清理。通用环境可继续使用下列直接命令。
 
 网络恢复后依次执行：
 

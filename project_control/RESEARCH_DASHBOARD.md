@@ -55,7 +55,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 | 治疗升级终点的执行/可用时间不完整 | 用医嘱、护理、文书重建组成与观察完整性；eMAR可得时做主定义/代理敏感性对照 | 6-12 h | 数据补提数天至数周 | 高 |
 | MIMIC多域DHF未冻结 | 汇总HF anchor、失代偿、管理及替代解释；不因Echo strict draft仅6例放宽或强加心超门槛 | 6-12 h | 低 | 高 |
 | 变量/语义合同未锁定 | 使用新增变量字典和语义规则词典完成字段、单位、缺失和A/B/C规则审计；版本锁定后重跑全量 | 4-8 h | 低 | 高 |
-| MIMIC实验室语义/截断/覆盖未执行 | 网络代理已修复，V2 dry-run已通过；目标`physionet-data:mimiciv_hosp.d_labitems`返回Access Denied，状态为`not_run_access_denied`，待PhysioNet/MIMIC授权后执行正式汇总 | 1-2 h | 需MIMIC表权限 | 中 |
+| MIMIC实验室语义/截断/覆盖 | MIMIC-IV v3.1 正式聚合已完成；结果、字典合同、quarantine 与 raw/derived 覆盖均已登记 | 已完成 | 无 | 低 |
 | 最终模型尚未重跑 | 事件数决定低维参数后，运行嵌套MICE m=20、Fine-Gray、person-period和预设敏感性 | 8-16 h | 数小时至过夜 | 中 |
 
 ## 下一步7天计划
@@ -77,7 +77,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - BNP=`pg/mL`、乳酸=`mmol/L` 已登记为 `confirmed_user`；其他单位必须由字典或人工核对确认，不能仅凭数值范围静默推断。
 - 变量字典和语义规则词典是正式队列/特征冻结的阻塞项；医嘱代理验证是正式结局冻结的阻塞项。
 - AI 判读 provenance 不阻塞当前预审核，但必须在论文中披露并保存；已有11例结构化输出和来源行号，模型/prompt 未记录项已标明 `not_recorded`。
-- MIMIC实验室V2已替代旧V1：候选正则只查`d_labitems`，患者级审计仅接受精确合同；本机代理已修复且V2 dry-run通过，但目标表权限不足，患者级状态为`not_run_access_denied`并继续阻塞实验室特征冻结。
+- MIMIC实验室V2已替代旧V1；v3.1 正式聚合已通过，BUN 非血液 itemid 已隔离，结果见 2026-09-18 执行报告。
 - 近期方法复核确认：实验室名称正则只可发现候选，正式特征必须使用精确语义 allowlist；异常值、单位不符和 derived 漏失进入隔离审计，不静默删除或补零。
 - 若论文报告 inter-rater reliability，需第二位临床标注者独立盲法复核；同一标注者重复复核不能产生独立 kappa。
 
@@ -98,7 +98,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - 2026-09-16：补齐双库队列、比较符号检验值、单位缺失、异常值、缺失值和医嘱执行代理合同；新增MIMIC来源覆盖登记和数据清洗任务报告。
 - 2026-09-16：登记院内 BNP/乳酸确认单位；新增变量字典、DHF语义规则词典、AI审核 provenance 和 MIMIC `labevents` 截断审计模板；明确五项工作的冻结门控级别。
 - 2026-09-16：将工作簿定位为漏项检查框架；新增项目级复现合同、字段映射、封存验收标准、运行登记和医嘱代理分类规范。验收表暂不填实测结果。
-- 2026-09-17：实验室审计升级为V2；正式纳入与名称候选发现分离，增加精确语义、结果可用时间、quarantine、重复与BUN/乳酸raw-derived双向覆盖；修复gcloud代理后dry-run通过，但PhysioNet表权限不足，患者级状态为`not_run_access_denied`。
+- 2026-09-18：MIMIC-IV v3.1 实验室 V2 正式聚合完成；BUN 非血液 itemid 已隔离，结果和 BigQuery 作业证据已登记。
 
 更新规则：总览只保留主线、可核验证据、当前阻塞和下一交付。最终论文人数、事件数和性能必须来自同一冻结run。
 
@@ -123,5 +123,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [本地 Git 优先决策说明（2026-09-18）](task_reports/TASK_REPORT_20260918_GIT_LOCAL_ONLY_DECISION.md)
 - [近期文献与 MIMIC 清洗方法复核（2026-09-17）](task_reports/TASK_REPORT_20260917_RECENT_LITERATURE_AND_MIMIC_CLEANING.md)
 - [MIMIC-IV 实验室审计 V2（2026-09-17）](task_reports/TASK_REPORT_20260917_MIMIC_LAB_AUDIT_V2.md)
-- 2026-09-18：确认先采用本地 Git，不配置远程仓库；已记录 Git 作用、远程私有仓库的可选价值及提交前条件。
-- 2026-09-18：本机初始版本基线已提交（2494cc25a3f4ea5dc127687efebb9ab652382520），673 个文件受跟踪、无远程仓库、工作区干净；详见 [Git 基线提交收尾](task_reports/TASK_REPORT_20260918_GIT_BASELINE_COMMIT.md)。
+- 2026-09-18：已配置 GitHub SSH origin，仓库为 zheyucom/CS_AHF_landmark24。
+- 2026-09-18：main 已推送并校验远程 SHA=46e382a7922d4ebf61bbe79ff215564dcde00c9a；本地与 origin/main 一致。
+
+- [MIMIC-IV 实验室审计 V2 正式执行报告（2026-09-18）](task_reports/TASK_REPORT_20260918_MIMIC_LAB_AUDIT_V2_EXECUTION.md)

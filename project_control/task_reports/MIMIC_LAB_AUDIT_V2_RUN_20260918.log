@@ -1,0 +1,11 @@
+started_at=2026-09-18T08:26:59Z
+bfba5fd2334811dbf98245989e827dc777f654054861cc3a9069dcda86867722  project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql
+execution_sql=permanent_scratch_ahf_work
+finished_at=2026-09-18T08:27:42Z
+job_id=bqjob_r3188fcdd209c181f_000001a0b3a0460e_1
+location=US
+statement_type=SCRIPT
+total_bytes_processed=15924400333
+total_bytes_billed=16104030208
+total_slot_ms=235312
+num_child_jobs=
