@@ -1,0 +1,5 @@
+"table_schema","table_name","column_name","data_type"
+"mimiciv_derived","norepinephrine_equivalent_dose","stay_id","integer"
+"mimiciv_derived","norepinephrine_equivalent_dose","starttime","timestamp without time zone"
+"mimiciv_derived","norepinephrine_equivalent_dose","endtime","timestamp without time zone"
+"mimiciv_derived","norepinephrine_equivalent_dose","norepinephrine_equivalent_dose","numeric"

@@ -1,0 +1,8 @@
+"table_schema","table_name"
+"mimiciv_hosp","d_labitems"
+"mimiciv_hosp","emar"
+"mimiciv_hosp","emar_detail"
+"mimiciv_hosp","labevents"
+"mimiciv_hosp","prescriptions"
+"mimiciv_icu","d_items"
+"mimiciv_icu","inputevents"

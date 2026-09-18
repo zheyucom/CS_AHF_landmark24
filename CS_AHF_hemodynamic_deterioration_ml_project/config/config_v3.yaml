@@ -1,0 +1,44 @@
+project_name: CS_AHF_hemodynamic_deterioration_v3
+random_seed: 2026
+
+paths:
+  raw_dataset: data/raw_v3/model_080G_modeling_dataset_v3.csv
+  processed_dataset: data/processed_v3/modeling_dataset_clean_v3.csv
+  qc_dir: outputs_v3/qc
+  model_dir: outputs_v3/models
+  figure_dir: outputs_v3/figures
+  table_dir: outputs_v3/tables
+  manifest: docs/model_feature_manifest_v3.csv
+
+target:
+  label_col: primary_outcome_flag
+  positive_class: 1
+
+columns:
+  id_cols:
+    - subject_id
+    - hadm_id
+    - stay_id
+    - intime
+    - landmark12_time
+    - window60_time
+  label_prefixes:
+    - label_
+  forced_exclude:
+    - primary_outcome_flag
+
+preprocessing:
+  high_missing_threshold: 0.80
+  near_zero_variance_unique_threshold: 1
+  test_size: 0.20
+  winsorize:
+    enabled: true
+    lower_q: 0.01
+    upper_q: 0.99
+  nee_missing_fill_zero: true
+  keep_missing_indicators: true
+
+models:
+  run_logistic_baseline: true
+  run_elastic_net: true
+  cv_folds: 5

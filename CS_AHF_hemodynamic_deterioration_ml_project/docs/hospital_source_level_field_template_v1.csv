@@ -1,0 +1,20 @@
+recommended_output_name,required_column_group,minimum_columns_to_export,preferred_format,example_values_or_notes,local_actual_columns_to_fill,status_to_fill
+hospital_icu_stays.csv,连接键,"patient_id, encounter_id, icu_stay_id",文本/整数，不含姓名身份证,必须能连接所有表,,未开始
+hospital_icu_stays.csv,时间锚点,"hospital_admit_time, hospital_discharge_time, icu_intime, icu_outtime",yyyy-mm-dd hh:mm:ss,landmark12 = icu_intime + 12h,,未开始
+hospital_icu_stays.csv,死亡,"death_flag, death_time",0/1 + datetime,death_time 精度越高越好,,未开始
+hospital_diagnoses.csv,诊断,"diagnosis_code, diagnosis_name, diagnosis_sequence, diagnosis_type, icd_version",一行一个诊断,用于 AHF/Charlson/感染来源,,未开始
+hospital_vitals_long.csv,生命体征,"charttime, heart_rate, sbp, dbp, map, resp_rate, spo2, temperature",一行一个时间点或一行一个项目均可，但必须有时间,"单位 HR bpm, BP mmHg, SpO2 %, Temp C",,未开始
+hospital_labs_long.csv,通用检验,"sample_time, test_code, test_name, result_value, result_unit",一行一个检验项目,肌酐、BUN、电解质、血常规、凝血、白蛋白等,,未开始
+hospital_bloodgas_lactate_long.csv,血气乳酸,"sample_time, lactate, ph, bicarbonate, base_excess, po2, pco2",一行一次血气,保留 specimen_type 和单位,,未开始
+hospital_vasoactive_administration_long.csv,升压/强心药,"drug_name, start_time, end_time, dose_or_rate, dose_unit, route",一行一个给药/输注区间,需覆盖 NE/Epi/Dopa/Phenylephrine/Vasopressin/Dobutamine/Milrinone,,未开始
+hospital_vasoactive_administration_long.csv,剂量换算支持,"patient_weight_kg_at_time, concentration, pump_rate",数值+单位,有助于 NEE 换算,,未开始
+hospital_diuretic_administration_long.csv,袢利尿剂,"drug_name, administration_time或start_time, dose, dose_unit, route",一行一次给药,呋塞米/托拉塞米/布美他尼,,未开始
+hospital_antibiotics_administration_long.csv,抗菌药,"antibiotic_name, start_time或administration_time, end_time, route",一行一次给药或医嘱,sepsis 疑似感染定义需要,,未开始
+hospital_cultures_microbiology_long.csv,培养/微生物,"culture_time, specimen_type, test_name, organism, result_time",一行一次送检或结果,至少要送检时间和标本部位,,未开始
+hospital_output_urine_long.csv,出量/尿量,"charttime或start_time/end_time, output_type, volume_ml",一行一次记录,若是班次汇总，必须有区间,,未开始
+hospital_input_fluids_long.csv,入量,"start_time或charttime, end_time, input_type, amount_ml",一行一次入量或输注区间,液体/输血/营养尽量分类,,未开始
+hospital_respiratory_support_long.csv,呼吸支持,"start_time, end_time, support_type",一行一个支持区间,有创/NIV/HFNC/氧疗,,未开始
+hospital_gcs_long.csv,GCS,"charttime, gcs_total或eye/verbal/motor",一行一次评分,无法评估/镇静请保留标志,,未开始
+hospital_weight_long.csv,体重,"charttime, weight_kg",一行一次体重,NEE 和尿量标化需要,,未开始
+hospital_echo_reports.csv,心超,"exam_time, report_time, report_text或lvef_percent",一行一次报告,强烈建议报告全文 + 结构化字段,,未开始
+hospital_death_discharge.csv,出院/死亡,"discharge_time, discharge_status, death_flag, death_time",一行一次住院结局,死亡时间精度很关键,,未开始

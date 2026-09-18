@@ -1,0 +1,5 @@
+"lactate_max_group","n","n_events","event_rate"
+"00_missing","1108","114","10.29"
+"01_lactate_lt2","922","151","16.38"
+"02_lactate_2_4","303","45","14.85"
+"03_lactate_ge4","91","24","26.37"

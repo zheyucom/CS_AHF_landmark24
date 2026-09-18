@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-07-29T22:05:02+08:00",
+  "controller": {
+    "thread_id": "019faad2-9ca6-70b2-ad06-0679247decd6",
+    "title": "CS_AHF 文献工作区 · Controller Console",
+    "current_phase": "02_literature_discovery",
+    "status": "waiting_review",
+    "user_scope_confirmed": true
+  },
+  "paths": {
+    "source_project_root": "/Users/zheyu/Desktop/CS_AHF_landmark24",
+    "literature_workspace_root": "/Users/zheyu/Desktop/CS_AHF_landmark24/literature_workspace",
+    "legacy_literature_root": "/Users/zheyu/Desktop/CS_AHF_landmark24/literature_review",
+    "obsidian_vault": null
+  },
+  "proposed_scope": {
+    "candidate_records": 100,
+    "full_text_assessments": 40,
+    "core_evidence_set": 25,
+    "first_batch_pdf_notes": 15,
+    "languages": [
+      "English",
+      "Simplified Chinese"
+    ],
+    "date_range": {
+      "start": "database_inception",
+      "end": "2026-07-29",
+      "priority_from_year": 2014
+    },
+    "zotero_collection": {
+      "name": "#心衰早期预测",
+      "key": "4EMWVUHV",
+      "confirmed": true
+    },
+    "supporting_information": "no"
+  },
+  "agents": [
+    {
+      "role": "LiteratureAgent",
+      "thread_id": "019fad8c-63e2-77e2-aec8-1eef53f69e16",
+      "host_id": "local",
+      "strategy": "reuse_after_scope_confirmation",
+      "status": "completed_waiting_review",
+      "legacy_outputs_must_be_revalidated": true
+    },
+    {
+      "role": "ZoteroAgent",
+      "thread_id": null,
+      "status": "not_created"
+    },
+    {
+      "role": "ObsidianAgent",
+      "thread_id": null,
+      "status": "not_created"
+    }
+  ],
+  "phase_gates": [
+    {
+      "phase": 1,
+      "name": "initialization_and_configuration",
+      "status": "approved_completed"
+    },
+    {
+      "phase": 2,
+      "name": "literature_discovery",
+      "status": "waiting_review"
+    },
+    {
+      "phase": 3,
+      "name": "zotero_integration",
+      "status": "blocked_by_phase_2_review"
+    },
+    {
+      "phase": 4,
+      "name": "obsidian_and_maintenance",
+      "status": "blocked_by_phase_3_review_and_vault_path"
+    }
+  ],
+  "dependencies": {
+    "academic_research_suite": {
+      "status": "ready",
+      "adapter_version": "0.1.22",
+      "hooks_enabled": false
+    },
+    "nature_academic_search": {
+      "status": "ready",
+      "preflight": "3_of_3_endpoints_ok_with_codex_bundled_python"
+    },
+    "zotero": {
+      "status": "ready",
+      "api_status": 200,
+      "connector_status": 200,
+      "write_policy": "user_runs_reviewed_script_only",
+      "user_reported_legacy_articles_imported": true,
+      "legacy_import_report_verified": false
+    },
+    "obsidian": {
+      "status": "not_found",
+      "vault_path": null
+    }
+  },
+  "phase_2_result": {
+    "review_status": "waiting_review",
+    "controller_validation": "pass",
+    "candidate_count": 100,
+    "fulltext_priority_count": 40,
+    "core_count": 25,
+    "first_read_count": 15,
+    "source_manifest_event_count": 2210,
+    "download_log_count": 40,
+    "verified_main_pdf_count": 21,
+    "manual_authorized_retrieval_required_count": 11,
+    "no_authorized_pdf_found_count": 8,
+    "first_read_pdf_available_count": 11,
+    "supporting_information_downloaded_count": 0,
+    "zotero_touched": false,
+    "obsidian_touched": false,
+    "patient_level_data_touched": false,
+    "review_artifact": "/Users/zheyu/Desktop/CS_AHF_landmark24/literature_workspace/phase2_controller_review.md"
+  },
+  "dispatch_log": [
+    {
+      "timestamp": "2026-07-29T20:47:10+08:00",
+      "role": "LiteratureAgent",
+      "thread_id": "019fad8c-63e2-77e2-aec8-1eef53f69e16",
+      "event": "dispatch_prepared",
+      "status": "pending_send",
+      "note": "Scope confirmed; SI choice unresolved, so metadata search may proceed but downloads remain gated."
+    },
+    {
+      "timestamp": "2026-07-29T20:49:09+08:00",
+      "role": "LiteratureAgent",
+      "thread_id": "019fad8c-63e2-77e2-aec8-1eef53f69e16",
+      "event": "phase_2_dispatched",
+      "status": "in_progress",
+      "note": "Academic Research Suite lit-review Phase 2 plus nature-academic-search; no Zotero/Obsidian; downloads wait for explicit SI choice."
+    },
+    {
+      "timestamp": "2026-07-29T21:30:13+08:00",
+      "role": "LiteratureAgent",
+      "thread_id": "019fad8c-63e2-77e2-aec8-1eef53f69e16",
+      "event": "si_gate_resolved",
+      "status": "in_progress",
+      "note": "User chose SI=no. Main-article downloads may proceed via lawful/OA/authorized routes with --no-si; all supplementary materials remain out of scope."
+    },
+    {
+      "timestamp": "2026-07-29T21:30:13+08:00",
+      "role": "ZoteroAgent",
+      "thread_id": null,
+      "event": "user_status_note",
+      "status": "deferred_to_phase_3",
+      "note": "User reports that previously recommended articles have been manually added to Zotero; not verified in Phase 2."
+    },
+    {
+      "timestamp": "2026-07-29T22:05:02+08:00",
+      "role": "LiteratureAgent",
+      "thread_id": "019fad8c-63e2-77e2-aec8-1eef53f69e16",
+      "event": "phase_2_completed_controller_validated",
+      "status": "waiting_review",
+      "note": "Candidate/fulltext/core/first-read counts are 100/40/25/15. Controller validation passed with 21 verified main PDFs, 11 manual-authorized retrieval items, 8 without an authorized OA PDF, and zero SI files. Phase 3 remains blocked pending explicit user approval."
+    }
+  ],
+  "safety": {
+    "paywall_bypass": false,
+    "fabricated_references": false,
+    "direct_zotero_sqlite_access": false,
+    "sensitive_git_commit": false,
+    "pdfs_in_git": false
+  }
+}

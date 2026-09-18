@@ -1,0 +1,2 @@
+"n_rows","n_subjects","n_hadm","n_stay","min_age","max_age","min_icu_los_hours","median_icu_los_hours","max_icu_los_hours"
+"65366","65366","65366","65366","18","91","0.03","45.88847222222222","3832.0033333333336"

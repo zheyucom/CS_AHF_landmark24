@@ -1,0 +1,2 @@
+n_total,n_events,event_rate,n_echo_any_pre12,pct_echo_any_pre12,n_tte_pre12,pct_tte_pre12,n_tee_pre12,pct_tee_pre12,n_echo_any_0_12h,pct_echo_any_0_12h,n_structured_lvef_pre12,pct_structured_lvef_pre12,n_cardiac_output_0_12h,pct_cardiac_output_0_12h,n_cardiac_index_0_12h,pct_cardiac_index_0_12h
+2424,334,13.78,228,9.41,216,8.91,13,0.54,228,9.41,0,0.00,102,4.21,20,0.83

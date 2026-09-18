@@ -1,0 +1,6 @@
+"outcome","n_total","n_events","event_rate"
+"01_original_hd_broad_nee005","2424","334","13.78"
+"02_hd_broad_nee005_cap3","2424","333","13.74"
+"03_hd_broad_nee005_cap2","2424","332","13.7"
+"04_hd_broad_no_nee","2424","282","11.63"
+"05_nee_escalation_conservative_only","2424","102","4.21"

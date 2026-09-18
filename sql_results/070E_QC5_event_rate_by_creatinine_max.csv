@@ -1,0 +1,5 @@
+"creatinine_max_group","n","n_events","event_rate"
+"00_missing","131","17","12.98"
+"01_creatinine_lt1_2","704","84","11.93"
+"02_creatinine_1_2_2_0","820","107","13.05"
+"03_creatinine_ge2_0","769","126","16.38"

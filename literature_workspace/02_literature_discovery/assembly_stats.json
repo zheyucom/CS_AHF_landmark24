@@ -1,0 +1,30 @@
+{
+  "candidate_count": 100,
+  "fulltext40_count": 40,
+  "core25_count": 25,
+  "first15_count": 15,
+  "dual_T1_verified": 94,
+  "crossref_only_T1_verified": 2,
+  "pubmed_plus_official_chinese_verified": 4,
+  "core_dual_T1_verified": 25,
+  "languages": {
+    "English": 96,
+    "Chinese": 4
+  },
+  "stream_counts": {
+    "AHF_WHF_outcome_definition": 18,
+    "AHF_to_cardiogenic_shock": 18,
+    "HF_sepsis_mixed_physiology": 18,
+    "ICU_CICU_hemodynamic_deterioration": 16,
+    "landmark_dynamic_EHR_leakage": 12,
+    "reporting_bias_calibration_validation": 12,
+    "MIMIC_external_transportability_China": 6
+  },
+  "missing_crossref": [
+    "10.3881/j.issn.1000-503x.16031",
+    "10.3760/cma.j.cn121430-20200817-00629",
+    "10.3760/cma.j.issn.2095-4352.2017.12.018",
+    "10.3760/cma.j.cn121430-20240812-00693"
+  ],
+  "assembled_at": "2026-07-29T13:18:31+00:00"
+}

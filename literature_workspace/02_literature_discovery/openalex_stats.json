@@ -1,0 +1,10 @@
+{
+  "queries": 4,
+  "retrieved_occurrences": 100,
+  "unique_supplemental_records": 98,
+  "candidate100_doi_overlap": 4,
+  "candidate100_title_overlap": 4,
+  "promoted_to_candidate100": 0,
+  "decision": "supplemental coverage check only; no record displaced a more directly relevant T1-verified candidate",
+  "searched_at": "2026-07-29T13:20:39+00:00"
+}

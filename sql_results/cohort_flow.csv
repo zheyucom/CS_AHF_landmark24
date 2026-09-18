@@ -1,0 +1,4 @@
+"step_id","step_name","table_name","n_rows","n_subjects","n_hadm","n_stay","excluded_from_prior","notes","created_at"
+"10","adult_first_icu","study_ahf.cohort_010_adult_first_icu_v1","65366","65366","65366","65366",,"Adult patients, first ICU stay per subject.","2026/4/29 16:53:08.065215"
+"20","hf_icd_candidate","study_ahf.cohort_020_hf_icd_candidate_v1","14877","14877","14877","14877","50489","Broad HF ICD candidate based on discharge/billing ICD codes. Not final AHF-at-ICU-admission cohort.","2026/4/29 17:23:05.830922"
+"30","ahf_early_evidence_labels","study_ahf.cohort_030_ahf_evidence_early_window_v1","14877","14877","14877","14877","0","Evidence-label table among HF ICD candidates. No exclusion applied. Early window: ICU intime -24h to +24h.","2026/4/29 22:20:45.025824"

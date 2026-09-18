@@ -1,0 +1,27 @@
+# Full text and binary research material
+*.pdf
+*.epub
+*.mobi
+
+# Zotero databases, private snapshots, and backups
+*.sqlite
+*.sqlite-*
+*.db
+03_zotero/private/
+03_zotero/zotero_inventory_snapshot*
+
+# Credentials and local environment files
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Patient-level or restricted exports
+restricted_data/
+patient_level_data/
+
+# Local temporary files
+.DS_Store
+*.tmp
+*.partial

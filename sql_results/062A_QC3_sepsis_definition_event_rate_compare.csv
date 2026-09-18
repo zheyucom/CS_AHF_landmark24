@@ -1,0 +1,7 @@
+"cohort","n","n_events","event_rate"
+"overall_ahf12_riskset","6301","233","3.7"
+"sepsis3_any_icu","2935","183","6.24"
+"early_sepsis12_main","2424","133","5.49"
+"early_sepsis12_suspected_infection_only","2606","149","5.72"
+"early_sepsis12_broad","2739","168","6.13"
+"no_early_sepsis12_main","3877","100","2.58"

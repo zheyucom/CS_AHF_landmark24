@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "errors": [],
+  "warnings": [],
+  "candidate_count": 100,
+  "fulltext40_count": 40,
+  "core25_count": 25,
+  "first15_count": 15,
+  "source_manifest_jsonl_count": 2210,
+  "fulltext_access_event_count": 40,
+  "download_log_count": 40,
+  "download_status_counts": {
+    "manual_authorized_retrieval_required": 11,
+    "verified_main_pdf": 21,
+    "no_authorized_pdf_found": 8
+  },
+  "pdf_count_on_disk": 21,
+  "verified_pdf_count": 21,
+  "si_downloaded": 0,
+  "zotero_touched": false,
+  "obsidian_touched": false,
+  "patient_level_data_touched": false
+}

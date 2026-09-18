@@ -1,0 +1,5 @@
+"charlson_group","n","n_events","event_rate"
+"01_charlson_lt3","72","9","12.5"
+"02_charlson_3_5","513","73","14.23"
+"03_charlson_6_8","1118","136","12.16"
+"04_charlson_ge9","721","116","16.09"

@@ -1,0 +1,96 @@
+# macOS / editor metadata
+.DS_Store
+**/.DS_Store
+*.swp
+*.swo
+*.tmp
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials*.json
+*service-account*.json
+
+# Agent and temporary workspaces
+.codex-work/
+.codex-web*.zip
+.workbuddy-ai/
+
+# Local Obsidian plugins/workspace state (vault Markdown remains versioned)
+literature_review/.obsidian/plugins/
+literature_review/.obsidian/workspace*.json
+
+# Python / notebooks / Node
+**/__pycache__/
+*.py[cod]
+**/.ipynb_checkpoints/
+**/.venv/
+venv/
+node_modules/
+
+# Logs and caches
+*.log
+*.cache
+.cache/
+logs/
+
+# Root-level data and generated deliverables
+data/
+outputs/
+deliverables/
+analysis_review/
+slides/imgs/
+
+# Main modeling project: keep source/config/docs, exclude data and generated results
+CS_AHF_hemodynamic_deterioration_ml_project/data/
+CS_AHF_hemodynamic_deterioration_ml_project/outputs/
+CS_AHF_hemodynamic_deterioration_ml_project/outputs_*/
+
+# Project-control patient-level extracts and run artifacts
+project_control/internal_validation/
+project_control/runs/
+project_control/audits/
+project_control/internal_dhf_document_recall_screen_*.csv
+project_control/internal_dhf_source_inventory_*.json
+
+# BigQuery exports/annotations: retain SQL and scripts, exclude extracted data
+project_control/bigquery/exports/
+project_control/bigquery/**/*.csv
+project_control/bigquery/*.csv
+project_control/bigquery/**/*.jsonl
+project_control/bigquery/*.jsonl
+project_control/bigquery/**/*.parquet
+project_control/bigquery/*.parquet
+
+# Literature-discovery caches and downloaded/full-text extraction artifacts
+literature_workspace/**/fulltext_downloads/
+literature_workspace/**/retrieved_pool.json
+literature_workspace/**/source_manifest.jsonl
+literature_workspace/**/retrieval_events.jsonl
+literature_review/**/source_bundle.json
+
+# Large/generated binary artifacts
+*.joblib
+*.pkl
+*.pickle
+*.parquet
+*.feather
+*.rds
+*.db
+*.sqlite
+*.sqlite3
+*.zip
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Office/PDF files are kept locally; source Markdown/code remains versioned
+*.pdf
+*.xlsx
+*.xls
+*.docx
+*.pptx

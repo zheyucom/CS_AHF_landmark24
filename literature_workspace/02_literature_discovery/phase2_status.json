@@ -1,0 +1,33 @@
+{
+  "phase": "Phase 2 Investigation",
+  "status": "waiting_review",
+  "waiting_label": "Waiting review",
+  "si_choice": "no",
+  "candidate_count": 100,
+  "fulltext40_count": 40,
+  "core25_count": 25,
+  "first15_count": 15,
+  "verification": {
+    "pubmed_crossref_dual_T1": 94,
+    "pubmed_plus_official_chinese_record": 4,
+    "crossref_only_T1": 2,
+    "unverified": 0,
+    "core25_dual_T1": 25
+  },
+  "downloads": {
+    "attempted": 40,
+    "completed": 21,
+    "verified_main_pdf": 21,
+    "manual_authorized_retrieval_required": 11,
+    "no_authorized_pdf_found": 8,
+    "blocked_by_si_gate": 0,
+    "si_downloaded": 0
+  },
+  "user_reported_legacy_articles_imported": true,
+  "user_reported_legacy_articles_imported_verified": false,
+  "phase3_zotero_touched": false,
+  "phase4_obsidian_touched": false,
+  "patient_level_data_touched": false,
+  "next_required_controller_message": "Phase 2 review decision",
+  "updated_at": "2026-07-29T14:10:00+00:00"
+}

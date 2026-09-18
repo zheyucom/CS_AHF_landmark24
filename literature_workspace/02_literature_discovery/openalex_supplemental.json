@@ -1,0 +1,902 @@
+[
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2397911846",
+    "doi": "10.1093/eurheartj/ehw128",
+    "title": "2016 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2755584350",
+    "doi": "10.1161/cir.0000000000000525",
+    "title": "Contemporary Management of Cardiogenic Shock: A Scientific Statement From the American Heart Association",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": true
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W3016555942",
+    "doi": "10.1007/s00134-017-4683-6",
+    "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock: 2016",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2945771063",
+    "doi": "10.1002/ccd.28329",
+    "title": "SCAI clinical expert consensus statement on the classification of cardiogenic shock",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": true
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W1875039943",
+    "doi": "10.1093/eurheartj/ehi044",
+    "title": "Executive summary of the guidelines on the diagnosis and treatment of acute heart failure: The Task Force on Acute Heart Failure of the European Society of Cardiology",
+    "year": 2005,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2137412139",
+    "doi": "10.1093/eurheartj/ehi204",
+    "title": "Guidelines for the diagnosis and treatment of chronic heart failure: executive summary (update 2005)",
+    "year": 2005,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W3010255050",
+    "doi": "10.1038/s41572-020-0151-7",
+    "title": "Acute heart failure",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W1932681446",
+    "doi": "10.1007/s00134-015-4041-5",
+    "title": "Acute heart failure and cardiogenic shock: a multidisciplinary practical guidance",
+    "year": 2015,
+    "type": "article",
+    "candidate100_match": true
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W3029617361",
+    "doi": "10.1002/ejhf.1922",
+    "title": "Epidemiology, Pathophysiology and Contemporary Management of Cardiogenic Shock – A Position Statement from the Heart Failure Association of the European Society of Cardiology",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2805115770",
+    "doi": "10.1002/ejhf.1236",
+    "title": "Advanced Heart Failure: A Position Statement of the Heart Failure Association of the European Society of Cardiology",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2797100168",
+    "doi": "10.1161/cir.0000000000000560",
+    "title": "Evaluation and Management of Right-Sided Heart Failure: A Scientific Statement From the American Heart Association",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W3133511216",
+    "doi": "10.1016/j.cardfail.2021.01.022",
+    "title": "Universal Definition and Classification of Heart Failure",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2110134277",
+    "doi": "10.1093/eurheartj/ehn310",
+    "title": "Guidelines on the diagnosis and management of acute pulmonary embolism",
+    "year": 2008,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2109031993",
+    "doi": "10.1016/j.healun.2009.02.015",
+    "title": "INTERMACS Profiles of Advanced Heart Failure: The Current Picture",
+    "year": 2009,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2944687799",
+    "doi": "10.1002/ejhf.1494",
+    "title": "Heart Failure Association of the European Society of Cardiology Practical Guidance on the Use of Natriuretic Peptide Concentrations",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2117254307",
+    "doi": "10.1093/eurheartj/ehn416",
+    "title": "Management of acute myocardial infarction in patients presenting with persistent ST-segment elevation",
+    "year": 2008,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2144744412",
+    "doi": "10.1093/eurheartj/ehq324",
+    "title": "Impaired microcirculation predicts poor outcome of patients with acute myocardial infarction complicated by cardiogenic shock",
+    "year": 2010,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2803621368",
+    "doi": "10.1007/s00134-018-5214-9",
+    "title": "Management of cardiogenic shock complicating myocardial infarction",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W4404353913",
+    "doi": "10.1016/s0140-6736(24)01818-x",
+    "title": "Cardiogenic shock",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2159121887",
+    "doi": "10.1016/s0195-668x(02)00618-8",
+    "title": "Management of acute myocardial infarction in patients presenting with ST-segment elevation",
+    "year": 2003,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2131348155",
+    "doi": "10.1093/eurheartj/eht246",
+    "title": "Interactions of the heart and the liver",
+    "year": 2013,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W1969563698",
+    "doi": "10.1161/01.cir.98.18.1949",
+    "title": "Guidelines for the Management of Patients With Valvular Heart Disease",
+    "year": 1998,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2970101385",
+    "doi": "10.1183/13993003.01647-2019",
+    "title": "2019 ESC Guidelines for the diagnosis and management of acute pulmonary embolism developed in collaboration with the European Respiratory Society (ERS)",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2142314337",
+    "doi": "10.2174/157340308783565456",
+    "title": "A Review of Cardiogenic Shock in Acute Myocardial Infarction",
+    "year": 2008,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA1_AHF_CS_HD",
+    "openalex_id": "https://openalex.org/W2607538050",
+    "doi": "10.1038/nrcardio.2017.56",
+    "title": "Echocardiography and lung ultrasonography for the assessment and management of acute heart failure",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2160691650",
+    "doi": "10.1056/nejmoa010307",
+    "title": "Early Goal-Directed Therapy in the Treatment of Severe Sepsis and Septic Shock",
+    "year": 2001,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2442246762",
+    "doi": "10.1007/s00134-012-2769-8",
+    "title": "Surviving Sepsis Campaign: International Guidelines for Management of Severe Sepsis and Septic Shock, 2012",
+    "year": 2013,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W3016555942",
+    "doi": "10.1007/s00134-017-4683-6",
+    "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock: 2016",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2118858814",
+    "doi": "10.1007/s00134-007-0934-2",
+    "title": "Surviving Sepsis Campaign: International guidelines for management of severe sepsis and septic shock: 2008",
+    "year": 2007,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W3202964273",
+    "doi": "10.1007/s00134-021-06506-y",
+    "title": "Surviving sepsis campaign: international guidelines for management of sepsis and septic shock 2021",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W3045454797",
+    "doi": "10.1097/ccm.0000000000002255",
+    "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock: 2016",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W3203103016",
+    "doi": "10.1097/ccm.0000000000005337",
+    "title": "Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2104415072",
+    "doi": "10.1056/nejmoa1401602",
+    "title": "A Randomized Trial of Protocol-Based Care for Early Septic Shock",
+    "year": 2014,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2755584350",
+    "doi": "10.1161/cir.0000000000000525",
+    "title": "Contemporary Management of Cardiogenic Shock: A Scientific Statement From the American Heart Association",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": true
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2560240742",
+    "doi": "10.1016/j.chest.2016.11.036",
+    "title": "Hydrocortisone, Vitamin C, and Thiamine for the Treatment of Severe Sepsis and Septic Shock",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2067090053",
+    "doi": "10.1007/s00134-014-3525-z",
+    "title": "Consensus on circulatory shock and hemodynamic monitoring. Task force of the European Society of Intensive Care Medicine",
+    "year": 2014,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W3013671288",
+    "doi": "10.1007/s00134-020-06022-5",
+    "title": "Surviving Sepsis Campaign: guidelines on the management of critically ill adults with Coronavirus Disease 2019 (COVID-19)",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2077944368",
+    "doi": "10.1186/cc6916",
+    "title": "A positive fluid balance is associated with a worse outcome in patients with acute renal failure",
+    "year": 2008,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2807356795",
+    "doi": "10.1186/s13613-018-0402-x",
+    "title": "Principles of fluid management and stewardship in septic shock: it is time to consider the four D’s and the four phases of fluid therapy",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W4254299754",
+    "doi": "10.1007/s00134-021-06368-4",
+    "title": "European Resuscitation Council and European Society of Intensive Care Medicine guidelines 2021: post-resuscitation care",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2108153775",
+    "doi": "10.1056/nejmoa067373",
+    "title": "Vasopressin versus Norepinephrine Infusion in Patients with Septic Shock",
+    "year": 2008,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W1915572763",
+    "doi": "10.1186/cc1822",
+    "title": "Clinical review: Myocardial depression in sepsis and septic shock.",
+    "year": 2002,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2912774204",
+    "doi": "10.1001/jama.2019.0071",
+    "title": "Effect of a Resuscitation Strategy Targeting Peripheral Perfusion Status vs Serum Lactate Levels on 28-Day Mortality Among Patients With Septic Shock",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2255691977",
+    "doi": "10.1097/shk.0000000000000473",
+    "title": "The Endothelium in Sepsis",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2171062872",
+    "doi": "10.1186/s13054-015-0970-1",
+    "title": "A positive fluid balance is an independent prognostic factor in patients with sepsis",
+    "year": 2015,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2531389434",
+    "doi": "10.1007/s00134-016-4573-3",
+    "title": "Conservative fluid management or deresuscitation for patients with sepsis or acute respiratory distress syndrome following the resuscitation phase of critical illness: a systematic review and meta-analysis",
+    "year": 2016,
+    "type": "review",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2152154097",
+    "doi": "10.1186/s13054-014-0503-3",
+    "title": "Sepsis-associated hyperlactatemia",
+    "year": 2014,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W1498847688",
+    "doi": "10.1002/14651858.cd001090.pub2",
+    "title": "Intravenous immunoglobulin for treating sepsis, severe sepsis and septic shock",
+    "year": 2013,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2141868068",
+    "doi": "10.1182/blood-2002-06-1887",
+    "title": "The role of the endothelium in severe sepsis and multiple organ dysfunction syndrome",
+    "year": 2003,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA2_HF_sepsis",
+    "openalex_id": "https://openalex.org/W2043250502",
+    "doi": "10.1016/j.healun.2010.05.034",
+    "title": "The International Society of Heart and Lung Transplantation Guidelines for the care of heart transplant recipients",
+    "year": 2010,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4283801824",
+    "doi": "10.1038/s41551-022-00898-y",
+    "title": "Shifting machine learning for healthcare from development to deployment and from models to data",
+    "year": 2022,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2767307339",
+    "doi": "10.18632/oncotarget.22345",
+    "title": "Converging blockchain and next-generation artificial intelligence technologies to decentralize and accelerate biomedical research and healthcare",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W3049405423",
+    "doi": "10.1109/access.2020.3016782",
+    "title": "Implementation and Use of Disease Diagnosis Systems for Electronic Medical Records Based on Machine Learning: A Complete Review",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2734695534",
+    "doi": "",
+    "title": "Big Data for All: Privacy and User Control in the Age of Analytics",
+    "year": 2012,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4313646859",
+    "doi": "10.1002/widm.1485",
+    "title": "Remote patient monitoring using artificial intelligence: Current state, applications, and challenges",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2942760134",
+    "doi": "10.1016/j.preteyeres.2019.04.003",
+    "title": "Deep learning in ophthalmology: The technical and clinical considerations",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4379538075",
+    "doi": "10.3390/mi14061200",
+    "title": "Emerging SiC Applications beyond Power Electronic Devices",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2048841289",
+    "doi": "10.1118/1.2775667",
+    "title": "The management of imaging dose during image‐guided radiotherapy: Report of the AAPM Task Group 75",
+    "year": 2007,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2618245351",
+    "doi": "10.1101/142760",
+    "title": "Opportunities and obstacles for deep learning in biology and medicine",
+    "year": 2017,
+    "type": "preprint",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W3120341560",
+    "doi": "10.1186/s12893-020-00968-5",
+    "title": "Dynamic prediction for clinically relevant pancreatic fistula: a novel prediction model for laparoscopic pancreaticoduodenectomy",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4319986951",
+    "doi": "10.1109/access.2023.3241628",
+    "title": "Metaverse for Healthcare: A Survey on Potential Applications, Challenges and Future Directions",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4318767295",
+    "doi": "10.1109/jbhi.2023.3240245",
+    "title": "NeoCam: An Edge-Cloud Platform for Non-Invasive Real-Time Monitoring in Neonatal Intensive Care Units",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4416442660",
+    "doi": "10.1007/s10238-025-01965-9",
+    "title": "AI-driven multi-omics integration in precision oncology: bridging the data deluge to clinical decisions",
+    "year": 2025,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4402666098",
+    "doi": "10.1016/j.heliyon.2024.e38137",
+    "title": "Federated learning: Overview, strategies, applications, tools and future directions",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4364377334",
+    "doi": "10.1111/cgf.14776",
+    "title": "A Comprehensive Review of Data‐Driven Co‐Speech Gesture Generation",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2042025301",
+    "doi": "10.1186/cc5629",
+    "title": "Simple prediction of mortality in case of readmission to the intensive care unit",
+    "year": 2007,
+    "type": "conference-abstract",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4405364307",
+    "doi": "10.1101/2024.02.19.24302919",
+    "title": "Machine Learning Models for the Prediction of Early-Onset Bipolar Using Electronic Health Records",
+    "year": 2024,
+    "type": "preprint",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4409767726",
+    "doi": "10.1186/s12879-025-10854-1",
+    "title": "Hospital-wide, dynamic, individualized prediction of central line-associated bloodstream infections-development and temporal evaluation of six prediction models",
+    "year": 2025,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2801389833",
+    "doi": "10.1016/j.clinph.2018.03.042",
+    "title": "IFCN-endorsed practical guidelines for clinical magnetoencephalography (MEG)",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4385597357",
+    "doi": "10.1016/j.bbi.2023.07.022",
+    "title": "Multi-omics approaches in psychoneuroimmunology and health research: Conceptual considerations and methodological recommendations",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4388099115",
+    "doi": "10.3390/jcm12216865",
+    "title": "E-Health: A Game Changer in Fetal and Neonatal Cardiology?",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4389741632",
+    "doi": "10.5535/arm.23131",
+    "title": "AI in Rehabilitation Medicine: Opportunities and Challenges",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W2889063261",
+    "doi": "10.1055/s-0038-1641215",
+    "title": "Advances in Sharing Multi-sourced Health Data on Decision Support Science 2016-2017",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4404232907",
+    "doi": "10.1016/j.eclinm.2024.102919",
+    "title": "Detection of neurologic changes in critically ill infants using deep learning on video data: a retrospective single center cohort study",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA3_dynamic_landmark",
+    "openalex_id": "https://openalex.org/W4400448047",
+    "doi": "10.3390/diagnostics14141472",
+    "title": "Research on Artificial-Intelligence-Assisted Medicine: A Survey on Medical Artificial Intelligence",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2106665921",
+    "doi": "10.1001/jama.286.2.180",
+    "title": "Validation of the Framingham Coronary Heart Disease Prediction Scores",
+    "year": 2001,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W1997192661",
+    "doi": "10.1016/j.jclinepi.2014.06.018",
+    "title": "A new framework to enhance the interpretation of external validation studies of clinical prediction models",
+    "year": 2014,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W1985299015",
+    "doi": "10.1186/1471-2288-13-33",
+    "title": "External validation of a Cox prognostic model: principles and methods",
+    "year": 2013,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2084164487",
+    "doi": "10.1186/1471-2288-14-40",
+    "title": "External validation of multivariable prediction models: a systematic review of methodological conduct and reporting",
+    "year": 2014,
+    "type": "review",
+    "candidate100_match": true
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W4390674087",
+    "doi": "10.1136/bmj-2023-074819",
+    "title": "Evaluation of clinical prediction models (part 1): from development to external validation",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2282181907",
+    "doi": "10.1001/jama.2016.0288",
+    "title": "Assessment of Clinical Criteria for Sepsis",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W3109609494",
+    "doi": "10.1093/ckj/sfaa188",
+    "title": "External validation of prognostic models: what, why, how, when and where?",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2474667434",
+    "doi": "10.1136/bmj.i3140",
+    "title": "External validation of clinical prediction models using big datasets from e-health records or IPD meta-analysis: opportunities and challenges",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2077663753",
+    "doi": "10.1371/journal.pmed.1001744",
+    "title": "Critical Appraisal and Data Extraction for Systematic Reviews of Prediction Modelling Studies: The CHARMS Checklist",
+    "year": 2014,
+    "type": "review",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2122892545",
+    "doi": "10.1002/sim.6787",
+    "title": "Sample size considerations for the external validation of a multivariable prognostic model: a resampling study",
+    "year": 2015,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W4390876555",
+    "doi": "10.1136/bmj-2023-074820",
+    "title": "Evaluation of clinical prediction models (part 2): how to undertake an external validation study",
+    "year": 2024,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2794654744",
+    "doi": "10.1016/s1474-4422(18)30089-9",
+    "title": "Prognosis for patients with amyotrophic lateral sclerosis: development and validation of a personalised prediction model",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W4321782827",
+    "doi": "10.1186/s12916-023-02779-w",
+    "title": "There is no such thing as a validated prediction model",
+    "year": 2023,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2909729347",
+    "doi": "10.21037/jtd.2019.01.25",
+    "title": "Developing prediction models for clinical use using logistic regression: an overview",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2767813783",
+    "doi": "10.1016/s1474-4422(17)30371-x",
+    "title": "Traumatic brain injury: integrated approaches to improve prevention, clinical care, and research",
+    "year": 2017,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2303796163",
+    "doi": "10.3803/enm.2016.31.1.38",
+    "title": "How to Establish Clinical Prediction Models",
+    "year": 2016,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W3183421885",
+    "doi": "10.1016/j.cmpb.2021.106288",
+    "title": "The importance of being external. methodological insights for the external validation of machine learning models in medicine",
+    "year": 2021,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2129582100",
+    "doi": "10.1097/aln.0000000000000334",
+    "title": "Prospective External Validation of a Predictive Score for Postoperative Pulmonary Complications",
+    "year": 2014,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2169556367",
+    "doi": "10.1186/1471-2105-13-86",
+    "title": "DNA methylation arrays as surrogate measures of cell mixture distribution",
+    "year": 2012,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W3094542430",
+    "doi": "10.1136/bmj.m3731",
+    "title": "Living risk prediction algorithm (QCOVID) for risk of hospital admission and mortality from coronavirus 19 in adults: national derivation and validation cohort study",
+    "year": 2020,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2914258989",
+    "doi": "10.1001/jamasurg.2018.4752",
+    "title": "Development and Validation of a Prediction Model for Prehospital Triage of Trauma Patients",
+    "year": 2019,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W4311668966",
+    "doi": "10.1186/s12874-022-01801-8",
+    "title": "Methodological guidance for the evaluation and updating of clinical prediction models: a systematic review",
+    "year": 2022,
+    "type": "review",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2781641064",
+    "doi": "10.1016/j.preghy.2018.01.004",
+    "title": "Temporal and external validation of the fullPIERS model for the prediction of adverse maternal outcomes in women with pre-eclampsia",
+    "year": 2018,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W4312141008",
+    "doi": "10.1186/s41512-022-00136-8",
+    "title": "Targeted validation: validating clinical prediction models in their intended population and setting",
+    "year": 2022,
+    "type": "article",
+    "candidate100_match": false
+  },
+  {
+    "query_id": "OA4_validation_transport",
+    "openalex_id": "https://openalex.org/W2063910347",
+    "doi": "10.1118/1.2795842",
+    "title": "Report of the AAPM Task Group No. 105: Issues associated with clinical implementation of Monte Carlo‐based photon and electron external beam treatment planning",
+    "year": 2007,
+    "type": "article",
+    "candidate100_match": false
+  }
+]

@@ -1,0 +1,2 @@
+"n_total","n_subjects","n_hadm","n_stay","n_events","event_rate","n_lac4_events","lac4_event_rate","n_complete60","pct_complete60","n_censored_before60","pct_censored_before60","n_death_12_60","pct_death_12_60"
+"2424","2424","2424","2424","133","5.49","39","1.61","1401","57.8","1023","42.2","57","2.35"

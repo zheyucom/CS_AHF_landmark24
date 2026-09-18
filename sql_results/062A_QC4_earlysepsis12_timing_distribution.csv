@@ -1,0 +1,5 @@
+"suspected_infection_time_bin","n","pct"
+"00_before_icu_12_24h","241","9.94"
+"01_before_icu_0_12h","1244","51.32"
+"02_icu_0_6h","867","35.77"
+"03_icu_6_12h","72","2.97"

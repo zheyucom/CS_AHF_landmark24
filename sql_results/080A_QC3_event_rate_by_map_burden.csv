@@ -1,0 +1,5 @@
+map_lt65_burden_group,n,events,event_rate
+01_none,778,82,10.54
+02_gt0_to_25pct,858,125,14.57
+03_25_to_50pct,448,55,12.28
+04_gt50pct,340,72,21.18

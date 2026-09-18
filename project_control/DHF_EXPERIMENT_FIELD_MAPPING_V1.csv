@@ -1,0 +1,22 @@
+excel_sheet,excel_field,dhf_corresponding_field,current_artifact,status,paper_required,freeze_required,next_action
+实验方案,实验目标,科学问题/临床使用场景,RESEARCH_LOGIC_CHAIN_20260916.md;DHF_PROJECT_REPRODUCIBILITY_CONTRACT_V1.md,complete,yes,yes,maintain version
+实验方案,数据源及版本,MIMIC开发/内部验证与本院外部验证数据快照,PAPER_WORKFLOW_20260915.md;MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md,working,yes,yes,record snapshot and hash
+实验方案,研究对象/队列,成人index ICU episode及本院床旁心超选择分母,DHF_PROJECT_REPRODUCIBILITY_CONTRACT_V1.md;COHORT_DECISION_REGISTER_20260916.md,working,yes,yes,freeze episode and cohort disposition
+实验方案,核心变量或暴露,DHF A/B/C域与[T0,T12)可用预测器,DHF_OPERATIONAL_PHENOTYPE_v20260914.md;INTERNAL_DHF_VARIABLE_DICTIONARY_V1.csv,working,yes,yes,lock dictionary and feature manifest
+实验方案,结局指标,T12后治疗升级基础ICU血流动力学恶化/ICU死亡；alive ICU discharge竞争事件,STATISTICAL_ANALYSIS_PLAN_DHF_PREDICTION_V1.md,working,yes,yes,complete proxy and outcome audit
+实验方案,变量时间窗与计算,T0/T12/T60、报告时间代理、episode重建与重复值摘要,COHORT_DECISION_REGISTER_20260916.md;encounter_icu_time_audit.csv,working,yes,yes,freeze time rules and rerun
+实验方案,缺失值与预处理,单位/删失/异常/结构性与测量性缺失/训练折内插补,MISSING_DATA_AND_ECHO_HANDLING_PLAN_V1.md,working,yes,yes,implement parse and audit outputs
+实验方案,样本划分,MIMIC嵌套内部验证；本院锁模外部验证；固定fold/seed,STATISTICAL_ANALYSIS_PLAN_DHF_PREDICTION_V1.md,planned,yes,yes,write run registry before final run
+实验方案,实验方案完整Prompt,步骤级协议：S01-S15、输入/输出/冻结项/验收项,DHF_PROJECT_REPRODUCIBILITY_CONTRACT_V1.md;ANALYSIS_REPRODUCIBILITY_SCAFFOLD_V1.md,partial,yes,yes,expand each step before execution
+标准答案,样本量与分组,Table 1/流程图/队列流转和事件组成,acceptance_criteria_frozen.csv,yes,yes,fill measured values only after cohort/outcome freeze
+标准答案,原文结局发生率,本项目事件/竞争事件/删失计数与CIF,acceptance_criteria_frozen.csv,yes,yes,fill only after outcome freeze
+标准答案,原文主要效应量,模型系数/SHR或风险比及95%CI,final_model/ (target),yes,yes,run after cohort and outcome freeze
+标准答案,原文剂量反应/阈值,本项目预设非线性/删失敏感性而非事后阈值,STATISTICAL_ANALYSIS_PLAN_DHF_PREDICTION_V1.md,yes,yes,keep thresholds pre-specified
+标准答案,原文模型性能,区分度/Brier/校准/CIF/DCA及置信区间,final_validation/ (target),yes,yes,report metric estimand and CI method
+标准答案,原文入选变量/特征,最终feature manifest及变量角色,final_feature_manifest.csv (target),yes,yes,lock before model fitting
+标准答案,原文校准与临床效用,校准截距/斜率/图、Brier和DCA,final_validation/ (target),yes,yes,generate with locked model
+标准答案,原文最终结论,由冻结运行支持的研究结论及适用性边界,manuscript/ (target),yes,no,draft after results
+标准答案,原文对照图表/表格,预设Table 1/流程图/性能/校准/敏感性表清单,acceptance_criteria_frozen.csv,yes,yes,freeze table shells before results
+标准答案,证据PDF页,本项目数据/代码/原文行号/文献锚点,AI_REVIEW_PROVENANCE.json;METHODS_EVIDENCE_MAP_20260915.md,yes,yes,retain source anchors
+标准答案,保密标记,患者数据访问限制、AI输入限制、受限数据声明,AI_REVIEW_PROVENANCE.json;submission/ (target),yes,yes,write data availability and AI disclosure
+标准答案,可比性/核对备注,跨库case-mix、测量时间、选择分母和代理结局差异,PROPOSAL_METHODS_DRAFT_20260915.md;COHORT_DECISION_REGISTER_20260916.md,yes,yes,complete external validation limitations

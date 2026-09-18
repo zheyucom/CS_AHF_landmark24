@@ -1,0 +1,24 @@
+{
+  "broad_unique_pool": 1717,
+  "candidate_matches_from_broad_pool": 99,
+  "targeted_gap_fill_candidates": 1,
+  "pass1_excluded": 1618,
+  "pass1_reason_counts": {
+    "insufficient_topic_relevance": 462,
+    "lower_direct_relevance_than_quota_selected_record": 771,
+    "mortality_only_without_early_deterioration_focus": 57,
+    "unrelated_clinical_domain": 62,
+    "ineligible_population_pediatric_or_pregnancy": 76,
+    "adjacent_perioperative_or_procedure_population": 62,
+    "no_transportability_or_external_validation_focus": 68,
+    "generic_prediction_methods_outside_scope": 42,
+    "nonhuman_study": 5,
+    "noneligible_publication_format": 13
+  },
+  "candidate100": 100,
+  "fulltext40_priority": 40,
+  "core25_provisional": 25,
+  "first15_provisional": 15,
+  "note": "Pass 2 is priority selection for later full-text assessment; full-text assessment is blocked by SI_choice=pending.",
+  "generated_at": "2026-07-29T13:22:32+00:00"
+}

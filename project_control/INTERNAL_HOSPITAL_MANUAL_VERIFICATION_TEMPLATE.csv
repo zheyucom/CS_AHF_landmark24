@@ -1,0 +1,13 @@
+patient_id_token,hospitalization_id_token,icu_stay_id_token,domain,record_type,candidate_time,candidate_time_source,verified_flag,verified_time,verified_source,actual_value_or_status,discrepancy_reason,reviewer,review_date,notes
+TOKEN_001,HOSP_001,ICU_001,icu,intime,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,icu,outtime,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,echo,exam_time,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,echo,result_available_time,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,echo,abnormal_support,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,medication,vasoactive_start,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,medication,vasoactive_rate_change,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,medication,vasoactive_stop,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,medication,iv_loop_start,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,medication,iv_loop_dose_or_rate,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,outcome,icu_discharge_status,,,,,,,,,,
+TOKEN_001,HOSP_001,ICU_001,outcome,icu_death_time,,,,,,,,,,

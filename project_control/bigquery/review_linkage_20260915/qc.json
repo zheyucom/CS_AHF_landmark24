@@ -1,0 +1,32 @@
+{
+  "report_rows": 7828,
+  "review_rows_linked": 300,
+  "candidate_rows": 5549,
+  "candidates_with_review": 294,
+  "reports_with_changed_definite_flag": 73,
+  "candidates_with_changed_lung_flag": 64,
+  "reviewed_scope_counts": {
+    "chest_radiology": 226,
+    "mixed_or_unclear": 5,
+    "non_chest_radiology": 63,
+    "non_chest": 6
+  },
+  "reviewed_congestion_counts": {
+    "no_congestion": 28,
+    "indeterminate": 167,
+    "definite_congestion": 97,
+    "possible_congestion": 8
+  },
+  "availability_disagreement_n": 0,
+  "review_raw_text_match": "PASS",
+  "report_patient_count_match": "PASS",
+  "final_cohort_frozen": false,
+  "independent_physician_validation": false,
+  "selection_warning": "300 stratified AI-reviewed reports do not estimate population prevalence or independent accuracy",
+  "source_sha256": {
+    "dhf_radiology_raw_landmark12_v1_complete.csv": "bf742833fd2ba708fad9e20a0884636a2b02e6b80fbaef61679fcc41f40048e6",
+    "dhf_radiology_report_audit_landmark12_v1.csv": "a509116a1eb4e058a5e71426ccaabe37298a8ecba71b7e4987a767e2efd07d94",
+    "controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round1_merged_draft_20260914.csv": "7d29f824d0c898f335ac2d49e4bc81e2bae4885ff7f8c4c73fdb0e22a9b9cc7b",
+    "landmark12_audit_20260904/dhf_multidomain_patient_level_audit_landmark12_20260904.csv": "3ff2102f9eafad88ac951b9b9acb13d01abd461214e7b03bb919792f474d5160"
+  }
+}

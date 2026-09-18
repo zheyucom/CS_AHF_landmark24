@@ -1,0 +1,55 @@
+domain,source_table,source_field_or_concept,required_tier,time_fields_required,unit_or_format_required,analysis_role,notes
+identity,encounter_icu,patient_id_token,required,none,stable pseudonymous token,linkage,One token per patient across admissions
+identity,encounter_icu,hospitalization_id_token,required,none,stable pseudonymous token,linkage,One token per hospitalization
+identity,encounter_icu,icu_stay_id_token,required,intime;outtime,stable pseudonymous token,linkage,One token per physical ICU stay
+time_anchor,encounter_icu,emergency_arrival_time,preferred,event_time,ISO 8601 with timezone,pre-T0 evidence window,Needed when ED data precedes admission
+time_anchor,encounter_icu,admittime,required,event_time,ISO 8601 with timezone,pre-T0 boundary,Hospital admission start
+time_anchor,encounter_icu,intime,required,event_time,ISO 8601 with timezone,T0,Index ICU admission
+time_anchor,encounter_icu,outtime,required,event_time,ISO 8601 with timezone,competing event,Index ICU discharge
+time_anchor,encounter_icu,dischtime,required,event_time,ISO 8601 with timezone,follow-up audit,Hospital discharge
+outcome,encounter_icu,deathtime,required,event_time,ISO 8601 with timezone,main outcome,Keep ICU and hospital death distinguishable
+outcome,encounter_icu,icu_discharge_status,required,event_time,coded value,competing-event audit,Alive versus dead ICU discharge
+demographics,encounter_icu,age_at_intime,required,event_time,years,predictor,Do not use date of birth in analysis export
+demographics,encounter_icu,sex,required,none,coded value,predictor,Document coding
+demographics,encounter_icu,icu_unit_type,required,event_time,coded value,predictor,Map local unit labels
+body_size,encounter_icu,weight,required,event_time,kg; source flag,NEE calculation,Keep all weights and measurement time
+diagnosis,diagnoses_long,all_diagnosis_codes,required,entry_time;confirmation_time;sign_time,ICD/local system,phenotype and sensitivity,Keep admission and discharge diagnoses separate
+diagnosis,diagnoses_long,present_on_admission,preferred,entry_time,coded value,comorbidity audit,Do not infer when unavailable
+medication,medication_administration_long,iv_loop_diuretic_administration,required,order_time;actual_start;actual_end;chart_time,drug; route; dose; rate; unit,pre-T0 management evidence,Actual administration is required
+medication,medication_administration_long,vasoactive_inotrope_administration,required,order_time;actual_start;actual_end;rate_change_time;chart_time,drug; route; concentration; dose; rate; unit,outcome and shock risk set,Must permit concurrent agent reconstruction
+medication,medication_administration_long,vasodilator_administration,preferred,order_time;actual_start;actual_end;chart_time,drug; route; dose; rate; unit,phenotype audit,Include nitroglycerin and nitroprusside
+medication,medication_administration_long,antibiotic_administration,optional,order_time;actual_start;actual_end;chart_time,drug; route; dose; unit,early-sepsis subgroup,Actual administration preferred
+laboratory,laboratory_long,NT-proBNP,required,specimen_time;result_time;verification_time,value; unit; assay,phenotype support,Do not merge with BNP
+laboratory,laboratory_long,BNP,required,specimen_time;result_time;verification_time,value; unit; assay,phenotype support,Do not merge with NT-proBNP
+laboratory,laboratory_long,lactate,required,specimen_time;result_time;verification_time,mmol/L,shock risk set and predictor,Keep specimen type
+laboratory,laboratory_long,creatinine,required,specimen_time;result_time;verification_time,value; unit,predictor,Keep raw unit
+laboratory,laboratory_long,BUN,required,specimen_time;result_time;verification_time,value; unit,predictor,Keep raw unit
+laboratory,laboratory_long,electrolytes,required,specimen_time;result_time;verification_time,value; unit,predictor,Na K Cl bicarbonate
+laboratory,laboratory_long,CBC,required,specimen_time;result_time;verification_time,value; unit,predictor,WBC hemoglobin platelet
+laboratory,laboratory_long,coagulation,required,specimen_time;result_time;verification_time,value; unit,predictor,INR PT PTT
+laboratory,laboratory_long,blood_gas,required,specimen_time;result_time;verification_time,value; unit,predictor,pH base excess pCO2 pO2 lactate
+laboratory,laboratory_long,troponin_and_CKMB,preferred,specimen_time;result_time;verification_time,value; unit,ACS audit,Not a default exclusion
+vitals,vitals_long,HR,required,event_time;chart_time,bpm,predictor,Retain all valid raw records
+vitals,vitals_long,SBP_DBP_MAP,required,event_time;chart_time,mmHg,predictor,Preserve measurement source where available
+vitals,vitals_long,RR,required,event_time;chart_time,breaths/min,predictor,Retain all valid raw records
+vitals,vitals_long,SpO2,required,event_time;chart_time,percent,predictor,Retain all valid raw records
+vitals,vitals_long,temperature,required,event_time;chart_time,C or F,predictor,State unit explicitly
+support,respiratory_support_long,respiratory_device,required,start_time;end_time;chart_time,coded value,predictor,NIV invasive ventilation HFNC and oxygen
+support,fluid_io_long,urine_output,required,event_time;chart_time,mL,predictor and shock audit,No daily-only aggregate
+support,fluid_io_long,fluid_input,preferred,event_time;chart_time,mL; solution type,predictor audit,Keep crystalloid and blood products distinguishable
+support,neurologic_assessment_long,GCS,required,event_time;chart_time,total and components,predictor,State sedation flag where available
+encounter,encounter_icu,icu_patient_flag,required,intime;outtime,0/1,strict DHF eligibility,Must identify an index ICU stay; do not infer ICU status from diagnosis or procedure alone
+text,radiology_report_long,chest_radiology_report,required,exam_time;prelim_time;final_time;sign_time;revision_time,deidentified text,pre-T0 objective evidence,Include report type and body region
+text,echocardiography_report_long,echo_exam_type,required,exam_time,coded value TTE TEE POCUS bedside_echo,strict DHF eligibility,Keep TTE TEE cardiac POCUS and bedside echo distinguishable
+text,echocardiography_report_long,echo_performed_flag,required,exam_time,0/1,strict DHF eligibility,Actual completed examination not order only
+text,echocardiography_report_long,echo_result_available_flag,required,exam_time;result_available_time,0/1,strict DHF eligibility,Result must be available before T12
+text,echocardiography_report_long,echo_abnormal_support_flag,required,exam_time;result_available_time,0/1,strict DHF eligibility,Must be supported by result content and not procedure flag alone
+text,echocardiography_report_long,echo_report_and_measurements,required,exam_time;report_time;sign_time;result_available_time,deidentified text plus structured values,strict DHF eligibility,Keep report evidence fragments raw values and units
+text,echocardiography_report_long,echo_abnormality_components,required,exam_time;result_available_time,structured coded values,strict DHF eligibility,LVEF LV/RV function diastolic function valves pulmonary pressure IVC pericardium
+text,echocardiography_report_long,echo_quality_and_review,required,report_time,quality code plus review status,phenotype QC,Retain image quality negation uncertainty and manual review status
+text,clinical_note_long,ED_admission_consult_notes,required,event_time;create_time;availability_time;sign_time,deidentified text or audited concepts,pre-T0 clinical evidence,Do not substitute discharge summary
+procedure,procedure_device_long,mechanical_circulatory_support,required,start_time;end_time;chart_time,coded procedure,shock/outcome audit,IABP ECMO Impella VAD
+procedure,procedure_device_long,dialysis_CRRT,preferred,start_time;end_time;chart_time,coded procedure,AKI/CKD audit,Not a default exclusion
+microbiology,microbiology_long,culture_collection,optional,collection_time;result_time;verification_time,specimen type; result,early-sepsis subgroup,Collection time is primary
+metadata,all_tables,source_record_id,required,record_time,stable token,traceability,Unique raw-record key
+metadata,all_tables,data_version_and_extract_date,required,none,version string,traceability,Record EHR and ETL version

@@ -1,0 +1,70 @@
+project_name: CS_AHF_T0_strict_AHF_only_sensitivity_v4_2
+random_seed: 2026
+
+paths:
+  raw_dataset: data/raw_v4_2/model_080G_modeling_dataset_ahf_only_v4_2.csv
+  processed_dataset: data/processed_v4_2/modeling_dataset_clean_v4_2.csv
+  qc_dir: outputs_v4_2/qc
+  model_dir: outputs_v4_2/models
+  figure_dir: outputs_v4_2/figures
+  table_dir: outputs_v4_2/tables
+  manifest: docs/model_feature_manifest_v4_2.csv
+
+target:
+  label_col: primary_outcome_flag
+  positive_class: 1
+
+columns:
+  id_cols:
+    - subject_id
+    - hadm_id
+    - stay_id
+    - intime
+    - landmark12_time
+    - window60_time
+  label_prefixes:
+    - label_
+  forced_exclude:
+    - primary_outcome_flag
+    - hf_icd_primary_seq
+    - hf_icd_seq_eq1_flag
+    - hf_icd_seq_2_5_flag
+    - acute_hf_icd_flag
+    - hf_icd_seq_le5
+    - iv_loop_rx_early12_flag
+    - ntprobnp_ge300_early12_flag
+    - ahf_evidence_score_primary_12h
+    - charlson_comorbidity_index
+    - charlson_myocardial_infarct
+    - charlson_congestive_heart_failure
+    - charlson_peripheral_vascular_disease
+    - charlson_cerebrovascular_disease
+    - charlson_dementia
+    - charlson_chronic_pulmonary_disease
+    - charlson_rheumatic_disease
+    - charlson_peptic_ulcer_disease
+    - charlson_diabetes_without_cc
+    - charlson_diabetes_with_cc
+    - charlson_paraplegia
+    - charlson_renal_disease
+    - charlson_malignant_cancer
+    - charlson_severe_liver_disease
+    - charlson_metastatic_solid_tumor
+    - charlson_aids
+    - charlson_mild_liver_disease
+
+preprocessing:
+  high_missing_threshold: 0.80
+  near_zero_variance_unique_threshold: 1
+  test_size: 0.20
+  winsorize:
+    enabled: true
+    lower_q: 0.01
+    upper_q: 0.99
+  nee_missing_fill_zero: true
+  keep_missing_indicators: true
+
+models:
+  run_logistic_baseline: true
+  run_elastic_net: true
+  cv_folds: 5

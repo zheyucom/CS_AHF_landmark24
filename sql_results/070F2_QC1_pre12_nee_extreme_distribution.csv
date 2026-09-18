@@ -1,0 +1,2 @@
+"n_total","n_nee_available","pct_nee_available","n_nee_ge_0_5","n_nee_ge_1_0","n_nee_ge_2_0","n_nee_ge_3_0","n_nee_ge_5_0","nee_max_min","nee_max_p25","nee_max_p50","nee_max_p75","nee_max_p90","nee_max_p95","nee_max_p99","nee_max_max"
+"2424","549","22.65","38","8","4","3","2","0.01","0.06","0.1002","0.2001","0.39968000000000004","0.5233800000000001","1.347659999999998","10.6952"

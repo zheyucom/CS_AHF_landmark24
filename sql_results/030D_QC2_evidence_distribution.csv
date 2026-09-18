@@ -1,0 +1,2 @@
+"n_total","n_acute_icd","pct_acute_icd","n_hf_seq_le5","pct_hf_seq_le5","n_ntprobnp_measured","pct_ntprobnp_measured","n_ntprobnp_ge300","pct_ntprobnp_ge300","n_iv_loop_rx","pct_iv_loop_rx","n_loop_emar_any","pct_loop_emar_any","n_iv_loop_emar_formulation","pct_iv_loop_emar_formulation","n_iv_loop_rx_or_emar_formulation","pct_iv_loop_rx_or_emar_formulation"
+"14877","7629","51.28","10970","73.74","1820","12.23","1745","11.73","6792","45.65","4288","28.82","356","2.39","6820","45.84"
