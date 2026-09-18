@@ -88,7 +88,7 @@ SELECT
   CAST(hadm_id AS INT64) AS hadm_id,
   CAST(intime AS DATETIME) AS t0,
   DATETIME_ADD(CAST(intime AS DATETIME), INTERVAL 12 HOUR) AS t12
-FROM `project-9386bb9f-de39-47eb-886.ahf_work.dhf_radiology_candidates`
+FROM `project-9386bb9f-de39-47eb-886.ahf_work.dhf_lab_audit_cohort_snapshot_20260918`
 WHERE CAST(admittime AS DATETIME) <= CAST(intime AS DATETIME);
 
 ASSERT (

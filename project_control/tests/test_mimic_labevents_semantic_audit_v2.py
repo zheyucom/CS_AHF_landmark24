@@ -77,8 +77,8 @@ class SemanticAuditV2Tests(unittest.TestCase):
 
     def test_bun_and_lactate_reconcile_raw_and_derived_both_directions(self):
         sql = required_text(AUDIT_SQL).lower()
-        self.assertIn("mimiciv_derived.chemistry", sql)
-        self.assertIn("mimiciv_derived.bg", sql)
+        self.assertRegex(sql, r"mimiciv_(?:3_1_)?derived\.chemistry")
+        self.assertRegex(sql, r"mimiciv_(?:3_1_)?derived\.bg")
         self.assertIn("full outer join", sql)
         for status in ("raw_only", "derived_only", "both"):
             self.assertIn(status, sql)

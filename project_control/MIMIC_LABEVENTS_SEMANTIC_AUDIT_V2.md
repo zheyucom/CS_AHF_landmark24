@@ -35,7 +35,7 @@ V2 显式统计但不纳入以下非血液 itemid：
 
 ## 时间与重复合同
 
-- 当前审计框架使用项目表 `project-9386bb9f-de39-47eb-886.ahf_work.dhf_radiology_candidates`，窗口为 `[ICU T0, T12)`；它是现有审计框架，不是最终冻结模型队列。
+- 当前审计框架使用项目表 `project-9386bb9f-de39-47eb-886.ahf_work.dhf_lab_audit_cohort_snapshot_20260918`，窗口为 `[ICU T0, T12)`；它是现有审计框架，不是最终冻结模型队列。
 - 结果可用时间固定为 `GREATEST(charttime, COALESCE(storetime, charttime))`，必须严格早于 T12。
 - `storetime < charttime`、跨多个 episode、缺少 specimen、`specimen_id × itemid` 重复均进入 quarantine。
 - 最终冻结队列建立后，只替换并重新验证 `cohort` 数据源，不改变实验室语义与可用时间合同。

@@ -77,7 +77,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - BNP=`pg/mL`、乳酸=`mmol/L` 已登记为 `confirmed_user`；其他单位必须由字典或人工核对确认，不能仅凭数值范围静默推断。
 - 变量字典和语义规则词典是正式队列/特征冻结的阻塞项；医嘱代理验证是正式结局冻结的阻塞项。
 - AI 判读 provenance 不阻塞当前预审核，但必须在论文中披露并保存；已有11例结构化输出和来源行号，模型/prompt 未记录项已标明 `not_recorded`。
-- MIMIC实验室V2已替代旧V1；v3.1 正式聚合已通过，BUN 非血液 itemid 已隔离，结果见 2026-09-18 执行报告。
+- MIMIC实验室V2已替代旧V1；v3.1 正式聚合与不可变审计快照重跑均已通过，BUN 非血液 itemid 已隔离；结果见 2026-09-18 执行报告和 cohort snapshot 报告。
 - 近期方法复核确认：实验室名称正则只可发现候选，正式特征必须使用精确语义 allowlist；异常值、单位不符和 derived 漏失进入隔离审计，不静默删除或补零。
 - 若论文报告 inter-rater reliability，需第二位临床标注者独立盲法复核；同一标注者重复复核不能产生独立 kappa。
 
@@ -127,3 +127,4 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - 2026-09-18：main 已推送并校验远程 SHA=46e382a7922d4ebf61bbe79ff215564dcde00c9a；本地与 origin/main 一致。
 
 - [MIMIC-IV 实验室审计 V2 正式执行报告（2026-09-18）](task_reports/TASK_REPORT_20260918_MIMIC_LAB_AUDIT_V2_EXECUTION.md)
+- [MIMIC-IV 实验室审计 V2 不可变 cohort 快照重跑（2026-09-18）](task_reports/TASK_REPORT_20260918_MIMIC_LAB_AUDIT_V2_COHORT_SNAPSHOT.md)
