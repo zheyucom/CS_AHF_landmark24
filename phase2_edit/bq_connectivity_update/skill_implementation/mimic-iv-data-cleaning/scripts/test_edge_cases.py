@@ -95,6 +95,27 @@ class EdgeCaseTests(unittest.TestCase):
         findings = self.audit.audit_sql(sql, self.rules)
         self.assertNotIn("MIMIC009", {finding["code"] for finding in findings if finding["severity"] == "error"})
 
+    def test_bun_quarantine_metadata_matches_mimic_31_dictionary(self):
+        bun = next(rule for rule in self.rules["rules"] if rule["concept"] == "bun")
+        observed = {
+            entry["itemid"]: (entry["label"], entry["fluid"], entry["category"])
+            for entry in bun["quarantine"]
+        }
+        self.assertEqual(
+            {
+                50851: ("Urea Nitrogen, Ascites", "Ascites", "Chemistry"),
+                51006: ("Urea Nitrogen", "Blood", "Chemistry"),
+                51045: ("Urea Nitrogen, Body Fluid", "Other Body Fluid", "Chemistry"),
+                51104: ("Urea Nitrogen, Urine", "Urine", "Chemistry"),
+                51804: ("Urea Nitrogen, CSF", "Cerebrospinal Fluid", "Chemistry"),
+                51825: ("Urea Nitrogen, Joint Fluid", "Joint Fluid", "Chemistry"),
+                51842: ("Bun", "Other Body Fluid", "Chemistry"),
+                51922: ("Urea Nitrogen, Pleural", "Pleural", "Chemistry"),
+                51951: ("Urea Nitrogen, Stool", "Stool", "Chemistry"),
+            },
+            {51006: ("Urea Nitrogen", "Blood", "Chemistry"), **observed},
+        )
+
     def test_raw_value_and_timezone_normalization_are_preserved(self):
         row = self.base_row()
         row["value"] = ">300"

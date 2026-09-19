@@ -1,0 +1,50 @@
+{
+  "run_date": "2026-09-19",
+  "status": "passed_metadata_and_zero_row_read",
+  "scope": "read-only BigQuery authentication, dataset metadata, schema metadata, and LIMIT 0 table reads; no patient-level rows exported",
+  "physionet_project": "physionet-data",
+  "datasets_visible": [
+    "mimiciv_3_1_derived",
+    "mimiciv_3_1_hosp",
+    "mimiciv_3_1_icu",
+    "mimiciv_echo",
+    "mimiciv_note"
+  ],
+  "active_account_count": 1,
+  "job_project_configured": true,
+  "checks": {
+    "labevents_limit_0": "passed",
+    "d_labitems_limit_0": "passed",
+    "labevents_schema": "passed",
+    "d_labitems_schema": "passed",
+    "dictionary_bun_itemids": "passed"
+  },
+  "required_labevents_fields": [
+    "labevent_id",
+    "specimen_id",
+    "itemid",
+    "charttime",
+    "storetime",
+    "value",
+    "valuenum",
+    "valueuom"
+  ],
+  "required_d_labitems_fields": ["itemid", "label", "fluid", "category"],
+  "dictionary_bun_itemids": {
+    "50851": {"label": "Urea Nitrogen, Ascites", "fluid": "Ascites", "category": "Chemistry"},
+    "51006": {"label": "Urea Nitrogen", "fluid": "Blood", "category": "Chemistry"},
+    "51045": {"label": "Urea Nitrogen, Body Fluid", "fluid": "Other Body Fluid", "category": "Chemistry"},
+    "51104": {"label": "Urea Nitrogen, Urine", "fluid": "Urine", "category": "Chemistry"},
+    "51804": {"label": "Urea Nitrogen, CSF", "fluid": "Cerebrospinal Fluid", "category": "Chemistry"},
+    "51825": {"label": "Urea Nitrogen, Joint Fluid", "fluid": "Joint Fluid", "category": "Chemistry"},
+    "51842": {"label": "Bun", "fluid": "Other Body Fluid", "category": "Chemistry"},
+    "51922": {"label": "Urea Nitrogen, Pleural", "fluid": "Pleural", "category": "Chemistry"},
+    "51951": {"label": "Urea Nitrogen, Stool", "fluid": "Stool", "category": "Chemistry"}
+  },
+  "failed_attempts_explained": [
+    "bq ls against the configured personal project passed",
+    "submitting the query job to physionet-data failed because that project does not grant bigquery.jobs.create",
+    "resubmitting the same LIMIT 0 reads under the configured personal project passed"
+  ],
+  "patient_level_run": "not_run"
+}

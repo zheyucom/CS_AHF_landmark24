@@ -2,13 +2,23 @@
   "schema_version": "1.0.0",
   "dataset": {
     "name": "MIMIC-IV",
-    "supported_versions": ["3.1"],
-    "source_tables": ["mimiciv_hosp.labevents"],
-    "dictionary_tables": ["mimiciv_hosp.d_labitems"]
+    "supported_versions": [
+      "3.1"
+    ],
+    "source_tables": [
+      "mimiciv_hosp.labevents"
+    ],
+    "dictionary_tables": [
+      "mimiciv_hosp.d_labitems"
+    ]
   },
   "governance": {
     "active_requires_human_approval": true,
-    "allowed_statuses": ["proposed", "active", "deprecated"],
+    "allowed_statuses": [
+      "proposed",
+      "active",
+      "deprecated"
+    ],
     "approval_note": "An active rule is permitted only after an explicit project-owner approval record."
   },
   "rules": [
@@ -16,7 +26,9 @@
       "rule_id": "lab-bun-blood-v1",
       "concept": "bun",
       "status": "active",
-      "mimic_versions": ["3.1"],
+      "mimic_versions": [
+        "3.1"
+      ],
       "source_table": "mimiciv_hosp.labevents",
       "dictionary_table": "mimiciv_hosp.d_labitems",
       "allow": [
@@ -25,18 +37,68 @@
           "label": "Urea Nitrogen",
           "fluid": "Blood",
           "category": "Chemistry",
-          "units": ["mg/dL"]
+          "units": [
+            "mg/dL"
+          ]
         }
       ],
       "quarantine": [
-        {"itemid": 51104, "reason_code": "wrong_fluid_urine"},
-        {"itemid": 51045, "reason_code": "wrong_fluid_urine"},
-        {"itemid": 50851, "reason_code": "wrong_fluid_other_body_fluid"},
-        {"itemid": 51804, "reason_code": "wrong_fluid_body_fluid"},
-        {"itemid": 51825, "reason_code": "wrong_fluid_body_fluid"},
-        {"itemid": 51842, "reason_code": "wrong_fluid_body_fluid"},
-        {"itemid": 51922, "reason_code": "wrong_fluid_body_fluid"},
-        {"itemid": 51951, "reason_code": "wrong_fluid_body_fluid"}
+        {
+          "itemid": 51104,
+          "reason_code": "wrong_fluid_urine",
+          "label": "Urea Nitrogen, Urine",
+          "fluid": "Urine",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51045,
+          "reason_code": "wrong_fluid_urine",
+          "label": "Urea Nitrogen, Body Fluid",
+          "fluid": "Other Body Fluid",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 50851,
+          "reason_code": "wrong_fluid_other_body_fluid",
+          "label": "Urea Nitrogen, Ascites",
+          "fluid": "Ascites",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51804,
+          "reason_code": "wrong_fluid_body_fluid",
+          "label": "Urea Nitrogen, CSF",
+          "fluid": "Cerebrospinal Fluid",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51825,
+          "reason_code": "wrong_fluid_body_fluid",
+          "label": "Urea Nitrogen, Joint Fluid",
+          "fluid": "Joint Fluid",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51842,
+          "reason_code": "wrong_fluid_body_fluid",
+          "label": "Bun",
+          "fluid": "Other Body Fluid",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51922,
+          "reason_code": "wrong_fluid_body_fluid",
+          "label": "Urea Nitrogen, Pleural",
+          "fluid": "Pleural",
+          "category": "Chemistry"
+        },
+        {
+          "itemid": 51951,
+          "reason_code": "wrong_fluid_body_fluid",
+          "label": "Urea Nitrogen, Stool",
+          "fluid": "Stool",
+          "category": "Chemistry"
+        }
       ],
       "time_contract": {
         "availability_expression": "GREATEST(charttime, COALESCE(storetime, charttime))",
@@ -69,7 +131,8 @@
       "evidence_notes": [
         "The blood contract is limited to itemid 51006 with exact dictionary fluid/category and mg/dL.",
         "The eight listed itemids were observed as non-blood BUN candidates during the Phase C dictionary audit and are quarantine-only.",
-        "The project owner explicitly approved this rule for skill enforcement on 2026-09-19; SQL promotion remains a separate review."
+        "The project owner explicitly approved this rule for skill enforcement on 2026-09-19; SQL promotion remains a separate review.",
+        "The allow and quarantine dictionary metadata were confirmed from the MIMIC-IV 3.1 d_labitems table by a metadata-only query on 2026-09-19."
       ],
       "test_ids": [
         "test_bun_rule_quarantines_all_sourced_nonblood_itemids",
