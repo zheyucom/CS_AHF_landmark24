@@ -15,6 +15,7 @@
 *service-account*.json
 
 # Agent and temporary workspaces
+.worktrees/
 .codex-work/
 .codex-web*.zip
 .workbuddy-ai/
