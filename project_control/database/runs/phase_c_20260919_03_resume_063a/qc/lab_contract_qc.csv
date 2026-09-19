@@ -1,0 +1,54 @@
+metric_group,metric_name,observed_value,expected_value,passed,hard_gate,detail
+contract,contract_concept_n,14,14,t,t,The versioned contract must contain exactly 14 allowed blood-laboratory concepts.
+contract,quarantine_item_n,8,8,t,t,The BUN wrong-fluid quarantine registry must contain exactly 8 itemids.
+balance,classified_row_balance_n,0,0,t,t,Classified rows must equal eligible rows plus quarantined rows.
+eligibility,eligible_wrong_fluid_n,0,0,t,t,"No known wrong-fluid item, and no non-51006/non-blood BUN, may enter eligible."
+eligibility,eligible_reversed_time_n,0,0,t,t,Eligible rows cannot have storetime before charttime.
+eligibility,eligible_missing_specimen_n,0,0,t,t,Eligible rows must have specimen_id.
+eligibility,eligible_duplicate_specimen_itemid_n,0,0,t,t,Eligible rows must be unique at specimen_id x itemid in the source contract slice.
+unit,eligible_non_inr_blank_unit_n,0,0,t,t,Blank units are forbidden for every eligible concept except dimensionless INR.
+unit,eligible_inr_nonblank_unit_n,0,0,t,t,The MIMIC-IV INR contract is dimensionless and permits only null/blank units.
+eligibility,eligible_quarantine_reason_n,0,0,t,t,The eligible table cannot retain a quarantine reason.
+identity,eligible_duplicate_labevent_id_n,0,0,t,t,Each source labevent_id must appear at most once in eligible.
+metadata,eligible_contract_metadata_mismatch_n,0,0,t,t,"Eligible label, fluid and category must exactly match the versioned contract."
+result_class,result_class:exact_numeric,37445280,,t,f,Descriptive distribution in the full classified contract slice.
+result_class,result_class:missing_result,332345,,t,f,Descriptive distribution in the full classified contract slice.
+result_class,result_class:right_censored,51,,t,f,Descriptive distribution in the full classified contract slice.
+result_class,result_class:non_numeric_text,517,,t,f,Descriptive distribution in the full classified contract slice.
+result_class,result_class:left_censored,5,,t,f,Descriptive distribution in the full classified contract slice.
+censor_type,censor_type:<none>,37778142,,t,f,Descriptive censoring distribution; censored values are not exact continuous values.
+censor_type,censor_type:left,5,,t,f,Descriptive censoring distribution; censored values are not exact continuous values.
+censor_type,censor_type:right,51,,t,f,Descriptive censoring distribution; censored values are not exact continuous values.
+quarantine_reason,quarantine_reason:wrong_fluid_urine,44833,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:<eligible>,37732919,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:storetime_before_charttime,347,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:unknown_unit,8,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:wrong_fluid_ascites,31,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:wrong_fluid_pleural,2,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+quarantine_reason,quarantine_reason:wrong_fluid_other_body_fluid,58,,t,f,Descriptive quarantine distribution; <eligible> means no contract violation.
+analysis_exclusion,analysis_exclusion:censored_not_exact,56,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:result_not_exact_numeric,332697,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:<included>,37399982,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:outside_official_analysis_range,184,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:unknown_unit,8,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:wrong_fluid_other_body_fluid,58,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:storetime_before_charttime,347,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:wrong_fluid_pleural,2,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:wrong_fluid_ascites,31,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+analysis_exclusion,analysis_exclusion:quarantined:wrong_fluid_urine,44833,,t,f,Descriptive continuous-analysis disposition; raw values remain retained.
+official_range_flag,official_range_flag:0,37778014,,t,f,Descriptive official analysis-range flag; it is not a physical-impossibility label.
+official_range_flag,official_range_flag:1,184,,t,f,Descriptive official analysis-range flag; it is not a physical-impossibility label.
+eligible_concept,eligible_concept:hemoglobin,4181093,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:platelet,4214021,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:ph,754134,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:base_excess,698330,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:bun,4202759,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:sodium,4111245,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:troponin_t,459867,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:lactate,670010,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:potassium,4149464,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:inr,1783294,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:ntprobnp,98206,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:wbc,4157257,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:creatinine,4319044,,t,f,Descriptive eligible-row count by contract concept.
+eligible_concept,eligible_concept:bicarbonate,3934195,,t,f,Descriptive eligible-row count by contract concept.

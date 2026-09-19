@@ -1,0 +1,14 @@
+[2026-09-19T14:38:53+00:00] START sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql sha256=de7aefc33ab8d2f313c311df1115ca9c45359a4f27e4f9df15cfd88f4fb2472a
+CREATE SCHEMA
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql:19: NOTICE:  table "lab_eligible_v1" does not exist, skipping
+DROP TABLE
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql:20: NOTICE:  table "lab_event_classified_v1" does not exist, skipping
+DROP TABLE
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql:21: NOTICE:  table "lab_quarantine_item_v1" does not exist, skipping
+DROP TABLE
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql:22: NOTICE:  table "lab_contract_v1" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 14
+CREATE TABLE
+INSERT 0 8

@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-MIMIC主窗口放射科报告已完整导出并完成文件级QC，院内已完成全量时间门控和工作清单；但双库最终DHF表型、同口径三态结局和正式模型均未冻结，当前仍处于队列/表型复核阶段。
+MIMIC主窗口放射科报告已完整导出，raw 实验室合同及下游路径已通过 PostgreSQL 实际 QC；院内已完成全量时间门控和工作清单。但双库最终DHF表型、同口径三态结局和正式模型仍未冻结，当前仍处于队列/表型复核阶段。
 
 ## 研究主线
 
@@ -55,7 +55,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 | 治疗升级终点的执行/可用时间不完整 | 用医嘱、护理、文书重建组成与观察完整性；eMAR可得时做主定义/代理敏感性对照 | 6-12 h | 数据补提数天至数周 | 高 |
 | MIMIC多域DHF未冻结 | 汇总HF anchor、失代偿、管理及替代解释；不因Echo strict draft仅6例放宽或强加心超门槛 | 6-12 h | 低 | 高 |
 | 变量/语义合同未锁定 | 使用新增变量字典和语义规则词典完成字段、单位、缺失和A/B/C规则审计；版本锁定后重跑全量 | 4-8 h | 低 | 高 |
-| MIMIC实验室正式流水线 | V2 实际聚合与不可变快照审计已通过；阶段 B 已建立 raw 合同层并复制修订 NT-proBNP、乳酸结局与 45 变量路径；173/173 SQL 已登记，正式入口仍 fail-closed | 在 PostgreSQL 实际执行新 SQL，完成行数/唯一性/episode/新旧差异 QC，并补齐完整 v3.3 依赖链后再逐文件晋级 ACTIVE | 4-8 h；数据库复核另计 | 高 |
+| MIMIC实验室正式流水线 | 阶段 C PostgreSQL 全库执行与硬门通过：classified 37,778,198、eligible 37,732,919，错误体液/反向时间/单位共隔离45,279；5,555行模型 base 对齐、episode 多匹配0 | 分解 BUN/肌酐/乳酸 raw-vs-derived 差异原因，补齐完整 v3.3 上游依赖后再逐文件评估晋级；当前仍 `allow_final_run=false` | 4-8 h | 高 |
 | 最终模型尚未重跑 | 事件数决定低维参数后，运行嵌套MICE m=20、Fine-Gray、person-period和预设敏感性 | 8-16 h | 数小时至过夜 | 中 |
 
 ## 下一步7天计划
@@ -79,7 +79,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - AI 判读 provenance 不阻塞当前预审核，但必须在论文中披露并保存；已有11例结构化输出和来源行号，模型/prompt 未记录项已标明 `not_recorded`。
 - MIMIC实验室V2已替代旧V1；v3.1 正式聚合与不可变审计快照重跑均已通过，BUN 非血液 itemid 已隔离；结果见 2026-09-18 执行报告和 cohort snapshot 报告。
 - 2026-09-19 完成实验室流水线质量门阶段 A：167/167 SQL 已登记，`ACTIVE=0`，旧主线在 raw 合同层重构前禁止正式运行；103 条历史/审计风险已入账，不能解释为旧 SQL 已修复。
-- 2026-09-19 完成实验室流水线阶段 B 代码交付：新增 `sql_v3_3` raw 合同层及 5 条复制修订路径，173/173 SQL 已登记；39 条阶段 A+B 回归测试和 6 个 PostgreSQL 语法解析通过。BigQuery 聚合 QC 证实 44,924 条已知错误体液 BUN、347 条反向存储时间和 8 条非 INR 空单位需隔离；PostgreSQL 实际建表仍为 `not_run`，`ACTIVE=0`。
+- 2026-09-19 完成实验室流水线阶段 C 数据库执行：14 个合同概念和 12 个硬门通过；BUN 错误体液 eligible=0，45变量表与5,555行 base 对齐，episode 多匹配=0。raw-vs-derived 检出 BUN 142 个 derived-only episode 及644条 T12 后才可用的 pre-T12 采样事件；原因待分层，正式入口仍未晋级。
 - 近期方法复核确认：实验室名称正则只可发现候选，正式特征必须使用精确语义 allowlist；异常值、单位不符和 derived 漏失进入隔离审计，不静默删除或补零。
 - 若论文报告 inter-rater reliability，需第二位临床标注者独立盲法复核；同一标注者重复复核不能产生独立 kappa。
 
@@ -90,7 +90,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [院内时间审计](internal_validation/20260915_source_review/encounter_icu_time_audit.csv) / [原文证据链](internal_validation/20260915_source_review/time_gated_evidence.csv) / [1,024份证据摘要](internal_validation/20260915_source_review/case_evidence_digest.csv)
 - [MIMIC新300条临床复核包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round1_codex_draft.csv) / [独立60条盲法包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round2_blinded.csv)
 - [MIMIC完整主窗口审计](bigquery/landmark12_audit_20260904/DHF_MULTIDOMAIN_AUDIT_LANDMARK12_2026-09-04.md) / [MIMIC回连QC](bigquery/review_linkage_20260915/qc.json)
-- [最新实质任务报告](task_reports/TASK_REPORT_2026-09-16_COHORT_AND_DATA_CLEANING_DECISIONS.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
+- [最新实质任务报告](task_reports/TASK_REPORT_20260919_MIMIC_LAB_PIPELINE_PHASE_C.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
 - [院内变量字典](INTERNAL_DHF_VARIABLE_DICTIONARY_V1.csv) / [语义规则词典](DHF_SEMANTIC_RULE_DICTIONARY_V1.md) / [MIMIC实验室语义审计V2](MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.md) / [候选发现SQL](MIMIC_LABITEM_CANDIDATE_DISCOVERY_V1.sql) / [AI provenance](internal_validation/20260916_case_review/AI_REVIEW_PROVENANCE.json)
 
 
@@ -99,7 +99,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 
 本轮确认：本机 `mimiciv31` PostgreSQL 核心 hosp/icu/derived 可只读调用；当前未发现 `mimiciv_note` 或 `mimiciv_ed`。BigQuery 最近记录为 API 可到达但 `physionet-data:mimiciv_hosp.d_labitems` 读取权限不足，不能按正式患者级取数处理。
 
-质量判断：项目的复现合同、变量/语义字典、时间轴、竞争风险方案和 fail-closed 质量门较强；但最终 DHF 表型、T12 风险集、三态结局、临床标注、实验室阶段 B 和最终模型尚未冻结。Prompt 是必要的审计入口，不是正确性的替代品。详细方案见 [项目质量保证与 MIMIC 访问复核](task_reports/TASK_REPORT_20260919_PROJECT_ASSURANCE_AND_MIMIC_ACCESS_REVIEW.md)。
+质量判断：项目的复现合同、变量/语义字典、时间轴、竞争风险方案和 fail-closed 质量门较强；实验室阶段 C 数据库 QC 已完成，但最终 DHF 表型、T12 风险集、三态结局、临床标注、完整 v3.3 依赖链和最终模型尚未冻结。Prompt 是必要的审计入口，不是正确性的替代品。详细方案见 [项目质量保证与 MIMIC 访问复核](task_reports/TASK_REPORT_20260919_PROJECT_ASSURANCE_AND_MIMIC_ACCESS_REVIEW.md)。
 
 ## 更新日志
 
@@ -111,6 +111,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - 2026-09-18：MIMIC-IV v3.1 实验室 V2 正式聚合完成；BUN 非血液 itemid 已隔离，结果和 BigQuery 作业证据已登记。
 - 2026-09-19：完成 MIMIC 实验室流水线阶段 A 质量门；正式运行入口接入 fail-closed 预检，生成 167 行权威清单及 103 条历史/审计风险账本，未运行患者级数据库。
 - 2026-09-19：完成 MIMIC 实验室流水线阶段 B；新增 raw 合同层、NT-proBNP 三态阈值、乳酸结局与紧凑预测变量复制修订，生成 173 行权威清单及 100 条历史/审计风险账本；PostgreSQL 数据验证未运行，正式主线未解锁。
+- 2026-09-19：完成 MIMIC 实验室流水线阶段 C；PostgreSQL 全库合同层、12项硬门、NT-proBNP/乳酸下游、45变量及 raw-vs-derived 聚合审计均实际执行。修复063A历史字段重名；正式主线仍因完整依赖与研究定义未冻结而保持 fail-closed。
 
 更新规则：总览只保留主线、可核验证据、当前阻塞和下一交付。最终论文人数、事件数和性能必须来自同一冻结run。
 
@@ -142,3 +143,4 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [MIMIC-IV 实验室审计 V2 不可变 cohort 快照重跑（2026-09-18）](task_reports/TASK_REPORT_20260918_MIMIC_LAB_AUDIT_V2_COHORT_SNAPSHOT.md)
 - [MIMIC 实验室流水线质量门阶段 A（2026-09-19）](task_reports/TASK_REPORT_20260919_MIMIC_LAB_PIPELINE_QUALITY_GATE_PHASE_A.md)
 - [MIMIC 实验室流水线阶段 B：raw 合同层与主线复制修订（2026-09-19）](task_reports/TASK_REPORT_20260919_MIMIC_LAB_PIPELINE_PHASE_B.md)
+- [MIMIC 实验室流水线阶段 C：PostgreSQL 执行与差异审计（2026-09-19）](task_reports/TASK_REPORT_20260919_MIMIC_LAB_PIPELINE_PHASE_C.md)

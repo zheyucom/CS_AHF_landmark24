@@ -128,12 +128,14 @@ sql_v3_2/modeling/090C_create_modeling_input_v33.sql,modeling,LEGACY_BLOCKED,his
 sql_v3_2/modeling/097_create_person_period_v33.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
 sql_v3_2/modeling/097_create_person_period_v33_reconciled.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
 sql_v3_2/modeling/105A_create_strict_ahf_lowdim_candidate_v1.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
-sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选 raw 实验室合同层；需通过 PostgreSQL 数据库 QC 和完整上游依赖晋级后方可正式执行。,2026-09-19
-sql_v3_3/executable/061A_create_ahf_evidence_table_12h_v2.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选 NT-proBNP 路径；使用可用时间和三态阈值，但数据库 QC 仍为 not_run。,2026-09-19
-sql_v3_3/executable/061C_create_pre12_overt_cs_flags_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选乳酸基线排除路径；raw 合同已接入但数据库 QC 仍为 not_run。,2026-09-19
-sql_v3_3/executable/061E_create_post12_overt_cs_future48h_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选乳酸结局路径；raw 合同已接入但数据库 QC 仍为 not_run。,2026-09-19
-sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选血流动力学恶化路径；raw 合同已接入但数据库 QC 仍为 not_run。,2026-09-19
-sql_v3_3/modeling/090B_create_compact_predictors_v34.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,阶段 B 候选 45 预测变量路径；实验室已改为 raw 合同但数据库 QC 仍为 not_run。,2026-09-19
+sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 全库建表与 116 硬门已通过；完整 v3.3 上游依赖和正式冻结未完成，仍禁止最终运行。,2026-09-19
+sql_v3_3/executable/061A_create_ahf_evidence_table_12h_v2.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过，NT-proBNP 使用可用时间与三态阈值；表型及完整依赖未冻结，仍禁止最终运行。,2026-09-19
+sql_v3_3/executable/061C_create_pre12_overt_cs_flags_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过且乳酸 episode 多匹配为零；正式结局与依赖未冻结，仍禁止最终运行。,2026-09-19
+sql_v3_3/executable/061E_create_post12_overt_cs_future48h_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过且乳酸 episode 多匹配为零；正式结局与依赖未冻结，仍禁止最终运行。,2026-09-19
+sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C 修复历史字段重名后 PostgreSQL 执行通过；候选结局不得视为论文冻结结果。,2026-09-19
+sql_v3_3/modeling/090B_create_compact_predictors_v34.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过，5555 行与建模 base 一致且 episode 多匹配为零；正式特征冻结未完成。,2026-09-19
+sql_v3_3/audits/116_audit_raw_lab_contract_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw 实验室合同硬门；只输出聚合 QC，不生成正式队列、特征或结局。,2026-09-19
+sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw-vs-derived 聚合差异与结构审计；结果仅供验证，不自动晋级正式路径。,2026-09-19
 sql_v4/audits/092_audit_final_t0_cohort_definition.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/audits_091_audit_t0_ahf_earlysepsis_feasibility.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19

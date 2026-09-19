@@ -1,0 +1,74 @@
+[2026-09-19T15:12:00+00:00] START sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql sha256=99e5bd01e752c77c0d81b1f710967c542ffa752f9320fb259998b24d15969966
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql:5: NOTICE:  table "outcome_063a_candidate_hd_outcomes_overall_v2" does not exist, skipping
+DROP TABLE
+SELECT 5564
+ n_total | ambiguous_episode_match_n | hd_deterioration_lac_confirmed_n
+---------+---------------------------+----------------------------------
+    5564 |                         0 |                              171
+(1 row)
+
+[2026-09-19T15:12:01+00:00] END sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql status=passed exit_code=0
+[2026-09-19T15:12:01+00:00] START sql_v3_3/modeling/090B_create_compact_predictors_v34.sql sha256=e2b320a2fcf686aa8653c078c4daf553e6a188bd451a589cb6003a1feab71923
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/modeling/090B_create_compact_predictors_v34.sql:4: NOTICE:  table "model_090b_lab_episode_match_audit_v34_v1" does not exist, skipping
+DROP TABLE
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/modeling/090B_create_compact_predictors_v34.sql:5: NOTICE:  table "model_090b_compact_predictors_v34_v1" does not exist, skipping
+DROP TABLE
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/modeling/090B_create_compact_predictors_v34.sql:6: NOTICE:  table "model_090b_predictor_manifest_v34_v1" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 45
+SELECT 5555
+CREATE INDEX
+SELECT 5331
+ predictor_rows | base_rows | ambiguous_episode_match_n
+----------------+-----------+---------------------------
+           5555 |      5555 |                         0
+(1 row)
+
+[2026-09-19T15:12:11+00:00] END sql_v3_3/modeling/090B_create_compact_predictors_v34.sql status=passed exit_code=0
+[2026-09-19T15:12:11+00:00] START sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql sha256=161d09275c04a7199b7e817302274145e10d9b12610f2fd6f9b5f401e797be0a
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql:5: NOTICE:  schema "study_ahf_v3_3" already exists, skipping
+CREATE SCHEMA
+psql:/Users/zheyu/Desktop/CS_AHF_landmark24/.worktrees/mimic-lab-phase-c/sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql:7: NOTICE:  table "audit_117_raw_vs_derived_phase_c_v1" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 16
+INSERT 0 14
+INSERT 0 1
+    audit_domain     |   concept   |        metric        | denominator_n | raw_n | derived_n | raw_only_n | derived_only_n | both_n | unequal_n |     mean_abs_diff     |    max_abs_diff     |                                                     detail
+---------------------+-------------+----------------------+---------------+-------+-----------+------------+----------------+--------+-----------+-----------------------+---------------------+-----------------------------------------------------------------------------------------------------------------
+ availability_timing | base_excess | late_result_events   |          6254 |    45 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | bicarbonate | late_result_events   |          7555 |   643 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | bun         | late_result_events   |          7569 |   644 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | creatinine  | late_result_events   |          7593 |   649 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | hemoglobin  | late_result_events   |          6570 |   298 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | inr         | late_result_events   |          5239 |   317 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | lactate     | late_result_events   |          4975 |    38 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | ntprobnp    | late_result_events   |           785 |   146 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | ph          | late_result_events   |          6464 |    46 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | platelet    | late_result_events   |          6558 |   299 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | potassium   | late_result_events   |          7794 |   681 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | sodium      | late_result_events   |          7672 |   665 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | troponin_t  | late_result_events   |          3807 |   416 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ availability_timing | wbc         | late_result_events   |          6506 |   297 |           |            |                |        |         0 |                       |                     | Raw events sampled in [T0,T12) but availability_time at/after T12; unequal_n records ambiguous episode matches.
+ feature_comparison  | base_excess | baseexcess_min       |          5555 |  2978 |      2980 |          1 |              3 |   2977 |         6 | 0.0030231776956667787 |                   3 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | bicarbonate | chem_bicarbonate_min |          5555 |  4977 |      5117 |          0 |            140 |   4977 |       133 |   0.05465139642354832 |                   7 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | bun         | bun_max              |          5555 |  4991 |      5133 |          0 |            142 |   4991 |       222 |   0.13724704468042476 |                  44 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | creatinine  | creatinine_delta     |          5555 |  4993 |      5135 |          0 |            142 |   4993 |       336 |  0.015281393951532152 |   3.200000000000001 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | creatinine  | creatinine_max       |          5555 |  4993 |      5135 |          0 |            142 |   4993 |       163 |  0.006128580012016827 |  0.8999999999999999 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | hemoglobin  | hemoglobin_min       |          5555 |  4546 |      4663 |          0 |            117 |   4546 |       101 |  0.014298284205895292 |                   5 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | inr         | inr_max              |          5555 |  3783 |      3924 |          1 |            142 |   3782 |        35 |  0.006848228450555266 |  17.900000000000002 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | lactate     | lactate_delta        |          5555 |  2909 |      2914 |          0 |              5 |   2909 |        28 |   0.00728772774149192 |  2.9000000000000004 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | lactate     | lactate_max          |          5555 |  2909 |      2914 |          0 |              5 |   2909 |        11 | 0.0024407012719147476 |                 2.2 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | ph          | ph_min               |          5555 |  3073 |      2981 |         95 |              3 |   2978 |        42 | 0.0006346541302887849 | 0.20000000000000018 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | platelet    | platelet_min         |          5555 |  4553 |      4673 |          0 |            120 |   4553 |        92 |    0.4566220074676038 |                 129 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | potassium   | potassium_max        |          5555 |  4989 |      5124 |          4 |            139 |   4985 |       224 |  0.037211634904714117 |                 6.4 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | potassium   | potassium_min        |          5555 |  4989 |      5124 |          4 |            139 |   4985 |       252 |  0.026499498495486436 |                 4.5 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | sodium      | sodium_max           |          5555 |  4943 |      5079 |          0 |            136 |   4943 |       246 |   0.12219300020230629 |                  29 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | sodium      | sodium_min           |          5555 |  4943 |      5079 |          0 |            136 |   4943 |       162 |   0.09043091240137568 |                  42 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ feature_comparison  | wbc         | wbc_max              |          5555 |  4534 |      4654 |          0 |            120 |   4534 |        62 |  0.018460520511689463 |                   8 | Same v3.2 modeling base and [T0,T12); raw additionally requires availability_time inside the window.
+ structural_qc       | all         | model_row_count      |          5555 |  5555 |      5555 |            |                |        |         0 |                       |                     | raw_n and derived_n must equal the shared base; unequal_n is the raw lab ambiguous-episode count.
+(31 rows)
+
+DO
+[2026-09-19T15:12:41+00:00] END sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql status=passed exit_code=0

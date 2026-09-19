@@ -171,12 +171,12 @@ agent_flags as (
 final_flags as (
     select
         b.*,
-        coalesce(pls.pre12_lactate_n, 0) as pre12_lactate_n,
-        coalesce(pls.pre12_lactate_exact_n, 0) as pre12_lactate_exact_n,
-        pls.pre12_lactate_max,
-        pls.pre12_lactate_min,
-        pll.pre12_lactate_last_time,
-        pll.pre12_lactate_last,
+        coalesce(pls.pre12_lactate_n, 0) as pre12_lactate_contract_n,
+        coalesce(pls.pre12_lactate_exact_n, 0) as pre12_lactate_contract_exact_n,
+        pls.pre12_lactate_max as pre12_lactate_contract_max,
+        pls.pre12_lactate_min as pre12_lactate_contract_min,
+        pll.pre12_lactate_last_time as pre12_lactate_contract_last_time,
+        pll.pre12_lactate_last as pre12_lactate_contract_last,
         coalesce(pol.post12_lactate_n, 0) as post12_lactate_contract_n,
         coalesce(pol.post12_lactate_exact_n, 0) as post12_lactate_contract_exact_n,
         pol.post12_lactate_max as post12_lactate_contract_max,
@@ -184,14 +184,14 @@ final_flags as (
         pol.post12_lactate_ge4_first_time as post12_lactate_contract_ge4_first_time,
         coalesce(pol.post12_lactate_ge2_n, 0) as post12_lactate_contract_ge2_n,
         coalesce(pol.post12_lactate_ge4_n, 0) as post12_lactate_contract_ge4_n,
-        coalesce(aud.ambiguous_episode_match_n, 0) as lactate_ambiguous_episode_match_n,
-        case when coalesce(aud.ambiguous_episode_match_n, 0) > 0 then 1 else 0 end as ambiguous_episode_match,
+        coalesce(aud.ambiguous_episode_match_n, 0) as lactate_contract_ambiguous_episode_match_n,
+        case when coalesce(aud.ambiguous_episode_match_n, 0) > 0 then 1 else 0 end as lactate_contract_ambiguous_episode_match,
         a.pre12_agent_count,
         a.post12_agent_count,
         a.post12_new_agent_count,
-        a.pre12_vaso_records_n,
-        a.post12_vaso_records_n,
-        a.post12_vaso_first_starttime,
+        a.pre12_vaso_records_n as overlap_pre12_vaso_records_n,
+        a.post12_vaso_records_n as overlap_post12_vaso_records_n,
+        a.post12_vaso_first_starttime as overlap_post12_vaso_first_starttime,
         case when a.pre12_agent_count = 0 and a.post12_agent_count > 0 then 1 else 0 end as new_support_initiation_flag,
         case when a.post12_agent_count > a.pre12_agent_count then 1 else 0 end as agent_count_increase_flag,
         case when (a.pre12_agent_count = 0 and a.post12_agent_count > 0)
@@ -223,6 +223,6 @@ from final_flags f;
 
 select
     count(*) as n_total,
-    sum(ambiguous_episode_match) as ambiguous_episode_match_n,
+    sum(lactate_contract_ambiguous_episode_match) as ambiguous_episode_match_n,
     sum(hd_deterioration_lac_confirmed_flag) as hd_deterioration_lac_confirmed_n
 from study_ahf_v3_3.outcome_063A_candidate_hd_outcomes_overall_v2;
