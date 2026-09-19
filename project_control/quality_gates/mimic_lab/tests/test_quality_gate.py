@@ -271,6 +271,38 @@ class SqlScannerTests(unittest.TestCase):
         """
         self.assertIn("LAB_LANDMARK_GATE_MISSING", self.codes(sql))
 
+    def test_reusable_raw_contract_layer_defers_landmark_to_consumers(self) -> None:
+        row = manifest_row(
+            "sql_v3_3/executable/060_create_raw_lab_contract_layer_v1.sql",
+            artifact_kind="tool",
+            authority_status="LEGACY_BLOCKED",
+            analysis_role="historical",
+            allow_final_run="false",
+        )
+        sql = """
+        CREATE TABLE study_ahf_v3_3.lab_event_classified_v1 AS
+        WITH lab_contract AS (
+          SELECT 51006 AS itemid, 'Blood' AS expected_fluid,
+                 'Chemistry' AS expected_category, ARRAY['mg/dL'] AS allowed_units
+        )
+        SELECT le.specimen_id, le.itemid, le.value, le.valuenum, le.valueuom,
+               di.fluid, di.category,
+               GREATEST(le.charttime, COALESCE(le.storetime, le.charttime)) AS availability_time,
+               COUNT(*) OVER (PARTITION BY le.specimen_id, le.itemid) AS specimen_itemid_count,
+               CASE WHEN le.valueuom != ALL(lc.allowed_units) THEN 'unknown_unit'
+                    WHEN di.fluid != lc.expected_fluid THEN 'fluid_mismatch'
+                    WHEN di.category != lc.expected_category THEN 'category_mismatch'
+                    ELSE NULL END AS quarantine_reason
+        FROM mimiciv_hosp.labevents le
+        JOIN mimiciv_hosp.d_labitems di USING (itemid)
+        JOIN lab_contract lc USING (itemid)
+        """
+        codes = {
+            item["code"]
+            for item in self.gate.scan_sql(row["path"], sql, row, CONTRACT)
+        }
+        self.assertNotIn("LAB_LANDMARK_GATE_MISSING", codes)
+
     def test_contract_cte_name_does_not_prove_fluid_or_category_validation(self) -> None:
         sql = """
         WITH lab_contract AS (SELECT 51006 AS itemid)

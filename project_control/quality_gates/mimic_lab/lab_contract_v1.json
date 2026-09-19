@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "dataset": {
     "name": "MIMIC-IV",
     "supported_versions": ["3.1"],
@@ -8,25 +8,99 @@
   "authority": {
     "project_source": "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
     "design_record": "docs/superpowers/specs/2026-09-19-mimic-lab-pipeline-quality-gate-design.md",
+    "official_method_commit": "303d26c623dcc9c49cc0f204468d4acc2f063797",
     "approved_on": "2026-09-19",
-    "promotion_policy": "proposed -> sourced -> fixture_added -> regression_tested -> active"
+    "promotion_policy": "proposed -> sourced -> fixture_added -> regression_tested -> database_qc -> active"
   },
   "availability_expression": "GREATEST(charttime, COALESCE(storetime, charttime))",
+  "range_policy": "retain_raw_flag_exclude_from_continuous_rollup",
   "rules": [
+    {
+      "rule_id": "lab-base-excess-blood-v1",
+      "concept": "base_excess",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50802, "label": "Base Excess", "fluid": "Blood", "category": "Blood Gas", "unit_policy": "exact_allowlist", "units": ["mEq/L"]}],
+      "quarantine": [],
+      "official_analysis_range": null,
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/bg.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-lactate-blood-gas-v1",
+      "concept": "lactate",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50813, "label": "Lactate", "fluid": "Blood", "category": "Blood Gas", "unit_policy": "exact_allowlist", "units": ["mmol/L"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": null, "lower_inclusive": null, "upper": 10000, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/bg.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-ph-blood-v1",
+      "concept": "ph",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50820, "label": "pH", "fluid": "Blood", "category": "Blood Gas", "unit_policy": "exact_allowlist", "units": ["units"]}],
+      "quarantine": [],
+      "official_analysis_range": null,
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/bg.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-bicarbonate-blood-v1",
+      "concept": "bicarbonate",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50882, "label": "Bicarbonate", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["mEq/L"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": 10000, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/chemistry.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-creatinine-blood-v1",
+      "concept": "creatinine",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50912, "label": "Creatinine", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["mg/dL"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": 150, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/chemistry.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-ntprobnp-blood-v1",
+      "concept": "ntprobnp",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50963, "label": "NTproBNP", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["pg/mL"]}],
+      "quarantine": [],
+      "official_analysis_range": null,
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-potassium-blood-v1",
+      "concept": "potassium",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50971, "label": "Potassium", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["mEq/L"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": 30, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/chemistry.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-sodium-blood-v1",
+      "concept": "sodium",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 50983, "label": "Sodium", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["mEq/L"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": 200, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/chemistry.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
     {
       "rule_id": "lab-bun-blood-v1",
       "concept": "bun",
       "status": "active",
       "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 51006,
-          "label": "Urea Nitrogen",
-          "fluid": "Blood",
-          "category": "Chemistry",
-          "units": ["mg/dL"]
-        }
-      ],
+      "allow": [{"itemid": 51006, "label": "Urea Nitrogen", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["mg/dL"]}],
       "quarantine": [
         {"itemid": 51104, "reason_code": "wrong_fluid_urine"},
         {"itemid": 51045, "reason_code": "wrong_fluid_other_body_fluid"},
@@ -37,112 +111,58 @@
         {"itemid": 51922, "reason_code": "wrong_fluid_pleural"},
         {"itemid": 51951, "reason_code": "wrong_fluid_stool"}
       ],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts/measurement",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": 300, "upper_inclusive": true},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/chemistry.sql", "https://physionet.org/content/mimiciv/3.1/"]
     },
     {
-      "rule_id": "lab-lactate-blood-gas-v1",
-      "concept": "lactate",
-      "status": "active",
-      "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 50813,
-          "label": "Lactate",
-          "fluid": "Blood",
-          "category": "Blood Gas",
-          "units": ["mmol/L"]
-        }
-      ],
-      "quarantine": [],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts/measurement",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
-    },
-    {
-      "rule_id": "project-creatinine-blood-v1",
-      "concept": "creatinine",
-      "status": "active",
-      "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 50912,
-          "label": "Creatinine",
-          "fluid": "Blood",
-          "category": "Chemistry",
-          "units": ["mg/dL"]
-        }
-      ],
-      "quarantine": [],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
-    },
-    {
-      "rule_id": "project-ph-blood-v1",
-      "concept": "ph",
-      "status": "active",
-      "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 50820,
-          "label": "pH",
-          "fluid": "Blood",
-          "category": "Blood Gas",
-          "units": ["units"]
-        }
-      ],
-      "quarantine": [],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
-    },
-    {
-      "rule_id": "project-ntprobnp-blood-v1",
-      "concept": "ntprobnp",
-      "status": "active",
-      "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 50963,
-          "label": "NTproBNP",
-          "fluid": "Blood",
-          "category": "Chemistry",
-          "units": ["pg/mL"]
-        }
-      ],
-      "quarantine": [],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
-    },
-    {
-      "rule_id": "project-troponin-t-blood-v1",
+      "rule_id": "lab-troponin-t-blood-v1",
       "concept": "troponin_t",
       "status": "active",
       "source_table": "mimiciv_hosp.labevents",
-      "allow": [
-        {
-          "itemid": 51003,
-          "label": "Troponin T",
-          "fluid": "Blood",
-          "category": "Chemistry",
-          "units": ["ng/mL"]
-        }
-      ],
+      "allow": [{"itemid": 51003, "label": "Troponin T", "fluid": "Blood", "category": "Chemistry", "unit_policy": "exact_allowlist", "units": ["ng/mL"]}],
       "quarantine": [],
-      "evidence_sources": [
-        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
-        "https://physionet.org/content/mimiciv/3.1/"
-      ]
+      "official_analysis_range": null,
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-hemoglobin-blood-v1",
+      "concept": "hemoglobin",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 51222, "label": "Hemoglobin", "fluid": "Blood", "category": "Hematology", "unit_policy": "exact_allowlist", "units": ["g/dL"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": null, "upper_inclusive": null},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/complete_blood_count.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-inr-blood-v1",
+      "concept": "inr",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 51237, "label": "INR(PT)", "fluid": "Blood", "category": "Hematology", "unit_policy": "dimensionless_null", "units": []}],
+      "quarantine": [],
+      "official_analysis_range": null,
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/coagulation.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-platelet-blood-v1",
+      "concept": "platelet",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 51265, "label": "Platelet Count", "fluid": "Blood", "category": "Hematology", "unit_policy": "exact_allowlist", "units": ["K/uL"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": null, "upper_inclusive": null},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/complete_blood_count.sql", "https://physionet.org/content/mimiciv/3.1/"]
+    },
+    {
+      "rule_id": "lab-wbc-blood-v1",
+      "concept": "wbc",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [{"itemid": 51301, "label": "White Blood Cells", "fluid": "Blood", "category": "Hematology", "unit_policy": "exact_allowlist", "units": ["K/uL"]}],
+      "quarantine": [],
+      "official_analysis_range": {"lower": 0, "lower_inclusive": false, "upper": null, "upper_inclusive": null},
+      "evidence_sources": ["project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql", "mimic-code@303d26c623dcc9c49cc0f204468d4acc2f063797:mimic-iv/concepts/measurement/complete_blood_count.sql", "https://physionet.org/content/mimiciv/3.1/"]
     }
   ]
 }

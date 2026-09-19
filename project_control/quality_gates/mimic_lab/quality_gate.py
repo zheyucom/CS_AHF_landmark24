@@ -307,6 +307,15 @@ def scan_sql(
         results.append(finding(code, path, message, severity, hard))
 
     uses_raw = bool(re.search(r"\blabevents\b", normalized))
+    reusable_contract_layer = (
+        Path(path).name == "060_create_raw_lab_contract_layer_v1.sql"
+        and bool(
+            re.search(
+                r"\bcreate\s+table\s+study_ahf_v3_3\.lab_event_classified_v1\b",
+                normalized,
+            )
+        )
+    )
     uses_derived = bool(
         re.search(
             r"\bmimiciv_(?:\d+_\d+_)?derived\."
@@ -368,7 +377,7 @@ def scan_sql(
         r"(?:\w+\.)?(?:t12|landmark\w*)\b",
         normalized,
     )
-    if not landmark_gate:
+    if not landmark_gate and not reusable_contract_layer:
         add(
             "LAB_LANDMARK_GATE_MISSING",
             "raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。",
