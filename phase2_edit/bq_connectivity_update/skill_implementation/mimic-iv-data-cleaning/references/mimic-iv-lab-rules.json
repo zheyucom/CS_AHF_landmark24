@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": {
+    "name": "MIMIC-IV",
+    "supported_versions": ["3.1"],
+    "source_tables": ["mimiciv_hosp.labevents"],
+    "dictionary_tables": ["mimiciv_hosp.d_labitems"]
+  },
+  "governance": {
+    "active_requires_human_approval": true,
+    "allowed_statuses": ["proposed", "active", "deprecated"],
+    "approval_note": "An active rule is permitted only after an explicit project-owner approval record."
+  },
+  "rules": [
+    {
+      "rule_id": "lab-bun-blood-v1",
+      "concept": "bun",
+      "status": "active",
+      "mimic_versions": ["3.1"],
+      "source_table": "mimiciv_hosp.labevents",
+      "dictionary_table": "mimiciv_hosp.d_labitems",
+      "allow": [
+        {
+          "itemid": 51006,
+          "label": "Urea Nitrogen",
+          "fluid": "Blood",
+          "category": "Chemistry",
+          "units": ["mg/dL"]
+        }
+      ],
+      "quarantine": [
+        {"itemid": 51104, "reason_code": "wrong_fluid_urine"},
+        {"itemid": 51045, "reason_code": "wrong_fluid_urine"},
+        {"itemid": 50851, "reason_code": "wrong_fluid_other_body_fluid"},
+        {"itemid": 51804, "reason_code": "wrong_fluid_body_fluid"},
+        {"itemid": 51825, "reason_code": "wrong_fluid_body_fluid"},
+        {"itemid": 51842, "reason_code": "wrong_fluid_body_fluid"},
+        {"itemid": 51922, "reason_code": "wrong_fluid_body_fluid"},
+        {"itemid": 51951, "reason_code": "wrong_fluid_body_fluid"}
+      ],
+      "time_contract": {
+        "availability_expression": "GREATEST(charttime, COALESCE(storetime, charttime))",
+        "window_end_operator": "<",
+        "storetime_null_fallback": "charttime",
+        "storetime_before_charttime": "quarantine"
+      },
+      "handling": {
+        "unknown_itemid": "quarantine",
+        "unknown_unit": "quarantine",
+        "null_unit": "quarantine",
+        "fluid_mismatch": "quarantine",
+        "category_mismatch": "quarantine",
+        "missing_charttime": "quarantine",
+        "missing_specimen_id": "quarantine",
+        "available_after_landmark": "quarantine",
+        "storetime_before_charttime": "quarantine",
+        "duplicate_specimen_itemid": "quarantine",
+        "censored_value": "preserve_raw_boundary",
+        "interval_value": "quarantine",
+        "missing_value": "quarantine",
+        "analysis_range": "flag_only",
+        "derived_source": "reconcile_only"
+      },
+      "evidence_sources": [
+        "https://physionet.org/content/mimiciv/3.1/",
+        "https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv",
+        "project://phase-c/lab-contract-qc"
+      ],
+      "evidence_notes": [
+        "The blood contract is limited to itemid 51006 with exact dictionary fluid/category and mg/dL.",
+        "The eight listed itemids were observed as non-blood BUN candidates during the Phase C dictionary audit and are quarantine-only.",
+        "The project owner explicitly approved this rule for skill enforcement on 2026-09-19; SQL promotion remains a separate review."
+      ],
+      "test_ids": [
+        "test_bun_rule_quarantines_all_sourced_nonblood_itemids",
+        "test_bun_fuzzy_label_and_wrong_fluids_are_blocked",
+        "test_unknown_unit_and_post_landmark_availability_are_quarantined",
+        "test_censored_value_is_preserved_and_duplicate_specimen_is_quarantined"
+      ],
+      "approval": {
+        "approved_by": "project_owner_explicit_instruction",
+        "approved_at": "2026-09-19",
+        "decision": "approved_for_skill_use",
+        "scope": "BUN blood exact contract and fail-closed quarantine controls"
+      }
+    }
+  ]
+}

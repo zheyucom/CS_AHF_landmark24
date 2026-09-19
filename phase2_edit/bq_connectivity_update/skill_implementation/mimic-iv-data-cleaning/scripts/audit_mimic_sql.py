@@ -7,7 +7,7 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -26,12 +26,12 @@ def _strip_sql_comments(sql: str) -> str:
 
 def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
     """Return deterministic static findings without executing or rewriting SQL."""
-    normalized = re.sub(r"\s+", " ", _strip_sql_comments(sql).lower())
+    normalized = re.sub(r"\s+", " ", _strip_sql_comments(sql).lower()).strip()
     findings: list[dict[str, str]] = []
-    uses_labevents = "labevents" in normalized
+    uses_labevents = bool(re.search(r"\b(?:from|join)\s+(?:[\w`]+\.)?labevents\b", normalized))
     uses_fuzzy_label = bool(
         re.search(r"(?:regexp_contains|regexp_like|like)\s*\([^)]*(?:label|fluid|category)", normalized)
-        or re.search(r"(?:label|fluid|category)[^\n;]{0,100}\blike\b", normalized)
+        or re.search(r"(?:label|fluid|category)[^;]{0,100}\blike\b", normalized)
     )
 
     if uses_labevents and uses_fuzzy_label:
@@ -113,7 +113,7 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
             )
         )
 
-    has_derived = "mimiciv_derived" in normalized or "mimiciv_derived." in normalized
+    has_derived = bool(re.search(r"\bmimiciv_derived(?:\.|\b)", normalized))
     if uses_labevents and not has_derived:
         findings.append(
             _finding(
@@ -121,6 +121,15 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
                 "warning",
                 "当前 SQL 未展示 raw↔derived 双向覆盖对账。",
                 "核心变量另行输出 raw-only、derived-only 和 both；不要把 derived 当作无条件真值。",
+            )
+        )
+    if has_derived and not uses_labevents and re.search(r"\b(?:from|join)\b", normalized):
+        findings.append(
+            _finding(
+                "MIMIC009",
+                "error",
+                "查询把 mimiciv_derived 作为唯一实验室来源。",
+                "derived 只能用于双向覆盖对账；正式 raw 特征必须从批准的 raw 表读取。",
             )
         )
 
@@ -141,8 +150,12 @@ def _parse_time(value: Any) -> datetime | None:
     if value in (None, ""):
         return None
     if isinstance(value, datetime):
-        return value
-    return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        parsed = value
+    else:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    if parsed.tzinfo is not None:
+        return parsed.astimezone(timezone.utc).replace(tzinfo=None)
+    return parsed
 
 
 def _match_rule(rule_pack: dict[str, Any], concept: str) -> dict[str, Any]:
@@ -158,6 +171,13 @@ def _match_rule(rule_pack: dict[str, Any], concept: str) -> dict[str, Any]:
 
 def _quarantine(row: dict[str, Any], reason_code: str) -> dict[str, Any]:
     return {"row": dict(row), "reason_code": reason_code}
+
+
+_NUMERIC_BOUNDARY = re.compile(r"^\s*(<=|>=|<|>)\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*$")
+_INTERVAL_VALUE = re.compile(
+    r"^\s*[+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*(?:-|to)\s*[+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*$",
+    re.IGNORECASE,
+)
 
 
 def classify_lab_rows(
@@ -182,6 +202,9 @@ def classify_lab_rows(
             quarantine.append(_quarantine(row, blocked_by_itemid.get(itemid, "unregistered_itemid")))
             continue
 
+        if row.get("specimen_id") in (None, ""):
+            quarantine.append(_quarantine(row, "missing_specimen_id"))
+            continue
         if str(row.get("fluid", "")).casefold() != contract["fluid"].casefold():
             quarantine.append(_quarantine(row, "fluid_mismatch"))
             continue
@@ -194,13 +217,25 @@ def classify_lab_rows(
             continue
 
         charttime = _parse_time(row.get("charttime"))
-        storetime = _parse_time(row.get("storetime")) or charttime
+        storetime = _parse_time(row.get("storetime"))
         if charttime is None:
             quarantine.append(_quarantine(row, "missing_charttime"))
             continue
-        availability_time = max(charttime, storetime)
+        if storetime is not None and storetime < charttime:
+            quarantine.append(_quarantine(row, "storetime_before_charttime"))
+            continue
+        availability_time = max(charttime, storetime or charttime)
         if availability_time >= landmark:
             quarantine.append(_quarantine(row, "available_after_landmark"))
+            continue
+
+        raw_value = row.get("value")
+        if raw_value in (None, ""):
+            quarantine.append(_quarantine(row, "missing_value"))
+            continue
+        censor_match = _NUMERIC_BOUNDARY.match(str(raw_value))
+        if _INTERVAL_VALUE.match(str(raw_value)):
+            quarantine.append(_quarantine(row, "interval_value"))
             continue
 
         key = (row.get("specimen_id"), itemid)
@@ -209,12 +244,11 @@ def classify_lab_rows(
             continue
         seen.add(key)
 
-        raw_value = row.get("value")
-        match = re.match(r"^\s*(<=|>=|<|>)\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*$", str(raw_value or ""))
         accepted_row = dict(row)
         accepted_row["availability_time"] = availability_time.isoformat()
-        accepted_row["censor_type"] = match.group(1) if match else None
-        accepted_row["raw_boundary"] = match.group(2) if match else None
+        accepted_row["raw_value"] = raw_value
+        accepted_row["censor_type"] = censor_match.group(1) if censor_match else None
+        accepted_row["raw_boundary"] = censor_match.group(2) if censor_match else None
         accepted.append(accepted_row)
 
     return {"accepted": accepted, "quarantine": quarantine}
