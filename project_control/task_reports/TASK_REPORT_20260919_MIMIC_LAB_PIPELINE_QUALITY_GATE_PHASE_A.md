@@ -66,6 +66,7 @@
 
 ## 8. 本轮修改文件
 
+- `.gitignore`
 - `docs/superpowers/specs/2026-09-19-mimic-lab-pipeline-quality-gate-design.md`
 - `docs/superpowers/plans/2026-09-19-mimic-lab-pipeline-quality-gate-implementation.md`
 - `project_control/PIPELINE_AUTHORITY_MANIFEST.csv`
