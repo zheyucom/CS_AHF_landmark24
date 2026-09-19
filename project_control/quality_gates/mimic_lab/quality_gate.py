@@ -589,7 +589,7 @@ def write_initial_manifest(path: Path, tracked_sql: set[str]) -> None:
         "reviewed_on",
     ]
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(initial_manifest_row(item) for item in sorted(tracked_sql))
 
@@ -646,7 +646,12 @@ def write_findings_csv(path: Path, findings: Sequence[Mapping[str, Any]]) -> Non
         "message",
     ]
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=fields,
+            extrasaction="ignore",
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(findings)
 

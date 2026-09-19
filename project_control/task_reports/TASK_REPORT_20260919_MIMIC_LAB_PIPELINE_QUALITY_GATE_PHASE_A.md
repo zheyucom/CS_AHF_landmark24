@@ -20,7 +20,7 @@
 2. 初始权威状态为：`AUDIT_ONLY=36`、`LEGACY_BLOCKED=130`、`SUPERSEDED=1`、`ACTIVE=0`。
 3. `start_run.py --run-class final` 已接入质量门。当前因没有任何获准的 ACTIVE SQL，会在创建运行目录前 fail-closed；不能用旧主线启动正式 run。
 4. 合成回归覆盖未登记/重复清单、执行计划绕过、blocked 依赖、raw availability/unit/fluid/category/specimen 缺口、derived 正式来源、错误体液 itemid、模糊元数据、缺失补零、范围静默置空、未登记 itemid、合规 raw SQL 和 AUDIT_ONLY 对账。
-5. 质量门单元测试 21/21 通过，正式入口集成测试 2/2 通过；正式执行计划中的每个 SQL 都会单独保存 SHA-256。
+5. 质量门单元测试 22/22 通过，正式入口集成测试 2/2 通过；正式执行计划中的每个 SQL 都会单独保存 SHA-256，生成的 CSV 固定使用 LF，重复扫描不会制造换行差异。
 6. 全仓静态账本共有 103 条非阻断历史/审计发现：
    - `LAB_DERIVED_FORMAL_SOURCE=10`
    - availability/landmark/unit/fluid/category/specimen 合同缺口各 14

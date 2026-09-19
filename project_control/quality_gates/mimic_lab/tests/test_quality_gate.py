@@ -339,6 +339,28 @@ class DependencyTests(unittest.TestCase):
 
 
 class RepositoryAuditTests(unittest.TestCase):
+    def test_generated_csv_files_use_repository_lf_line_endings(self) -> None:
+        gate = load_gate()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest = root / "manifest.csv"
+            findings = root / "findings.csv"
+            gate.write_initial_manifest(manifest, {"sql/a.sql"})
+            gate.write_findings_csv(
+                findings,
+                [
+                    gate.finding(
+                        "TEST",
+                        "sql/a.sql",
+                        "synthetic",
+                        severity="warning",
+                        blocks_final_run=False,
+                    )
+                ],
+            )
+            for generated in (manifest, findings):
+                self.assertNotIn(b"\r\n", generated.read_bytes(), generated)
+
     def test_initial_manifest_classification_is_conservative(self) -> None:
         gate = load_gate()
         v2_audit = gate.initial_manifest_row(
