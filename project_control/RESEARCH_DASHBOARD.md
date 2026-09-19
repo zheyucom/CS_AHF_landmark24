@@ -93,6 +93,14 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [最新实质任务报告](task_reports/TASK_REPORT_2026-09-16_COHORT_AND_DATA_CLEANING_DECISIONS.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
 - [院内变量字典](INTERNAL_DHF_VARIABLE_DICTIONARY_V1.csv) / [语义规则词典](DHF_SEMANTIC_RULE_DICTIONARY_V1.md) / [MIMIC实验室语义审计V2](MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.md) / [候选发现SQL](MIMIC_LABITEM_CANDIDATE_DISCOVERY_V1.sql) / [AI provenance](internal_validation/20260916_case_review/AI_REVIEW_PROVENANCE.json)
 
+
+
+## 质量保证与 MIMIC 访问复核（2026-09-19）
+
+本轮确认：本机 `mimiciv31` PostgreSQL 核心 hosp/icu/derived 可只读调用；当前未发现 `mimiciv_note` 或 `mimiciv_ed`。BigQuery 最近记录为 API 可到达但 `physionet-data:mimiciv_hosp.d_labitems` 读取权限不足，不能按正式患者级取数处理。
+
+质量判断：项目的复现合同、变量/语义字典、时间轴、竞争风险方案和 fail-closed 质量门较强；但最终 DHF 表型、T12 风险集、三态结局、临床标注、实验室阶段 B 和最终模型尚未冻结。Prompt 是必要的审计入口，不是正确性的替代品。详细方案见 [项目质量保证与 MIMIC 访问复核](task_reports/TASK_REPORT_20260919_PROJECT_ASSURANCE_AND_MIMIC_ACCESS_REVIEW.md)。
+
 ## 更新日志
 
 - 2026-09-15 16:13 CST：生成本周组会周报；总览改为已验证、初步/历史和待决事项分层；将新主窗口300条标注明确标为待临床确认。
