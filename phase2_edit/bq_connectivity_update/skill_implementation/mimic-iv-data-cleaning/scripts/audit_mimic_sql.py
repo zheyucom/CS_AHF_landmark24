@@ -60,7 +60,12 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
         token in normalized
         for token in ("known_quarantine", "quarantine_reason", "approved_contract")
     )
-    if uses_labevents and blocked and not has_explicit_quarantine:
+    has_quarantine_contract = (
+        "lab_quarantine_item_v1" in normalized
+        and "known_quarantine_reason" in normalized
+        and "quarantine_reason" in normalized
+    )
+    if uses_labevents and blocked and not (has_explicit_quarantine or has_quarantine_contract):
         findings.append(
             _finding(
                 "MIMIC002",
@@ -114,6 +119,7 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
         )
 
     has_derived = bool(re.search(r"\bmimiciv_derived(?:\.|\b)", normalized))
+    has_lab_contract = bool(re.search(r"\b(?:lab_eligible_v1|lab_event_classified_v1)\b", normalized))
     if uses_labevents and not has_derived:
         findings.append(
             _finding(
@@ -123,7 +129,7 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
                 "核心变量另行输出 raw-only、derived-only 和 both；不要把 derived 当作无条件真值。",
             )
         )
-    if has_derived and not uses_labevents and re.search(r"\b(?:from|join)\b", normalized):
+    if has_derived and not uses_labevents and not has_lab_contract and re.search(r"\b(?:from|join)\b", normalized):
         findings.append(
             _finding(
                 "MIMIC009",

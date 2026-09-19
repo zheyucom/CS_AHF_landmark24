@@ -72,6 +72,29 @@ class EdgeCaseTests(unittest.TestCase):
         )
         self.assertIn("MIMIC009", {finding["code"] for finding in findings if finding["severity"] == "error"})
 
+    def test_quarantine_contract_does_not_treat_isolation_ids_as_inclusion(self):
+        sql = """
+        WITH lab_quarantine_item_v1 AS (
+          SELECT 51104 AS itemid, 'wrong_fluid_urine' AS quarantine_reason
+        ), source_rows AS (
+          SELECT le.itemid, qi.quarantine_reason AS known_quarantine_reason
+          FROM mimiciv_hosp.labevents le
+          LEFT JOIN lab_quarantine_item_v1 qi USING (itemid)
+        )
+        SELECT itemid, quarantine_reason FROM source_rows
+        """
+        findings = self.audit.audit_sql(sql, self.rules)
+        self.assertNotIn("MIMIC002", {finding["code"] for finding in findings if finding["severity"] == "error"})
+
+    def test_lab_contract_plus_derived_support_is_not_derived_only(self):
+        sql = """
+        SELECT le.stay_id, le.analysis_value, v.heart_rate
+        FROM study_ahf_v3_3.lab_eligible_v1 le
+        JOIN mimiciv_derived.vitalsign v USING (stay_id)
+        """
+        findings = self.audit.audit_sql(sql, self.rules)
+        self.assertNotIn("MIMIC009", {finding["code"] for finding in findings if finding["severity"] == "error"})
+
     def test_raw_value_and_timezone_normalization_are_preserved(self):
         row = self.base_row()
         row["value"] = ">300"
