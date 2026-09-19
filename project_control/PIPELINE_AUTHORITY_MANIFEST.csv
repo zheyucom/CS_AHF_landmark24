@@ -1,0 +1,168 @@
+path,artifact_kind,authority_status,analysis_role,engine,replacement_path,allow_final_run,rationale,reviewed_on
+project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql,audit,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,audit,SUPERSEDED,historical,bigquery,project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql,false,V1 审计已由包含语义、单位、可用时间和体液隔离的 V2 明确替代。,2026-09-19
+project_control/MIMIC_LABITEM_CANDIDATE_DISCOVERY_V1.sql,audit,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/103_query_pre_t0_radiology.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/106_query_pre_t0_dhf_radiology.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/107_query_dhf_radiology_patient_summary.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/108_query_structured_echo_screen_v33.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/109_query_landmark12_dhf_radiology.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/110_query_landmark12_dhf_radiology_patient_summary.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/111_echo_source_inventory.sql,audit,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/111_query_landmark12_radiology_report_audit.sql,audit,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/112_echo_result_audit_template.sql,audit,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/112_query_landmark12_radiology_batch.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/113_query_mimic_echo_strict_candidate.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+project_control/bigquery/114_export_landmark12_radiology_to_gcs.sql,export,AUDIT_ONLY,audit,bigquery,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql/00_setup/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/080A_create_vital_burden_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/080A_export_qc.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/080G_create_modeling_dataset_v2.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/080G_export_qc_and_dataset.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/081A_create_structured_echo_screen_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/03_features/081A_export_qc_and_dataset.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/04_audit/079A_create_event_timing_components.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql/04_audit/079A_export_qc_and_event_timing.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/audits/091_audit_t0_ahf_earlysepsis_feasibility.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/audits/092_create_ahf_qualify_time_audit.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/010_adult_first_icu.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/020_hf_icd_candidate.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/061B_create_ahf_strict_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/061C_create_pre12_overt_cs_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/061D_create_landmark12_riskset.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/061E_create_post12_overt_cs_future48h.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/062A_create_early_sepsis12_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/062B_create_ahf_earlysepsis12_main_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/063A_create_candidate_hd_outcomes_overall.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/063C_create_hd_outcomes_with_nee.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/064_create_primary_analysis_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070A_create_modeling_base_index.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070C_create_static_clinical_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070D2_create_vitals_0_12h_clean_features..sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070E_create_labs_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070F_create_support_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/070G_create_modeling_dataset_v1.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/079A_create_event_timing_components.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/080A_create_vital_burden_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/080G_create_modeling_dataset_v2.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/081A_create_structured_echo_screen_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/executable/900_audit_pipeline.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/010_adult_first_icu.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/020_hf_icd_candidate.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/061B_create_ahf_strict_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/061C_create_pre12_overt_cs_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/061D_create_landmark12_riskset.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/061E_create_post12_overt_cs_future48h.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/062A_create_early_sepsis12_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/062B_create_ahf_earlysepsis12_main_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/063A_create_candidate_hd_outcomes_overall.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/063C_create_hd_outcomes_with_nee.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/064_create_primary_analysis_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070A_create_modeling_base_index.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070C_create_static_clinical_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070D2_create_vitals_0_12h_clean_features..sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070E_create_labs_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070F_create_support_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/070G_create_modeling_dataset_v1.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/079A_create_event_timing_components.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/080A_create_vital_burden_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/080G_create_modeling_dataset_v2.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3/recovered_original/081A_create_structured_echo_screen_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/audits/095_v3_vs_v31_cohort_compare.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/010_adult_first_icu.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/020_hf_icd_candidate.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/061B_create_ahf_strict_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/061C_create_pre12_overt_cs_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/061D_create_landmark12_riskset.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/061E_create_post12_overt_cs_future48h.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/062A_create_early_sepsis12_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/062B_create_ahf_earlysepsis12_main_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/063A_create_candidate_hd_outcomes_overall.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/063C_create_hd_outcomes_with_nee.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_1/executable/064_create_primary_analysis_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v3_2/audits/090D_export_compact_feature_qc_v33.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/094_create_outcome_label_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/094_export_outcome_label_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/095_create_followup_censoring_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/095_export_followup_censoring_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/096_create_strict_main_label_v33.sql,outcome,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/097_export_person_period_qc.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/097_export_person_period_qc_reconciled.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/098_reconcile_landmark_eligibility_v33.sql,tool,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/099_export_ahf_phenotype_audit.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/100_audit_note_source_availability.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/101_create_pre_t0_radiology_ahf_evidence.sql,phenotype,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/102_export_strict_ids_for_bigquery.sql,export,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/104_audit_ntprobnp_rulein_refinement.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/106_export_dhf_radiology_candidates_for_bigquery.sql,export,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/114A_audit_derived_bg_window_summary.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/audits/115_audit_measurement_availability_by_outcome_v33.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v3_2/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/010_adult_first_icu.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/020_hf_icd_candidate.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/061B_create_ahf_strict_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/061C_create_pre12_overt_cs_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/061D_create_landmark12_riskset.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/061E_create_post12_overt_cs_future48h.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/062A_create_early_sepsis12_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/062B_create_ahf_earlysepsis12_main_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/063A_create_candidate_hd_outcomes_overall.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/063C_create_hd_outcomes_with_nee.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/064_create_primary_analysis_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/executable/099_create_strict_pre_t0_ahf_cohort.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/090A_create_modeling_base_v33.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/090C_create_modeling_input_v33.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/097_create_person_period_v33.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/097_create_person_period_v33_reconciled.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v3_2/modeling/105A_create_strict_ahf_lowdim_candidate_v1.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,当前主线候选；阶段 B 完成 raw 实验室合同层和传递依赖审计前禁止正式执行。,2026-09-19
+sql_v4/audits/092_audit_final_t0_cohort_definition.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/audits_091_audit_t0_ahf_earlysepsis_feasibility.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/010_adult_first_icu.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/020_hf_icd_candidate.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/061B_create_ahf_strict_12h.sql,phenotype,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/061C_create_pre12_overt_cs_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/061D_create_landmark12_riskset.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/061E_create_post12_overt_cs_future48h.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/062A_create_early_sepsis12_flags.sql,tool,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/062B_create_ahf_earlysepsis12_main_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/063A_create_candidate_hd_outcomes_overall.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/063C_create_hd_outcomes_with_nee.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/064_create_primary_analysis_outcome.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070A_create_modeling_base_index.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070C_create_static_clinical_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070D2_create_vitals_0_12h_clean_features..sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070E_create_labs_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070F_create_support_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/070G_create_modeling_dataset_v1.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/079A_create_event_timing_components.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/080A_create_vital_burden_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/080G_create_modeling_dataset_v2.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/081A_create_structured_echo_screen_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/092_create_final_t0_modeling_dataset.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4/executable/900_audit_pipeline.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 A 仅允许质量控制、候选发现或聚合审计，不得生成正式队列、特征或结局。,2026-09-19
+sql_v4_2/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/070C_create_static_clinical_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/070D2_create_vitals_0_12h_clean_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/070E_create_labs_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/070F_create_support_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/070G_create_modeling_dataset_v1.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/080A_create_vital_burden_0_12h_features.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/080G_create_modeling_dataset_v2.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,cohort,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19
+sql_v4_2/executable/093B_create_ahf_only_modeling_base_index.sql,modeling,LEGACY_BLOCKED,historical,postgres,,false,预设敏感性候选；通过与主线相同的实验室质量门前禁止正式执行。,2026-09-19

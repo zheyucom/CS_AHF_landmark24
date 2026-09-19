@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MIMIC laboratory SQL quality-gate finding",
+  "type": "object",
+  "required": [
+    "path",
+    "authority_status",
+    "analysis_role",
+    "code",
+    "severity",
+    "blocks_final_run",
+    "message"
+  ],
+  "properties": {
+    "path": {"type": "string", "minLength": 1},
+    "authority_status": {
+      "enum": ["ACTIVE", "AUDIT_ONLY", "LEGACY_BLOCKED", "SUPERSEDED", "UNREGISTERED"]
+    },
+    "analysis_role": {"enum": ["main", "sensitivity", "audit", "historical", "unknown"]},
+    "code": {"type": "string", "minLength": 1},
+    "severity": {"enum": ["error", "warning"]},
+    "blocks_final_run": {"type": "boolean"},
+    "message": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

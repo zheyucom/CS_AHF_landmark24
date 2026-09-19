@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": {
+    "name": "MIMIC-IV",
+    "supported_versions": ["3.1"],
+    "version_policy": "fail_closed_outside_supported_versions"
+  },
+  "authority": {
+    "project_source": "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+    "design_record": "docs/superpowers/specs/2026-09-19-mimic-lab-pipeline-quality-gate-design.md",
+    "approved_on": "2026-09-19",
+    "promotion_policy": "proposed -> sourced -> fixture_added -> regression_tested -> active"
+  },
+  "availability_expression": "GREATEST(charttime, COALESCE(storetime, charttime))",
+  "rules": [
+    {
+      "rule_id": "lab-bun-blood-v1",
+      "concept": "bun",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 51006,
+          "label": "Urea Nitrogen",
+          "fluid": "Blood",
+          "category": "Chemistry",
+          "units": ["mg/dL"]
+        }
+      ],
+      "quarantine": [
+        {"itemid": 51104, "reason_code": "wrong_fluid_urine"},
+        {"itemid": 51045, "reason_code": "wrong_fluid_other_body_fluid"},
+        {"itemid": 50851, "reason_code": "wrong_fluid_ascites"},
+        {"itemid": 51804, "reason_code": "wrong_fluid_csf"},
+        {"itemid": 51825, "reason_code": "wrong_fluid_joint_fluid"},
+        {"itemid": 51842, "reason_code": "wrong_fluid_other_body_fluid"},
+        {"itemid": 51922, "reason_code": "wrong_fluid_pleural"},
+        {"itemid": 51951, "reason_code": "wrong_fluid_stool"}
+      ],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts/measurement",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    },
+    {
+      "rule_id": "lab-lactate-blood-gas-v1",
+      "concept": "lactate",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 50813,
+          "label": "Lactate",
+          "fluid": "Blood",
+          "category": "Blood Gas",
+          "units": ["mmol/L"]
+        }
+      ],
+      "quarantine": [],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts/measurement",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    },
+    {
+      "rule_id": "project-creatinine-blood-v1",
+      "concept": "creatinine",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 50912,
+          "label": "Creatinine",
+          "fluid": "Blood",
+          "category": "Chemistry",
+          "units": ["mg/dL"]
+        }
+      ],
+      "quarantine": [],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    },
+    {
+      "rule_id": "project-ph-blood-v1",
+      "concept": "ph",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 50820,
+          "label": "pH",
+          "fluid": "Blood",
+          "category": "Blood Gas",
+          "units": ["units"]
+        }
+      ],
+      "quarantine": [],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    },
+    {
+      "rule_id": "project-ntprobnp-blood-v1",
+      "concept": "ntprobnp",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 50963,
+          "label": "NTproBNP",
+          "fluid": "Blood",
+          "category": "Chemistry",
+          "units": ["pg/mL"]
+        }
+      ],
+      "quarantine": [],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    },
+    {
+      "rule_id": "project-troponin-t-blood-v1",
+      "concept": "troponin_t",
+      "status": "active",
+      "source_table": "mimiciv_hosp.labevents",
+      "allow": [
+        {
+          "itemid": 51003,
+          "label": "Troponin T",
+          "fluid": "Blood",
+          "category": "Chemistry",
+          "units": ["ng/mL"]
+        }
+      ],
+      "quarantine": [],
+      "evidence_sources": [
+        "project_control/MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.sql",
+        "https://physionet.org/content/mimiciv/3.1/"
+      ]
+    }
+  ]
+}
