@@ -16,6 +16,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SQL_PATH = PROJECT_ROOT / "sql_v3_3/bigquery/audits/118_audit_raw_lab_contract_phase_c_bq.sql"
 RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_lab_phase_c_bq.py"
+CAUSE_SQL_PATH = PROJECT_ROOT / "sql_v3_3/bigquery/audits/119_audit_raw_vs_derived_cause_phase_c_bq.sql"
+CAUSE_RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_raw_derived_cause_bq.py"
 RULE_PACK_PATH = PROJECT_ROOT / (
     "phase2_edit/bq_connectivity_update/skill_implementation/"
     "mimic-iv-data-cleaning/references/mimic-iv-lab-rules.json"
@@ -23,6 +25,9 @@ RULE_PACK_PATH = PROJECT_ROOT / (
 AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_phase_c_20260920"
 AUDIT_RUN_PATH = AUDIT_DIR / "run.json"
 AUDIT_AGGREGATE_PATH = AUDIT_DIR / "aggregate_qc.csv"
+CAUSE_AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_raw_derived_cause_20260920"
+CAUSE_RUN_PATH = CAUSE_AUDIT_DIR / "run.json"
+CAUSE_AGGREGATE_PATH = CAUSE_AUDIT_DIR / "aggregate_qc.csv"
 EXPECTED_HARD_GATE_CSV = """check_group,concept,reason_code,row_count
 hard_gate,all,active_dictionary_mismatch,0
 hard_gate,all,cohort_duplicate_stay_rows,0
@@ -48,6 +53,17 @@ def load_runner():
     spec = importlib.util.spec_from_file_location("mimic_lab_phase_c_bq", RUNNER_PATH)
     if spec is None or spec.loader is None:
         raise AssertionError("cannot load BigQuery Phase-C runner")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_module(path: Path, name: str):
+    if not path.is_file():
+        raise AssertionError(f"required implementation is missing: {path.relative_to(PROJECT_ROOT)}")
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise AssertionError(f"cannot load module: {path.relative_to(PROJECT_ROOT)}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -104,6 +120,44 @@ class BigQuerySqlContractTests(unittest.TestCase):
             2,
             "BigQuery cannot group these expressions only by the reason_code output alias",
         )
+
+    def test_cause_sql_is_aggregate_only_and_uses_registered_derived_keys(self):
+        sql = required_text(CAUSE_SQL_PATH)
+        compact = re.sub(r"\s+", " ", sql.lower())
+        for token in (
+            "physionet-data.mimiciv_3_1_derived.chemistry",
+            "physionet-data.mimiciv_3_1_derived.bg",
+            "specimen_id",
+            "charttime",
+            "late_result",
+            "censored_or_non_numeric",
+            "out_of_analysis_range",
+            "wrong_contract",
+            "duplicate_specimen_itemid",
+            "raw_only",
+            "derived_only",
+            "both_unequal",
+            "-- final_aggregate_output",
+        ):
+            self.assertIn(token, compact)
+        for itemid in (50813, 50912, 51006):
+            self.assertRegex(sql, rf"\b{itemid}\b")
+        self.assertNotRegex(compact, r"\bcreate\s+(?:temp\s+)?table\b")
+        self.assertNotRegex(compact, r"\bdrop\s+table\b")
+        final = compact.split("-- final_aggregate_output", 1)[1]
+        for identifier in ("subject_id", "hadm_id", "stay_id", "labevent_id", "specimen_id"):
+            self.assertNotRegex(final, rf"\b{identifier}\b")
+        for output in (
+            "check_group",
+            "concept",
+            "metric",
+            "cause_code",
+            "stay_count",
+            "event_count",
+            "mean_abs_diff",
+            "max_abs_diff",
+        ):
+            self.assertRegex(final, rf"\b{output}\b")
 
 
 class RunnerContractTests(unittest.TestCase):
@@ -206,6 +260,54 @@ class RunnerContractTests(unittest.TestCase):
         serialized = json.dumps(record).lower()
         for forbidden in ("token", "password", "secret", "user_email", "account"):
             self.assertNotIn(forbidden, serialized)
+
+    def test_cause_runner_fails_closed_on_missing_or_positive_gate(self):
+        cause = load_module(CAUSE_RUNNER_PATH, "mimic_raw_derived_cause_bq")
+        header = "check_group,concept,metric,cause_code,stay_count,event_count,mean_abs_diff,max_abs_diff\n"
+        gates = [
+            "hard_gate,all,contract,active_dictionary_mismatch,0,0,,",
+            "hard_gate,all,contract,cohort_duplicate_stay_rows,0,0,,",
+            "hard_gate,all,contract,cohort_invalid_boundary,0,0,,",
+            "hard_gate,all,contract,cohort_missing_key,0,0,,",
+            "hard_gate,all,contract,eligible_specimen_violation,0,0,,",
+            "hard_gate,all,contract,eligible_time_violation,0,0,,",
+            "hard_gate,all,contract,eligible_wrong_contract,0,0,,",
+            "hard_gate,all,contract,quarantine_dictionary_mismatch,0,0,,",
+            "hard_gate,bun,contract,bun_eligible_nonblood_or_wrong_item,0,0,,",
+        ]
+        passed = header + "\n".join(gates) + "\n"
+        self.assertEqual("passed_aggregate_qc", cause.classify_cause_csv(passed))
+        failed = passed.replace("eligible_time_violation,0,0", "eligible_time_violation,2,2")
+        self.assertEqual("failed_qc", cause.classify_cause_csv(failed))
+        with self.assertRaises(ValueError):
+            cause.classify_cause_csv(header + "\n".join(gates[:-1]) + "\n")
+
+    def test_cause_runner_has_no_personal_home_path(self):
+        source = required_text(CAUSE_RUNNER_PATH)
+        self.assertNotIn(str(Path.home()), source)
+
+    def test_cause_evidence_is_aggregate_only_and_sanitized(self):
+        record = json.loads(required_text(CAUSE_RUN_PATH))
+        aggregate_text = required_text(CAUSE_AGGREGATE_PATH)
+        reader = csv.DictReader(io.StringIO(aggregate_text))
+        self.assertEqual(
+            ["check_group", "concept", "metric", "cause_code", "stay_count", "event_count", "mean_abs_diff", "max_abs_diff"],
+            reader.fieldnames,
+        )
+        rows = list(reader)
+        self.assertEqual("passed_aggregate_qc", record["status"])
+        self.assertEqual(len(rows), record["aggregate_row_count"])
+        self.assertGreater(len(rows), 9)
+        hard_gates = [row for row in rows if row["check_group"] == "hard_gate"]
+        self.assertEqual(9, len(hard_gates))
+        self.assertTrue(all(int(row["stay_count"]) == 0 for row in hard_gates))
+        serialized = json.dumps(record).lower()
+        for forbidden in ("subject_id", "hadm_id", "stay_id", "labevent_id", "specimen_id", "user_email", "principal_subject"):
+            self.assertNotIn(forbidden, serialized)
+        # `duplicate_specimen_itemid` is a reason code, not an exported identifier column.
+        self.assertNotIn("subject_id", aggregate_text.lower())
+        self.assertNotIn("hadm_id", aggregate_text.lower())
+        self.assertNotIn("labevent_id", aggregate_text.lower())
 
 
 class EvidenceArtifactTests(unittest.TestCase):

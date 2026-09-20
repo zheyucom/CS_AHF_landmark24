@@ -4,15 +4,15 @@
 
 ## 结论
 
-- Git 跟踪 SQL：176 个。
-- 权威清单行：176 行。
+- Git 跟踪 SQL：177 个。
+- 权威清单行：177 行。
 - 阻断正式运行的问题：0 个。
-- 历史/审计风险记录：100 个（不代表已修复）。
+- 历史/审计风险记录：101 个（不代表已修复）。
 - 本扫描仅为静态检查；未连接数据库、未读取患者级数据。
 
 ## 权威状态
 
-- `AUDIT_ONLY`：39
+- `AUDIT_ONLY`：40
 - `LEGACY_BLOCKED`：136
 - `SUPERSEDED`：1
 
@@ -26,7 +26,7 @@
 - `LAB_LANDMARK_GATE_MISSING`：14
 - `LAB_SILENT_RANGE_NULL`：5
 - `LAB_SPECIMEN_CONTRACT_MISSING`：14
-- `LAB_UNIT_CONTRACT_MISSING`：14
+- `LAB_UNIT_CONTRACT_MISSING`：15
 
 ## 解释边界
 

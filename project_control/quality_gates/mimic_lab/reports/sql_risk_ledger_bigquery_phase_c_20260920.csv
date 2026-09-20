@@ -76,6 +76,7 @@ sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historic
 sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
 sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
 sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_3/bigquery/audits/119_audit_raw_vs_derived_cause_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
 sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
 sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
 sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
