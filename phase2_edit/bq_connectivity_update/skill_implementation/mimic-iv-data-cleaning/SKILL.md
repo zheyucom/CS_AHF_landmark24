@@ -17,9 +17,10 @@ Prevent silent semantic contamination and time leakage. Preserve raw provenance,
    ```
 
 3. Read `references/source-provenance.md` before changing a rule or claiming compatibility with a MIMIC release.
-4. Read `references/rule-schema.md` when proposing, promoting, or deprecating a rule.
-5. Read `references/evidence-policy.md` before learning from a paper, public pipeline, or general database-cleaning method.
-6. For SQL input, run the read-only scanner before manual review:
+4. Read `references/derived-reconciliation.md` when comparing raw `labevents` with official `chemistry`/`bg` or investigating max-value differences.
+5. Read `references/rule-schema.md` when proposing, promoting, or deprecating a rule.
+6. Read `references/evidence-policy.md` before learning from a paper, public pipeline, or general database-cleaning method.
+7. For SQL input, run the read-only scanner before manual review:
 
    ```bash
    python3 scripts/audit_mimic_sql.py path/to/query.sql

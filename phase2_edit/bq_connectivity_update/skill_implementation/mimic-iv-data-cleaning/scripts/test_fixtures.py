@@ -18,6 +18,7 @@ from pathlib import Path
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = SKILL_ROOT / "scripts"
 RULE_PACK = SKILL_ROOT / "references" / "mimic-iv-lab-rules.json"
+DERIVED_REFERENCE = SKILL_ROOT / "references" / "derived-reconciliation.md"
 
 
 def load_script(name: str):
@@ -78,6 +79,38 @@ class RulePackTests(unittest.TestCase):
             {51104, 51045, 50851, 51804, 51825, 51842, 51922, 51951}.issubset(quarantined),
             quarantined,
         )
+
+
+class DerivedReconciliationReferenceTests(unittest.TestCase):
+    def test_official_chemistry_and_bg_selection_is_pinned(self):
+        self.assertTrue(DERIVED_REFERENCE.is_file(), "derived reconciliation reference is missing")
+        text = DERIVED_REFERENCE.read_text(encoding="utf-8")
+        for token in (
+            "303d26c623dcc9c49cc0f204468d4acc2f063797",
+            "51006",
+            "0 < valuenum <= 300",
+            "50912",
+            "0 < valuenum <= 150",
+            "50813",
+            "valuenum <= 10000",
+            "50821",
+            "same `specimen_id`",
+            "GREATEST(charttime, COALESCE(storetime, charttime))",
+            "proposed",
+        ):
+            self.assertIn(token, text)
+
+    def test_project_findings_do_not_self_promote_to_filtering_rules(self):
+        text = DERIVED_REFERENCE.read_text(encoding="utf-8")
+        for token in (
+            "222/222",
+            "162/162",
+            "126/136",
+            "aggregate-only",
+            "不得据此自动删除",
+            "不得写成患者级事实",
+        ):
+            self.assertIn(token, text)
 
 
 class SqlAuditTests(unittest.TestCase):

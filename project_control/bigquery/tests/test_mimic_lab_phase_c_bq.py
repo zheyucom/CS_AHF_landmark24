@@ -18,6 +18,10 @@ SQL_PATH = PROJECT_ROOT / "sql_v3_3/bigquery/audits/118_audit_raw_lab_contract_p
 RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_lab_phase_c_bq.py"
 CAUSE_SQL_PATH = PROJECT_ROOT / "sql_v3_3/bigquery/audits/119_audit_raw_vs_derived_cause_phase_c_bq.sql"
 CAUSE_RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_raw_derived_cause_bq.py"
+UNEQUAL_SQL_PATH = PROJECT_ROOT / (
+    "sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql"
+)
+UNEQUAL_RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_raw_derived_unequal_bq.py"
 RULE_PACK_PATH = PROJECT_ROOT / (
     "phase2_edit/bq_connectivity_update/skill_implementation/"
     "mimic-iv-data-cleaning/references/mimic-iv-lab-rules.json"
@@ -28,6 +32,9 @@ AUDIT_AGGREGATE_PATH = AUDIT_DIR / "aggregate_qc.csv"
 CAUSE_AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_raw_derived_cause_20260920"
 CAUSE_RUN_PATH = CAUSE_AUDIT_DIR / "run.json"
 CAUSE_AGGREGATE_PATH = CAUSE_AUDIT_DIR / "aggregate_qc.csv"
+UNEQUAL_AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_raw_derived_unequal_20260920"
+UNEQUAL_RUN_PATH = UNEQUAL_AUDIT_DIR / "run.json"
+UNEQUAL_AGGREGATE_PATH = UNEQUAL_AUDIT_DIR / "aggregate_qc.csv"
 EXPECTED_HARD_GATE_CSV = """check_group,concept,reason_code,row_count
 hard_gate,all,active_dictionary_mismatch,0
 hard_gate,all,cohort_duplicate_stay_rows,0
@@ -154,6 +161,59 @@ class BigQuerySqlContractTests(unittest.TestCase):
             "cause_code",
             "stay_count",
             "event_count",
+            "mean_abs_diff",
+            "max_abs_diff",
+        ):
+            self.assertRegex(final, rf"\b{output}\b")
+
+    def test_unequal_sql_has_official_selection_and_complete_cause_contract(self):
+        sql = required_text(UNEQUAL_SQL_PATH)
+        compact = re.sub(r"\s+", " ", sql.lower())
+        for token in (
+            "physionet-data.mimiciv_3_1_derived.chemistry",
+            "physionet-data.mimiciv_3_1_derived.bg",
+            "greatest(le.charttime, coalesce(le.storetime, le.charttime))",
+            "derived_higher_matches_late_raw",
+            "derived_higher_matches_other_quarantine_raw",
+            "derived_higher_not_found_in_raw",
+            "raw_higher_lactate_specimen_missing_po2",
+            "raw_higher_specimen_absent_from_derived",
+            "raw_higher_derived_value_in_eligible_raw_set",
+            "raw_higher_unresolved",
+            "derived_higher_unresolved",
+            "precision_only",
+            "derived_max_in_eligible_raw_set",
+            "derived_max_in_late_raw_set",
+            "derived_max_in_any_raw_set",
+            "raw_max_in_derived_event_set",
+            "1e-9",
+            "-- final_aggregate_output",
+        ):
+            self.assertIn(token, compact)
+        for itemid in (50813, 50821, 50912, 51006):
+            self.assertRegex(sql, rf"\b{itemid}\b")
+        self.assertIn("on di.itemid = le.itemid", compact)
+        self.assertRegex(compact, r"valuenum\s*>\s*0[^;]+valuenum\s*<=\s*300")
+        self.assertRegex(compact, r"valuenum\s*>\s*0[^;]+valuenum\s*<=\s*150")
+        self.assertRegex(compact, r"valuenum\s*<=\s*10000")
+        feature_block = compact.split("unequal_features as", 1)[1].split(
+            "classified_unequal as", 1
+        )[0]
+        self.assertNotIn("exists (", feature_block)
+        self.assertNotRegex(compact, r"\bcreate\s+(?:temp\s+)?table\b")
+        self.assertNotRegex(compact, r"\bdrop\s+table\b")
+
+    def test_unequal_sql_final_projection_is_aggregate_only(self):
+        compact = re.sub(r"\s+", " ", required_text(UNEQUAL_SQL_PATH).lower())
+        final = compact.split("-- final_aggregate_output", 1)[1]
+        for identifier in ("subject_id", "hadm_id", "stay_id", "labevent_id", "specimen_id"):
+            self.assertNotRegex(final, rf"\b{identifier}\b")
+        for output in (
+            "check_group",
+            "concept",
+            "direction",
+            "cause_code",
+            "stay_count",
             "mean_abs_diff",
             "max_abs_diff",
         ):
@@ -309,6 +369,80 @@ class RunnerContractTests(unittest.TestCase):
         self.assertNotIn("hadm_id", aggregate_text.lower())
         self.assertNotIn("labevent_id", aggregate_text.lower())
 
+    def test_unequal_runner_requires_complete_gates_and_conservation(self):
+        unequal = load_module(UNEQUAL_RUNNER_PATH, "mimic_raw_derived_unequal_bq")
+        header = (
+            "check_group,concept,direction,cause_code,stay_count,"
+            "mean_abs_diff,max_abs_diff\n"
+        )
+        gates = [
+            "hard_gate,all,not_applicable,active_dictionary_mismatch,0,,",
+            "hard_gate,all,not_applicable,cohort_duplicate_stay_rows,0,,",
+            "hard_gate,all,not_applicable,cohort_invalid_boundary,0,,",
+            "hard_gate,all,not_applicable,cohort_missing_key,0,,",
+            "hard_gate,all,not_applicable,eligible_specimen_violation,0,,",
+            "hard_gate,all,not_applicable,eligible_time_violation,0,,",
+            "hard_gate,all,not_applicable,eligible_wrong_contract,0,,",
+            "hard_gate,all,not_applicable,quarantine_dictionary_mismatch,0,,",
+            "hard_gate,bun,not_applicable,bun_eligible_nonblood_or_wrong_item,0,,",
+        ]
+        cause_pairs = [
+            ("precision_only", "precision_only"),
+            ("derived_higher", "derived_higher_matches_late_raw"),
+            ("derived_higher", "derived_higher_matches_other_quarantine_raw"),
+            ("derived_higher", "derived_higher_not_found_in_raw"),
+            ("raw_higher", "raw_higher_lactate_specimen_missing_po2"),
+            ("raw_higher", "raw_higher_specimen_absent_from_derived"),
+            ("raw_higher", "raw_higher_derived_value_in_eligible_raw_set"),
+            ("raw_higher", "raw_higher_unresolved"),
+            ("derived_higher", "derived_higher_unresolved"),
+        ]
+        memberships = (
+            "derived_max_in_eligible_raw_set",
+            "derived_max_in_late_raw_set",
+            "derived_max_in_any_raw_set",
+            "raw_max_in_derived_event_set",
+        )
+        totals = {"bun": 222, "creatinine": 162, "lactate": 136}
+        rows = list(gates)
+        for concept, total in totals.items():
+            rows.append(f"reference_total,{concept},all,both_unequal,{total},1.0,5.0")
+            for direction, cause_code in cause_pairs:
+                count = total if cause_code == "raw_higher_unresolved" else 0
+                mean_diff = "1.0" if count else ""
+                max_diff = "5.0" if count else ""
+                rows.append(
+                    f"exclusive_cause,{concept},{direction},{cause_code},"
+                    f"{count},{mean_diff},{max_diff}"
+                )
+            for cause_code in memberships:
+                rows.append(f"membership,{concept},all,{cause_code},0,,")
+        passed = header + "\n".join(rows) + "\n"
+        self.assertEqual("passed_aggregate_qc", unequal.classify_unequal_csv(passed))
+        positive_gate = passed.replace(
+            "eligible_time_violation,0,,", "eligible_time_violation,2,,"
+        )
+        self.assertEqual("failed_qc", unequal.classify_unequal_csv(positive_gate))
+        with self.assertRaises(ValueError):
+            unequal.classify_unequal_csv(passed.replace(gates[0] + "\n", ""))
+        with self.assertRaises(ValueError):
+            unequal.classify_unequal_csv(
+                passed.replace(
+                    "exclusive_cause,bun,raw_higher,raw_higher_unresolved,222,1.0,5.0",
+                    "exclusive_cause,bun,raw_higher,raw_higher_unresolved,221,1.0,5.0",
+                )
+            )
+
+    def test_unequal_runner_and_manifest_have_no_final_run_authority(self):
+        source = required_text(UNEQUAL_RUNNER_PATH)
+        self.assertNotIn(str(Path.home()), source)
+        manifest = required_text(PROJECT_ROOT / "project_control/PIPELINE_AUTHORITY_MANIFEST.csv")
+        expected = (
+            "sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql,"
+            "audit,AUDIT_ONLY,audit,bigquery,,false,"
+        )
+        self.assertIn(expected, manifest)
+
 
 class EvidenceArtifactTests(unittest.TestCase):
     def test_committed_evidence_is_aggregate_only_sanitized_and_reproducible(self):
@@ -344,6 +478,81 @@ class EvidenceArtifactTests(unittest.TestCase):
             "principal_subject",
         ):
             self.assertNotIn(forbidden, serialized + aggregate_text.lower())
+        private_tables = [
+            table
+            for table in record["dry_run"]["referenced_tables"]
+            if not table.startswith("physionet-data.")
+        ]
+        self.assertEqual(
+            ["BILLING_PROJECT_REDACTED.ahf_work.dhf_lab_audit_cohort_snapshot_20260918"],
+            private_tables,
+        )
+
+    def test_unequal_evidence_is_sanitized_complete_and_conserved(self):
+        record = json.loads(required_text(UNEQUAL_RUN_PATH))
+        aggregate_text = required_text(UNEQUAL_AGGREGATE_PATH)
+        reader = csv.DictReader(io.StringIO(aggregate_text))
+        self.assertEqual(
+            [
+                "check_group",
+                "concept",
+                "direction",
+                "cause_code",
+                "stay_count",
+                "mean_abs_diff",
+                "max_abs_diff",
+            ],
+            reader.fieldnames,
+        )
+        rows = list(reader)
+        self.assertEqual("passed_aggregate_qc", record["status"])
+        self.assertEqual("aggregate_only_no_patient_export", record["scope"])
+        self.assertEqual(51, len(rows))
+        self.assertEqual(len(rows), record["aggregate_row_count"])
+
+        hard_gates = [row for row in rows if row["check_group"] == "hard_gate"]
+        self.assertEqual(9, len(hard_gates))
+        self.assertTrue(all(int(row["stay_count"]) == 0 for row in hard_gates))
+        references = {
+            row["concept"]: int(row["stay_count"])
+            for row in rows
+            if row["check_group"] == "reference_total"
+        }
+        self.assertEqual({"bun": 222, "creatinine": 162, "lactate": 136}, references)
+        exclusive_sums = {
+            concept: sum(
+                int(row["stay_count"])
+                for row in rows
+                if row["check_group"] == "exclusive_cause" and row["concept"] == concept
+            )
+            for concept in references
+        }
+        self.assertEqual(references, exclusive_sums)
+        positive_causes = {
+            (row["concept"], row["cause_code"]): int(row["stay_count"])
+            for row in rows
+            if row["check_group"] == "exclusive_cause" and int(row["stay_count"]) > 0
+        }
+        self.assertEqual(
+            {
+                ("bun", "derived_higher_matches_late_raw"): 222,
+                ("creatinine", "derived_higher_matches_late_raw"): 162,
+                ("lactate", "derived_higher_matches_late_raw"): 10,
+                ("lactate", "raw_higher_lactate_specimen_missing_po2"): 126,
+            },
+            positive_causes,
+        )
+        serialized = json.dumps(record).lower()
+        for forbidden in (
+            "subject_id",
+            "hadm_id",
+            "stay_id",
+            "labevent_id",
+            "specimen_id",
+            "user_email",
+            "principal_subject",
+        ):
+            self.assertNotIn(forbidden, serialized)
         private_tables = [
             table
             for table in record["dry_run"]["referenced_tables"]

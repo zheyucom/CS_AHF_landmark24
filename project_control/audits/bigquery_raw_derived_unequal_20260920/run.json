@@ -1,0 +1,22 @@
+{
+  "run_id": "mimic_raw_derived_unequal_20260920_01",
+  "status": "passed_aggregate_qc",
+  "mimic_release": "3.1",
+  "scope": "aggregate_only_no_patient_export",
+  "started_at_utc": "2026-09-20T07:53:00+00:00",
+  "finished_at_utc": "2026-09-20T07:53:15+00:00",
+  "sql_sha256": "e76b0d225770dbe8b4b4b663a192956e9f058bd695da215fe4e6f9b6ab69c1c5",
+  "rule_pack_sha256": "9f0fd0eca70dbd8e08ea3d17367b382154f9f961e817127443dfc9037aa1f720",
+  "dry_run": {
+    "total_bytes_processed": 9837904284,
+    "referenced_tables": [
+      "physionet-data.mimiciv_3_1_derived.bg",
+      "physionet-data.mimiciv_3_1_derived.chemistry",
+      "physionet-data.mimiciv_3_1_hosp.d_labitems",
+      "physionet-data.mimiciv_3_1_hosp.labevents",
+      "BILLING_PROJECT_REDACTED.ahf_work.dhf_lab_audit_cohort_snapshot_20260918"
+    ]
+  },
+  "query_exit_code": 0,
+  "aggregate_row_count": 51
+}
