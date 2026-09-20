@@ -44,6 +44,17 @@ REQUIRED_MANIFEST_FIELDS = {
 }
 FORMAL_LAB_KINDS = {"cohort", "phenotype", "outcome", "feature", "modeling"}
 
+_AVAILABILITY_OPERAND = (
+    r"(?:\b(?:\w+\.)?availability_time\b|"
+    r"greatest\s*\(\s*(?:\w+\.)?charttime\s*,\s*coalesce\s*\(\s*"
+    r"(?:\w+\.)?storetime\s*,\s*(?:\w+\.)?charttime\s*\)\s*\))"
+)
+_PRE_POST_CHART_SPLIT = re.compile(
+    r"case\s+when\s+(?:\w+\.)?charttime\s*<\s*(?:\w+\.)?"
+    r"(?P<landmark>(?:landmark\w*|t\d+\w*))\s+then\s+'pre[^']*'\s+"
+    r"else\s+'post[^']*'\s+end\s+as\s+\w+"
+)
+
 
 def finding(
     code: str,
@@ -244,6 +255,22 @@ def _normalized_sql(sql: str) -> str:
     return re.sub(r"\s+", " ", _strip_sql_comments(sql).lower()).strip()
 
 
+def _misaligned_pre_post_landmarks(normalized_sql: str) -> list[str]:
+    """Find charttime pre/post splits lacking both availability boundaries."""
+    landmarks = {
+        match.group("landmark")
+        for match in _PRE_POST_CHART_SPLIT.finditer(normalized_sql)
+    }
+    missing: list[str] = []
+    for landmark in sorted(landmarks):
+        target = rf"(?:\w+\.)?{re.escape(landmark)}\b"
+        has_pre = re.search(rf"{_AVAILABILITY_OPERAND}\s*<\s*{target}", normalized_sql)
+        has_post = re.search(rf"{_AVAILABILITY_OPERAND}\s*>=\s*{target}", normalized_sql)
+        if not (has_pre and has_post):
+            missing.append(landmark)
+    return missing
+
+
 def _contract_itemids(contract: Mapping[str, Any]) -> tuple[set[int], dict[int, str]]:
     allowed: set[int] = set()
     quarantined: dict[int, str] = {}
@@ -307,6 +334,9 @@ def scan_sql(
         results.append(finding(code, path, message, severity, hard))
 
     uses_raw = bool(re.search(r"\blabevents\b", normalized))
+    uses_lab_contract = bool(
+        re.search(r"\b(?:lab_eligible|lab_event_classified)(?:_v\d+)?\b", normalized)
+    )
     reusable_contract_layer = (
         Path(path).name == "060_create_raw_lab_contract_layer_v1.sql"
         and bool(
@@ -342,6 +372,14 @@ def scan_sql(
                 "LAB_SILENT_RANGE_NULL",
                 "范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。",
             )
+
+    misaligned_landmarks = _misaligned_pre_post_landmarks(normalized)
+    if (uses_raw or uses_lab_contract) and misaligned_landmarks:
+        add(
+            "LAB_WINDOW_ALIGNMENT_MISSING",
+            "charttime 的 landmark 前后分窗未同步约束 availability_time："
+            f"{misaligned_landmarks}；迟到的 pre 样本不得进入 pre 或重分类为 post。",
+        )
 
     if not uses_raw:
         return results

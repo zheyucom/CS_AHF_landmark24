@@ -24,6 +24,9 @@ python3 project_control/quality_gates/mimic_lab/quality_gate.py check \
 - ACTIVE 不能读取只由 blocked、superseded 或 audit-only SQL 生成的表。
 - 正式实验室工件不得使用 derived 表生成队列、表型、结局或特征。
 - raw `labevents` 必须显式实现 availability、unit、fluid、category 和 specimen 重复合同。
+- 通过 `charttime` 构造 landmark 前后实验室窗口时，sample time 与 availability time
+  必须分别位于同一侧；缺少任一 availability 边界即报
+  `LAB_WINDOW_ALIGNMENT_MISSING`。
 - 模糊 label/metadata 纳入、错误体液 itemid、未登记 itemid、缺失补零以及范围外值静默置 NULL 均会被识别。
 
 ## 权威边界

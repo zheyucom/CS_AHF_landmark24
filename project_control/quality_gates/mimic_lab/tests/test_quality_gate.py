@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 GATE_PATH = Path(__file__).resolve().parents[1] / "quality_gate.py"
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
 
 CONTRACT = {
     "rules": [
@@ -345,6 +346,58 @@ class SqlScannerTests(unittest.TestCase):
             if item["severity"] == "error"
         ]
         self.assertEqual([], errors)
+
+    def test_pre_post_charttime_split_requires_matching_availability_windows(self) -> None:
+        unsafe_sql = """
+        SELECT
+          CASE WHEN le.charttime < b.landmark12_time
+               THEN 'pre12' ELSE 'post12' END AS lab_window
+        FROM study_ahf_v3_3.lab_eligible_v1 le
+        JOIN study.base b USING (stay_id)
+        WHERE le.charttime >= b.intime
+          AND le.charttime < b.observed_until_time
+          AND le.availability_time >= b.intime
+          AND le.availability_time < b.observed_until_time
+        """
+        self.assertIn("LAB_WINDOW_ALIGNMENT_MISSING", self.codes(unsafe_sql))
+
+        aligned_sql = """
+        SELECT
+          CASE WHEN le.charttime < b.landmark12_time
+               THEN 'pre12' ELSE 'post12' END AS lab_window
+        FROM study_ahf_v3_3.lab_eligible_v1 le
+        JOIN study.base b USING (stay_id)
+        WHERE (
+                le.charttime < b.landmark12_time
+            AND le.availability_time < b.landmark12_time
+        ) OR (
+                le.charttime >= b.landmark12_time
+            AND le.availability_time >= b.landmark12_time
+        )
+        """
+        self.assertNotIn("LAB_WINDOW_ALIGNMENT_MISSING", self.codes(aligned_sql))
+
+    def test_window_alignment_gate_detects_historical_v2_and_accepts_v3(self) -> None:
+        legacy = manifest_row(
+            "sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql",
+            artifact_kind="outcome",
+            authority_status="SUPERSEDED",
+            analysis_role="historical",
+            allow_final_run="false",
+        )
+        v2 = (PROJECT_ROOT / legacy["path"]).read_text(encoding="utf-8")
+        v3_path = "sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v3.sql"
+        v3 = (PROJECT_ROOT / v3_path).read_text(encoding="utf-8")
+        v2_codes = {
+            item["code"]
+            for item in self.gate.scan_sql(legacy["path"], v2, legacy, CONTRACT)
+        }
+        v3_codes = {
+            item["code"]
+            for item in self.gate.scan_sql(v3_path, v3, legacy, CONTRACT)
+        }
+        self.assertIn("LAB_WINDOW_ALIGNMENT_MISSING", v2_codes)
+        self.assertNotIn("LAB_WINDOW_ALIGNMENT_MISSING", v3_codes)
 
 
 class DependencyTests(unittest.TestCase):

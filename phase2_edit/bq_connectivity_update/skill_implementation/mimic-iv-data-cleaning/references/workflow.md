@@ -62,6 +62,8 @@ same analysis window。T12 前采样但 T12 后才可用的结果属于迟到结
 must not be reclassified as a post-landmark sample，也不得进入 pre-landmark 特征。first/last
 按 `charttime, labevent_id` 确定性排序；delta 必须显式定义方向，例如
 `last - first`。可用时间决定资格，采样时间决定合格记录之间的生理顺序。
+静态扫描器以 `MIMIC010` 标记 charttime 前后分窗缺少 availability 双边界的 SQL；
+这是 fail-closed 预检，不替代对 CTE 数据流、边界开闭和临床时间定义的人工复核。
 
 在聚合前检查 `specimen_id × itemid`。若选择 first、last、min 或 max，记录选择服务于基线状态、最差状态、治疗反应还是其他预注册目标。
 

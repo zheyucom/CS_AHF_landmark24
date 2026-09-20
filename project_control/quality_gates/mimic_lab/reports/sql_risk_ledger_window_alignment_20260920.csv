@@ -1,0 +1,108 @@
+path,authority_status,analysis_role,code,severity,blocks_final_run,message
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_FUZZY_METADATA_SELECTION,warning,False,名称或元数据模糊匹配不能用于正式实验室纳入。
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+project_control/MIMIC_LABEVENTS_TRUNCATION_AUDIT_V1.sql,SUPERSEDED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3/audits/093_pre_t0_ahf_definition_audit.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3/executable/063A_create_candidate_hd_outcomes_overall.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3/recovered_original/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3/recovered_original/063A_create_candidate_hd_outcomes_overall.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3/recovered_original/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3/recovered_original/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_1/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_1/executable/063A_create_candidate_hd_outcomes_overall.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/audits/099_create_ahf_phenotype_audit.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/audits/114B_audit_raw_labevents_bg_window_summary.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/audits/114C_audit_raw_vs_derived_discordance.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/audits/114_audit_lab_time_window_feasibility.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_2/executable/063A_create_candidate_hd_outcomes_overall.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v3_2/modeling/090B_create_compact_predictors_v33.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_3/bigquery/audits/119_audit_raw_vs_derived_cause_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNREGISTERED_ITEMID,warning,False,查询引用未登记的实验室 itemid：[50821]。
+sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_UNREGISTERED_ITEMID,warning,False,"查询引用未登记的实验室 itemid：[50801, 50803, 50804, 50805, 50806, 50807, 50808, 50809, 50810, 50811, 50814, 50815, 50816, 50817, 50818, 50819, 50821, 50822, 50823, 50824, 50825, 52033]。"
+sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql,AUDIT_ONLY,audit,LAB_WRONG_FLUID_ITEMID,warning,False,查询引用已隔离的错误体液 itemid：[50851]。
+sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql,LEGACY_BLOCKED,historical,LAB_WINDOW_ALIGNMENT_MISSING,warning,False,charttime 的 landmark 前后分窗未同步约束 availability_time：['landmark12_time']；迟到的 pre 样本不得进入 pre 或重分类为 post。
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v4/executable/061A_create_ahf_evidence_table_12h.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v4/executable/063A_create_candidate_hd_outcomes_overall.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v4/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v4/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v4_2/audits/094A_audit_pre_t0_ahf_filter_flow.sql,AUDIT_ONLY,audit,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。
+sql_v4_2/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_DERIVED_FORMAL_SOURCE,warning,False,正式队列、表型、结局或特征不得直接由 derived 实验室表生成。
+sql_v4_2/executable/070E_create_labs_0_12h_features.sql,LEGACY_BLOCKED,historical,LAB_SILENT_RANGE_NULL,warning,False,范围外实验室值被 CASE ... ELSE NULL 静默删除；必须保留原值、标志和原因。
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_AVAILABILITY_MISSING,warning,False,"raw 实验室查询缺少 GREATEST(charttime, COALESCE(storetime, charttime)) 可用时间。"
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_CATEGORY_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 category 合同。
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_FLUID_CONTRACT_MISSING,warning,False,raw 实验室查询缺少精确 fluid 合同。
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_LANDMARK_GATE_MISSING,warning,False,raw 实验室查询未把 availability_time 与登记的 landmark/T12 比较。
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_SPECIMEN_CONTRACT_MISSING,warning,False,raw 实验室查询缺少 specimen_id × itemid 聚合前重复隔离。
+sql_v4_2/executable/093A_create_strict_pre_t0_ahf_only_cohort.sql,LEGACY_BLOCKED,historical,LAB_UNIT_CONTRACT_MISSING,warning,False,raw 实验室查询缺少单位 allowlist 与未知单位分流。

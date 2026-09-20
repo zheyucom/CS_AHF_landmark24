@@ -182,6 +182,53 @@ class SqlAuditTests(unittest.TestCase):
         )
         self.assertEqual([], [f for f in findings if f["severity"] == "error"], findings)
 
+    def test_pre_post_charttime_split_requires_matching_availability_windows(self):
+        unsafe = self.audit(
+            """
+            SELECT
+              CASE WHEN le.charttime < b.landmark12_time
+                   THEN 'pre12' ELSE 'post12' END AS lab_window
+            FROM study.lab_eligible_v1 le
+            JOIN study.base b USING (stay_id)
+            WHERE le.charttime >= b.intime
+              AND le.charttime < b.observed_until_time
+              AND le.availability_time >= b.intime
+              AND le.availability_time < b.observed_until_time
+            """
+        )
+        self.assertIn("MIMIC010", {finding["code"] for finding in unsafe}, unsafe)
+
+        aligned = self.audit(
+            """
+            SELECT
+              CASE WHEN le.charttime < b.landmark12_time
+                   THEN 'pre12' ELSE 'post12' END AS lab_window
+            FROM study.lab_eligible_v1 le
+            JOIN study.base b USING (stay_id)
+            WHERE (
+                    le.charttime < b.landmark12_time
+                AND le.availability_time < b.landmark12_time
+            ) OR (
+                    le.charttime >= b.landmark12_time
+                AND le.availability_time >= b.landmark12_time
+            )
+            """
+        )
+        self.assertNotIn("MIMIC010", {finding["code"] for finding in aligned}, aligned)
+
+    def test_bigquery_qualified_raw_labevents_window_split_is_in_scope(self):
+        findings = self.audit(
+            """
+            SELECT
+              CASE WHEN le.charttime < b.landmark12_time
+                   THEN 'pre12' ELSE 'post12' END AS lab_window
+            FROM `physionet-data.mimiciv_hosp.labevents` le
+            JOIN study.base b USING (hadm_id)
+            WHERE le.availability_time < b.observed_until_time
+            """
+        )
+        self.assertIn("MIMIC010", {finding["code"] for finding in findings}, findings)
+
     def test_non_lab_label_regex_is_outside_lab_audit_scope(self):
         findings = self.audit(
             """

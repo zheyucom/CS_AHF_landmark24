@@ -27,6 +27,8 @@ Prevent silent semantic contamination and time leakage. Preserve raw provenance,
    ```
 
 Treat scanner output as preflight evidence, not proof that SQL or clinical logic is correct.
+`MIMIC010` means a `charttime` pre/post-landmark split lacks one or both matching
+`availability_time` landmark boundaries and must be corrected before use.
 
 ## Required Workflow
 

@@ -14,6 +14,17 @@ from typing import Any, Iterable
 
 DEFAULT_RULE_PACK = Path(__file__).resolve().parents[1] / "references" / "mimic-iv-lab-rules.json"
 
+_AVAILABILITY_OPERAND = (
+    r"(?:\b(?:\w+\.)?availability_time\b|"
+    r"greatest\s*\(\s*(?:\w+\.)?charttime\s*,\s*coalesce\s*\(\s*"
+    r"(?:\w+\.)?storetime\s*,\s*(?:\w+\.)?charttime\s*\)\s*\))"
+)
+_PRE_POST_CHART_SPLIT = re.compile(
+    r"case\s+when\s+(?:\w+\.)?charttime\s*<\s*(?:\w+\.)?"
+    r"(?P<landmark>(?:landmark\w*|t\d+\w*))\s+then\s+'pre[^']*'\s+"
+    r"else\s+'post[^']*'\s+end\s+as\s+\w+"
+)
+
 
 def _finding(code: str, severity: str, message: str, action: str) -> dict[str, str]:
     return {"code": code, "severity": severity, "message": message, "action": action}
@@ -24,11 +35,35 @@ def _strip_sql_comments(sql: str) -> str:
     return re.sub(r"--[^\r\n]*", " ", without_blocks)
 
 
+def _misaligned_pre_post_landmarks(normalized_sql: str) -> list[str]:
+    """Find charttime pre/post splits lacking both availability boundaries."""
+    landmarks = {
+        match.group("landmark")
+        for match in _PRE_POST_CHART_SPLIT.finditer(normalized_sql)
+    }
+    missing: list[str] = []
+    for landmark in sorted(landmarks):
+        target = rf"(?:\w+\.)?{re.escape(landmark)}\b"
+        has_pre = re.search(rf"{_AVAILABILITY_OPERAND}\s*<\s*{target}", normalized_sql)
+        has_post = re.search(rf"{_AVAILABILITY_OPERAND}\s*>=\s*{target}", normalized_sql)
+        if not (has_pre and has_post):
+            missing.append(landmark)
+    return missing
+
+
 def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
     """Return deterministic static findings without executing or rewriting SQL."""
     normalized = re.sub(r"\s+", " ", _strip_sql_comments(sql).lower()).strip()
     findings: list[dict[str, str]] = []
-    uses_labevents = bool(re.search(r"\b(?:from|join)\s+(?:[\w`]+\.)?labevents\b", normalized))
+    uses_labevents = bool(
+        re.search(
+            r"\b(?:from|join)\s+`?(?:[\w-]+\.)*labevents\b`?",
+            normalized,
+        )
+    )
+    uses_lab_contract = bool(
+        re.search(r"\b(?:lab_eligible|lab_event_classified)(?:_v\d+)?\b", normalized)
+    )
     uses_fuzzy_label = bool(
         re.search(r"(?:regexp_contains|regexp_like|like)\s*\([^)]*(?:label|fluid|category)", normalized)
         or re.search(r"(?:label|fluid|category)[^;]{0,100}\blike\b", normalized)
@@ -85,6 +120,19 @@ def audit_sql(sql: str, rule_pack: dict[str, Any]) -> list[dict[str, str]]:
                 "error",
                 "实验室时间窗没有使用结果最早可用时间。",
                 "使用 GREATEST(charttime, COALESCE(storetime, charttime)) 与 landmark 比较，并保留原时间字段。",
+            )
+        )
+
+    misaligned_landmarks = _misaligned_pre_post_landmarks(normalized)
+    if (uses_labevents or uses_lab_contract) and misaligned_landmarks:
+        findings.append(
+            _finding(
+                "MIMIC010",
+                "error",
+                "charttime 的 landmark 前后分窗未同步约束 availability_time："
+                f"{misaligned_landmarks}。",
+                "对每个 landmark 同时要求 pre: sample/availability < landmark，"
+                "post: sample/availability >= landmark；迟到的 pre 样本不得重分类为 post。",
             )
         )
 
