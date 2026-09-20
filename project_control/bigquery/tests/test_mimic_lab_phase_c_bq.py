@@ -22,6 +22,10 @@ UNEQUAL_SQL_PATH = PROJECT_ROOT / (
     "sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql"
 )
 UNEQUAL_RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_raw_derived_unequal_bq.py"
+RAW_ONLY_SQL_PATH = PROJECT_ROOT / (
+    "sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql"
+)
+RAW_ONLY_RUNNER_PATH = PROJECT_ROOT / "project_control/bigquery/run_mimic_lactate_raw_only_bq.py"
 RULE_PACK_PATH = PROJECT_ROOT / (
     "phase2_edit/bq_connectivity_update/skill_implementation/"
     "mimic-iv-data-cleaning/references/mimic-iv-lab-rules.json"
@@ -35,6 +39,9 @@ CAUSE_AGGREGATE_PATH = CAUSE_AUDIT_DIR / "aggregate_qc.csv"
 UNEQUAL_AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_raw_derived_unequal_20260920"
 UNEQUAL_RUN_PATH = UNEQUAL_AUDIT_DIR / "run.json"
 UNEQUAL_AGGREGATE_PATH = UNEQUAL_AUDIT_DIR / "aggregate_qc.csv"
+RAW_ONLY_AUDIT_DIR = PROJECT_ROOT / "project_control/audits/bigquery_lactate_raw_only_20260920"
+RAW_ONLY_RUN_PATH = RAW_ONLY_AUDIT_DIR / "run.json"
+RAW_ONLY_AGGREGATE_PATH = RAW_ONLY_AUDIT_DIR / "aggregate_qc.csv"
 EXPECTED_HARD_GATE_CSV = """check_group,concept,reason_code,row_count
 hard_gate,all,active_dictionary_mismatch,0
 hard_gate,all,cohort_duplicate_stay_rows,0
@@ -216,6 +223,55 @@ class BigQuerySqlContractTests(unittest.TestCase):
             "stay_count",
             "mean_abs_diff",
             "max_abs_diff",
+        ):
+            self.assertRegex(final, rf"\b{output}\b")
+
+    def test_lactate_raw_only_sql_rebuilds_official_bg_selection(self):
+        sql = required_text(RAW_ONLY_SQL_PATH)
+        compact = re.sub(r"\s+", " ", sql.lower())
+        for token in (
+            "physionet-data.mimiciv_3_1_hosp.labevents",
+            "physionet-data.mimiciv_3_1_derived.bg",
+            "greatest(le.charttime, coalesce(le.storetime, le.charttime))",
+            "max(le.charttime)",
+            "no_lactate_specimen_has_po2",
+            "po2_present_all_lactate_values_outside_official_range",
+            "official_candidate_in_window_absent_from_public_bg",
+            "official_candidates_all_after_t12",
+            "raw_only_unresolved",
+            "raw_max_specimen_has_po2",
+            "any_lactate_specimen_has_po2",
+            "any_official_bg_candidate",
+            "official_candidate_charttime_in_window",
+            "official_candidate_charttime_after_t12",
+            "official_candidate_matches_public_bg_any_time",
+            "raw_only_public_bg_in_window_match",
+            "valuenum <= 10000",
+            "1e-9",
+            "-- final_aggregate_output",
+        ):
+            self.assertIn(token, compact)
+        for itemid in (
+            52033, 50801, 50802, 50803, 50804, 50805, 50806, 50807,
+            50808, 50809, 50810, 50811, 50813, 50814, 50815, 50816,
+            50817, 50818, 50819, 50820, 50821, 50822, 50823, 50824, 50825,
+        ):
+            self.assertRegex(sql, rf"\b{itemid}\b")
+        self.assertNotRegex(compact, r"\bcreate\s+(?:temp\s+)?table\b")
+        self.assertNotRegex(compact, r"\bdrop\s+table\b")
+
+    def test_lactate_raw_only_sql_final_projection_is_aggregate_only(self):
+        compact = re.sub(r"\s+", " ", required_text(RAW_ONLY_SQL_PATH).lower())
+        final = compact.split("-- final_aggregate_output", 1)[1]
+        for identifier in ("subject_id", "hadm_id", "stay_id", "labevent_id", "specimen_id"):
+            self.assertNotRegex(final, rf"\b{identifier}\b")
+        for output in (
+            "check_group",
+            "concept",
+            "cause_code",
+            "stay_count",
+            "mean_raw_max",
+            "max_raw_max",
         ):
             self.assertRegex(final, rf"\b{output}\b")
 
@@ -443,6 +499,71 @@ class RunnerContractTests(unittest.TestCase):
         )
         self.assertIn(expected, manifest)
 
+    def test_lactate_raw_only_runner_requires_gates_catalog_and_conservation(self):
+        raw_only = load_module(RAW_ONLY_RUNNER_PATH, "mimic_lactate_raw_only_bq")
+        header = "check_group,concept,cause_code,stay_count,mean_raw_max,max_raw_max\n"
+        gates = [
+            "hard_gate,all,active_dictionary_mismatch,0,,",
+            "hard_gate,all,cohort_duplicate_stay_rows,0,,",
+            "hard_gate,all,cohort_invalid_boundary,0,,",
+            "hard_gate,all,cohort_missing_key,0,,",
+            "hard_gate,all,eligible_specimen_violation,0,,",
+            "hard_gate,all,eligible_time_violation,0,,",
+            "hard_gate,all,eligible_wrong_contract,0,,",
+            "hard_gate,all,quarantine_dictionary_mismatch,0,,",
+            "hard_gate,bun,bun_eligible_nonblood_or_wrong_item,0,,",
+            "hard_gate,lactate,raw_only_public_bg_in_window_match,0,,",
+        ]
+        causes = (
+            "no_lactate_specimen_has_po2",
+            "po2_present_all_lactate_values_outside_official_range",
+            "official_candidate_in_window_absent_from_public_bg",
+            "official_candidates_all_after_t12",
+            "raw_only_unresolved",
+        )
+        memberships = (
+            "raw_max_specimen_has_po2",
+            "any_lactate_specimen_has_po2",
+            "any_official_bg_candidate",
+            "official_candidate_charttime_in_window",
+            "official_candidate_charttime_after_t12",
+            "official_candidate_matches_public_bg_any_time",
+        )
+        rows = list(gates)
+        rows.append("reference_total,lactate,raw_only,549,1.0,9.0")
+        for cause_code in causes:
+            count = 549 if cause_code == "raw_only_unresolved" else 0
+            mean_value = "1.0" if count else ""
+            max_value = "9.0" if count else ""
+            rows.append(
+                f"exclusive_cause,lactate,{cause_code},{count},{mean_value},{max_value}"
+            )
+        for cause_code in memberships:
+            rows.append(f"membership,lactate,{cause_code},0,,")
+        passed = header + "\n".join(rows) + "\n"
+        self.assertEqual("passed_aggregate_qc", raw_only.classify_raw_only_csv(passed))
+        positive_gate = passed.replace(
+            "raw_only_public_bg_in_window_match,0,,",
+            "raw_only_public_bg_in_window_match,1,,",
+        )
+        self.assertEqual("failed_qc", raw_only.classify_raw_only_csv(positive_gate))
+        with self.assertRaises(ValueError):
+            raw_only.classify_raw_only_csv(passed.replace(gates[0] + "\n", ""))
+        with self.assertRaises(ValueError):
+            raw_only.classify_raw_only_csv(
+                passed.replace("raw_only_unresolved,549,1.0,9.0", "raw_only_unresolved,548,1.0,9.0")
+            )
+
+    def test_lactate_raw_only_runner_and_manifest_are_audit_only(self):
+        source = required_text(RAW_ONLY_RUNNER_PATH)
+        self.assertNotIn(str(Path.home()), source)
+        manifest = required_text(PROJECT_ROOT / "project_control/PIPELINE_AUTHORITY_MANIFEST.csv")
+        expected = (
+            "sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql,"
+            "audit,AUDIT_ONLY,audit,bigquery,,false,"
+        )
+        self.assertIn(expected, manifest)
+
 
 class EvidenceArtifactTests(unittest.TestCase):
     def test_committed_evidence_is_aggregate_only_sanitized_and_reproducible(self):
@@ -542,6 +663,63 @@ class EvidenceArtifactTests(unittest.TestCase):
             },
             positive_causes,
         )
+        serialized = json.dumps(record).lower()
+        for forbidden in (
+            "subject_id",
+            "hadm_id",
+            "stay_id",
+            "labevent_id",
+            "specimen_id",
+            "user_email",
+            "principal_subject",
+        ):
+            self.assertNotIn(forbidden, serialized)
+        private_tables = [
+            table
+            for table in record["dry_run"]["referenced_tables"]
+            if not table.startswith("physionet-data.")
+        ]
+        self.assertEqual(
+            ["BILLING_PROJECT_REDACTED.ahf_work.dhf_lab_audit_cohort_snapshot_20260918"],
+            private_tables,
+        )
+
+    def test_lactate_raw_only_evidence_is_sanitized_complete_and_conserved(self):
+        record = json.loads(required_text(RAW_ONLY_RUN_PATH))
+        aggregate_text = required_text(RAW_ONLY_AGGREGATE_PATH)
+        reader = csv.DictReader(io.StringIO(aggregate_text))
+        self.assertEqual(
+            [
+                "check_group",
+                "concept",
+                "cause_code",
+                "stay_count",
+                "mean_raw_max",
+                "max_raw_max",
+            ],
+            reader.fieldnames,
+        )
+        rows = list(reader)
+        self.assertEqual("passed_aggregate_qc", record["status"])
+        self.assertEqual("aggregate_only_no_patient_export", record["scope"])
+        self.assertEqual(22, len(rows))
+        self.assertEqual(len(rows), record["aggregate_row_count"])
+        hard_gates = [row for row in rows if row["check_group"] == "hard_gate"]
+        self.assertEqual(10, len(hard_gates))
+        self.assertTrue(all(int(row["stay_count"]) == 0 for row in hard_gates))
+        reference = next(row for row in rows if row["check_group"] == "reference_total")
+        self.assertEqual(549, int(reference["stay_count"]))
+        exclusive = [row for row in rows if row["check_group"] == "exclusive_cause"]
+        self.assertEqual(549, sum(int(row["stay_count"]) for row in exclusive))
+        positive_causes = {
+            row["cause_code"]: int(row["stay_count"])
+            for row in exclusive
+            if int(row["stay_count"]) > 0
+        }
+        self.assertEqual({"no_lactate_specimen_has_po2": 549}, positive_causes)
+        memberships = [row for row in rows if row["check_group"] == "membership"]
+        self.assertEqual(6, len(memberships))
+        self.assertTrue(all(int(row["stay_count"]) == 0 for row in memberships))
         serialized = json.dumps(record).lower()
         for forbidden in (
             "subject_id",

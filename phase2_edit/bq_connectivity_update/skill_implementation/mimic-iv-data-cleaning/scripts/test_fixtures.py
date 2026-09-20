@@ -106,6 +106,8 @@ class DerivedReconciliationReferenceTests(unittest.TestCase):
             "222/222",
             "162/162",
             "126/136",
+            "549/549",
+            "raw-only",
             "aggregate-only",
             "不得据此自动删除",
             "不得写成患者级事实",

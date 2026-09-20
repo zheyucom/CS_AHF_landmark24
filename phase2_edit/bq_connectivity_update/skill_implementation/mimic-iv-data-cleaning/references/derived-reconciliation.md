@@ -33,11 +33,18 @@ snapshot found:
 - Lactate both-unequal: 126/136 were raw-higher maxima whose specimen lacked
   same-specimen PO2; 10/136 were derived-higher maxima explained by late raw
   availability.
+- Lactate raw-only: 549/549 stays had no non-null PO2 in any lactate
+  `specimen_id`; official-range, `MAX(charttime)` window-shift, public `bg`
+  mismatch and unresolved categories were all zero.
 
 These counts are a reproducible project finding, not a universal prevalence
 estimate and not a patient-level fact. Keep the rule `proposed`:不得据此自动删除
 raw rows, overwrite derived values, change a cohort, or promote a production
 filter. 不得写成患者级事实。
+
+Treat raw-only absence from `bg` as a selection difference, not as proof of
+contamination. Keep a contract-correct, on-time raw blood lactate eligible even
+when its specimen has no PO2; record derived absence during reconciliation.
 
 ## Reusable audit order
 
