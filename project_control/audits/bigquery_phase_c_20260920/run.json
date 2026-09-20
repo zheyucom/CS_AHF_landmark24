@@ -1,0 +1,20 @@
+{
+  "run_id": "bq_phase_c_20260920_live_01",
+  "status": "passed_aggregate_qc",
+  "mimic_release": "3.1",
+  "scope": "aggregate_only_no_patient_export",
+  "started_at_utc": "2026-09-20T02:09:37+00:00",
+  "finished_at_utc": "2026-09-20T02:09:44+00:00",
+  "sql_sha256": "c30fcb51e908995662e80da946122e1d00c0b6dec200cecb8a4a2140fb021106",
+  "rule_pack_sha256": "9f0fd0eca70dbd8e08ea3d17367b382154f9f961e817127443dfc9037aa1f720",
+  "dry_run": {
+    "total_bytes_processed": 10876276916,
+    "referenced_tables": [
+      "physionet-data.mimiciv_3_1_hosp.d_labitems",
+      "physionet-data.mimiciv_3_1_hosp.labevents",
+      "BILLING_PROJECT_REDACTED.ahf_work.dhf_lab_audit_cohort_snapshot_20260918"
+    ]
+  },
+  "query_exit_code": 0,
+  "aggregate_row_count": 81
+}

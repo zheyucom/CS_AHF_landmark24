@@ -136,6 +136,7 @@ sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql,outcome,LEG
 sql_v3_3/modeling/090B_create_compact_predictors_v34.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过，5555 行与建模 base 一致且 episode 多匹配为零；正式特征冻结未完成。,2026-09-19
 sql_v3_3/audits/116_audit_raw_lab_contract_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw 实验室合同硬门；只输出聚合 QC，不生成正式队列、特征或结局。,2026-09-19
 sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw-vs-derived 聚合差异与结构审计；结果仅供验证，不自动晋级正式路径。,2026-09-19
+sql_v3_3/bigquery/audits/118_audit_raw_lab_contract_phase_c_bq.sql,audit,AUDIT_ONLY,audit,bigquery,,false,BigQuery Phase-C cohort-scoped 实验室合同聚合审计；不输出患者标识且不自动晋级正式路径。,2026-09-20
 sql_v4/audits/092_audit_final_t0_cohort_definition.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/audits_091_audit_t0_ahf_earlysepsis_feasibility.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
