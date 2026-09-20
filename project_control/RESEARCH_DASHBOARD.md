@@ -1,6 +1,6 @@
 # DHF临床预测模型：任务总览
 
-更新：2026-09-19 CST。当前优先级：**按科学问题→时间轴→DHF表型→T12风险集→结局→模型验证的逻辑链，完成双库临床复核和终点可观察性核对，并完成 MIMIC 实验室正式主线重构，再冻结队列、变量与模型。** 工作簿仅用于漏项检查和复现性审计，不替换本项目的研究定义。
+更新：2026-09-20 CST。当前优先级：**按科学问题→时间轴→DHF表型→T12风险集→结局→模型验证的逻辑链，完成双库临床复核和终点可观察性核对，并完成 MIMIC 实验室正式主线重构，再冻结队列、变量与模型。** 工作簿仅用于漏项检查和复现性审计，不替换本项目的研究定义。
 
 ## 一句话状态
 
@@ -90,7 +90,8 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [院内时间审计](internal_validation/20260915_source_review/encounter_icu_time_audit.csv) / [原文证据链](internal_validation/20260915_source_review/time_gated_evidence.csv) / [1,024份证据摘要](internal_validation/20260915_source_review/case_evidence_digest.csv)
 - [MIMIC新300条临床复核包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round1_codex_draft.csv) / [独立60条盲法包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round2_blinded.csv)
 - [MIMIC完整主窗口审计](bigquery/landmark12_audit_20260904/DHF_MULTIDOMAIN_AUDIT_LANDMARK12_2026-09-04.md) / [MIMIC回连QC](bigquery/review_linkage_20260915/qc.json)
-- [最新实质任务报告](task_reports/TASK_REPORT_20260919_MIMIC_LAB_PIPELINE_PHASE_C.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
+- [最新实质任务报告](task_reports/TASK_REPORT_20260920_PROPOSAL_REPORT_REFRESH.md) / [MIMIC BigQuery 阶段 C](task_reports/TASK_REPORT_20260920_MIMIC_BIGQUERY_PHASE_C.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
+- [2026-09-20 新版开题报告及可编辑图示](../deliverables/opening_proposal_20260920/)
 - [院内变量字典](INTERNAL_DHF_VARIABLE_DICTIONARY_V1.csv) / [语义规则词典](DHF_SEMANTIC_RULE_DICTIONARY_V1.md) / [MIMIC实验室语义审计V2](MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.md) / [候选发现SQL](MIMIC_LABITEM_CANDIDATE_DISCOVERY_V1.sql) / [AI provenance](internal_validation/20260916_case_review/AI_REVIEW_PROVENANCE.json)
 
 
@@ -112,6 +113,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - 2026-09-19：完成 MIMIC 实验室流水线阶段 A 质量门；正式运行入口接入 fail-closed 预检，生成 167 行权威清单及 103 条历史/审计风险账本，未运行患者级数据库。
 - 2026-09-19：完成 MIMIC 实验室流水线阶段 B；新增 raw 合同层、NT-proBNP 三态阈值、乳酸结局与紧凑预测变量复制修订，生成 173 行权威清单及 100 条历史/审计风险账本；PostgreSQL 数据验证未运行，正式主线未解锁。
 - 2026-09-19：完成 MIMIC 实验室流水线阶段 C；PostgreSQL 全库合同层、12项硬门、NT-proBNP/乳酸下游、45变量及 raw-vs-derived 聚合审计均实际执行。修复063A历史字段重名；正式主线仍因完整依赖与研究定义未冻结而保持 fail-closed。
+- 2026-09-20：按当前研究逻辑链重写学校开题报告，更新 T0/T12/T60 时间轴与双库技术路线；候选分母、AI 预审核、实验室 QC 和历史模型均按边界表述，未改变正式研究定义或冻结状态。
 
 更新规则：总览只保留主线、可核验证据、当前阻塞和下一交付。最终论文人数、事件数和性能必须来自同一冻结run。
 
@@ -127,6 +129,8 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 涉及研究结论、队列、变量、结局、统计方法、数据处理、质量控制、模型运行或文件修改的实质任务，必须新增一份 `TASK_REPORT_YYYY-MM-DD_<TOPIC>.md`，并同步更新本总览的报告索引和更新日志。历史报告不得覆盖；结论变化必须写明“旧结论 → 新结论 → 修正原因”。
 
 本轮新增报告：
+
+- [开题报告按当前研究主线重写与图示更新（2026-09-20）](task_reports/TASK_REPORT_20260920_PROPOSAL_REPORT_REFRESH.md)
 
 - [变量筛选与 Prompt 审计（2026-09-17）](task_reports/TASK_REPORT_20260917_VARIABLE_SELECTION_PROMPT_AUDIT.md)
 - [任务报告机制与文件整理（2026-09-17）](task_reports/TASK_REPORT_20260917_REPORTING_WORKFLOW.md)
