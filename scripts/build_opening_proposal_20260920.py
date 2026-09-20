@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 import shutil
 from pathlib import Path
 from textwrap import wrap
@@ -26,13 +27,15 @@ from pptx.util import Cm as PptxCm, Pt as PptxPt
 
 
 ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = ROOT.parent
+DELIVERY_DIR = PROJECT_ROOT / "deliverables" / "opening_proposal_20260920"
 TEMPLATE = Path(os.environ.get(
     "PROPOSAL_TEMPLATE",
-    "/workspace/inbox/开题报告_心衰新发心源性休克预测模型_占舒羽_3.25.docx",
+    str(DELIVERY_DIR / "开题报告_ICU失代偿性心力衰竭患者早期血流动力学恶化或死亡预测模型_占舒羽_9.20.docx"),
 ))
-OUT_DIR = ROOT / "output"
+OUT_DIR = DELIVERY_DIR
 ASSET_DIR = OUT_DIR / "figure_assets"
-REPORT_NAME = "开题报告_ICU失代偿性心力衰竭患者早期血流动力学恶化或死亡预测模型_占舒羽_9.20.docx"
+REPORT_NAME = "开题报告_ICU失代偿性心力衰竭患者早期血流动力学恶化或死亡预测模型_占舒羽_9.20_精修版.docx"
 REPORT_PATH = OUT_DIR / REPORT_NAME
 PPTX_PATH = OUT_DIR / "开题报告图示_可编辑源文件_占舒羽_20260920.pptx"
 
@@ -59,6 +62,8 @@ COLORS = {
     "grey_line": "#CBD5DF",
     "white": "#FFFFFF",
 }
+
+CITATION_TOKEN_RE = re.compile(r"(\[\d+(?:\s*[,，–-]\s*\d+)*\])")
 
 
 def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -450,6 +455,19 @@ def apply_run_style(run, size=12, bold=False, italic=False, color=None, underlin
         run.font.underline = underline
 
 
+def add_styled_text(paragraph, text, *, size=12, bold=False, color=None,
+                    superscript_citations=True):
+    """Add text while making only numeric citation tokens true Word superscripts."""
+    parts = CITATION_TOKEN_RE.split(text) if superscript_citations else [text]
+    for part in parts:
+        if not part:
+            continue
+        run = paragraph.add_run(part)
+        apply_run_style(run, size=size, bold=bold, color=color)
+        if superscript_citations and CITATION_TOKEN_RE.fullmatch(part):
+            run.font.superscript = True
+
+
 def format_paragraph(p, *, first_line=True, line=1.5, after=4, before=0, align=WD_ALIGN_PARAGRAPH.JUSTIFY, keep=False):
     p.alignment = align
     pf = p.paragraph_format
@@ -461,10 +479,17 @@ def format_paragraph(p, *, first_line=True, line=1.5, after=4, before=0, align=W
 
 
 def add_paragraph(doc, text, size=12, bold=False, first_line=True, line=1.5, after=4, before=0,
-                  align=WD_ALIGN_PARAGRAPH.JUSTIFY, style="Normal", keep=False, color=None):
+                  align=WD_ALIGN_PARAGRAPH.JUSTIFY, style="Normal", keep=False, color=None,
+                  superscript_citations=True):
     p = doc.add_paragraph(style=style)
-    r = p.add_run(text)
-    apply_run_style(r, size=size, bold=bold, color=color)
+    add_styled_text(
+        p,
+        text,
+        size=size,
+        bold=bold,
+        color=color,
+        superscript_citations=superscript_citations,
+    )
     format_paragraph(p, first_line=first_line, line=line, after=after, before=before, align=align, keep=keep)
     return p
 
@@ -483,8 +508,7 @@ def add_numbered(doc, label, text):
     p = doc.add_paragraph(style="Normal")
     r = p.add_run(label)
     apply_run_style(r, 12, True)
-    r = p.add_run(text)
-    apply_run_style(r, 12, False)
+    add_styled_text(p, text, size=12, bold=False, superscript_citations=True)
     format_paragraph(p, first_line=False, line=1.5, after=4, align=WD_ALIGN_PARAGRAPH.JUSTIFY)
     return p
 
@@ -512,8 +536,8 @@ def add_progress_table(doc):
         ("院内证据整合", "284,049 条去重证据、20,025 条目标医嘱；3,720 人有同窗 BNP，6,432/8,385 有同窗可解析乳酸", "覆盖率与工作量审计，不是阳性率或结局结果"),
         ("院内病例复核", "形成 235 例优先队列、91 例 T12 观察链、42 例 HF 锚点队列；36 份空模板剔除、1 份矛盾文书隔离", "工作清单及 AI 预审仍待临床裁决"),
         ("MIMIC 影像", "主窗口 7,828/7,828 份报告完成导出与对账，涉及 3,886 个有报告 stay；建立 300 条 round 1 和 60 条盲法 round 2 标注包", "300 条尚待临床人工最终确认"),
-        ("实验室数据合同", "PostgreSQL 全库 37,778,198 条 classified、37,732,919 条 eligible；45,279 条错误体液/反向时间/未知单位记录隔离，12 个硬门通过", "数据清洗 QC，不代表正式队列、事件或模型结果"),
-        ("跨平台复核", "固定 5,549-stay 审计快照完成 BigQuery 聚合复核；14 个概念、9 个硬门通过，91/91 项回归与静态门通过", "审计 SQL 仍为 AUDIT_ONLY，allow_final_run=false"),
+        ("实验室数据合同", "PostgreSQL 全库 37,778,198 条 classified、37,732,919 条 eligible；45,279 条错误体液/反向时间/未知单位记录隔离，12 个硬门通过；建立 29 项实验室特征来源矩阵", "raw 合同层为主源、derived 仅用于对账；这些均是数据清洗 QC"),
+        ("时间窗与自动质量门", "063A v3 已修复 sample/availability 同窗错位；项目与可分发 skill 全量回归 120/120，SQL/manifest 登记与扫描 181/181，107 条历史/审计 finding、0 blocker", "均为内部 QC，不是最终队列、事件或论文结果；allow_final_run=false"),
         ("模型状态", "旧模型与历史宽口径运行仅证明代码和流程可执行", "正式 Fine–Gray、内部验证与本院外部验证均未运行/未冻结"),
     ]
     table = doc.add_table(rows=1, cols=3)
@@ -550,11 +574,11 @@ def add_progress_table(doc):
 
 def remove_old_body(doc):
     body = doc._element.body
-    keep = {id(p._p) for p in doc.paragraphs[:10]}
+    keep = {p._p for p in doc.paragraphs[:10]}
     for child in list(body):
         if child.tag == qn("w:sectPr"):
             continue
-        if id(child) not in keep:
+        if child not in keep:
             body.remove(child)
 
 
@@ -589,13 +613,18 @@ def add_body_content(doc):
     add_main_heading(doc, "1. 课题来源：导师研究课题的一部分")
     add_main_heading(doc, "2. 课题的研究意义、国内外研究现状分析")
     add_subheading(doc, "2.1 课题的研究意义")
-    add_paragraph(doc, "失代偿性心力衰竭（decompensated heart failure，DHF）患者进入重症监护病房后，循环状态、容量负荷与器官灌注可在短时间内快速变化。临床团队需要在完成初始评估和治疗后，识别未来数十小时内可能需要循环支持升级或发生死亡的高风险患者。既有心源性休克分期和心衰相关休克共识强调早期识别与重复评估，但休克是动态临床状态，单一诊断编码、血压阈值、利钠肽或一次心超均不足以重建其发生过程。[1,2,6,7]")
-    add_paragraph(doc, "本研究将预测时点设置为 index ICU 实际入科后 12 h（T12）：一方面，前 12 h 已累积生命体征、实验室、治疗和支持信息；另一方面，仍保留随后 48 h 的临床干预窗口。主要预测对象不是狭义或经人工确诊的心源性休克，而是预设的治疗升级相关 ICU 血流动力学恶化或 ICU 内死亡；同时把活着离开 index ICU 作为竞争事件。该设定更贴近 ICU 风险管理，也可避免把已离开 ICU 的患者简单视为与持续留在 ICU 者具有相同观察机会。")
-    add_paragraph(doc, "研究采用“公共数据库开发与内部验证—锁定模型—单中心外部验证”的路径。MIMIC-IV 提供可复现的重症电子病历数据，本院资料可检验模型在不同检查选择、时间记录和临床流程下的可迁移性。[8,9] 若研究顺利完成，可形成一套边界清晰、可审计并能够进一步转化为院内早期风险提示的预测框架。")
+    add_paragraph(doc, "心力衰竭是由症状、体征及心脏结构或功能异常共同界定的临床综合征，不能由单一诊断编码或单项检查替代。[1] ESC 指南进一步强调，利钠肽、心脏影像和临床充血证据需要结合具体场景综合解释。[2] 因而，在常规电子病历中识别失代偿性心力衰竭（decompensated heart failure，DHF），首先需要建立可追溯的多域表型，而不是把 BNP 升高、一次心超异常或利尿剂医嘱直接等同于本次失代偿。")
+    add_paragraph(doc, "DHF 患者进入重症监护病房后，循环状态、容量负荷和器官灌注可能继续演变。SCAI SHOCK 分期把休克视为可随时间进展或缓解的动态状态，并强调连续复评。[6] 针对心衰相关心源性休克的 ISHLT 共识同样强调早期识别、表型差异和分层管理。[7] 因此，临床上真正需要回答的不是患者是否曾被写入“休克”编码，而是在完成初始评估与治疗后，谁仍可能在随后数十小时内发生循环支持升级或死亡。")
+    add_paragraph(doc, "本研究预设 index ICU 实际入科后 12 h 为预测时点（T12）。前 12 h 用于形成可得的生命体征、实验室及支持治疗基线，T12 后保留最多 48 h 的风险观察窗。主要预测对象定义为治疗升级相关 ICU 血流动力学恶化或 ICU 内死亡，而不是把所有病例强行归入狭义心源性休克。活着离开 index ICU 会终止后续 ICU 内事件的观察机会，因此作为竞争事件处理；Fine–Gray 模型可直接估计存在竞争事件时目标事件的累积发生风险。[12]")
+    add_paragraph(doc, "MIMIC-IV 提供具有时间戳和多域临床信息的公开去标识化重症数据库，可支持透明、可重复的模型开发与内部验证。[8] RECORD 声明要求基于常规医疗数据的研究清楚报告人群选择、数据链接、编码和清洗过程。[9] 本研究再以本院队列开展锁模后外部验证，用于检验不同检查选择、时间记录和临床流程下的可迁移性；开发与验证的透明报告遵循 TRIPOD+AI，[13] 偏倚和适用性审查依据 PROBAST+AI。[14] 若研究顺利完成，可形成一套边界清晰、可审计并可进一步评估院内转化价值的早期风险预测框架。")
     add_subheading(doc, "2.2 国内外研究现状")
-    add_paragraph(doc, "既往研究已经证明，利用早期电子病历信息预测心源性休克或心衰恶化具有可行性。Hu 等在心脏 ICU 混合人群中使用经医师裁决的 onset 时间开发动态休克风险评分；Beer 等前瞻性分析急性心衰患者从病情加重至休克的危险因素；Rahman 等则探索了急性失代偿性心衰住院期间的实时风险监测。[3–5] 这些工作提示，时间更新的生理、实验室和治疗信号能够在临床明确恶化前提供风险信息。")
-    add_paragraph(doc, "然而，现有证据仍存在三方面不足。第一，研究对象常为急性冠脉综合征、心脏 ICU 混合人群或宽口径心衰住院患者，DHF 操作性表型、index ICU episode 与预测时点之间的关系未必清楚。第二，不少研究采用死亡、广义 worsening heart failure 或固定二分类结局，未充分处理活着出 ICU 对后续 ICU 事件观察的竞争作用。第三，文本否定、不确定陈述、检查选择性、结果报告延迟、医嘱与真实执行差异等常规医疗数据误差，可能导致错纳、时间泄漏和外部验证口径不一致。[9–14]")
-    add_paragraph(doc, "本课题据此将科学问题拆解为连续六步：候选分母、ICU 时间轴、DHF 多域表型、T12 风险集、三态结局和预测验证。每一步只使用前一步输出，最终性能不能反向修改人群、时间窗、变量或阈值。文本处理借鉴 NegEx 的局部否定和 CheXpert 的不确定标签思想，但本研究的中文规则与 AI 预审核均须以独立临床参照校准，不能自称已验证诊断工具。[10,11]")
+    add_paragraph(doc, "Hu 等基于 MIMIC-III 中急性失代偿性心衰和/或心肌梗死的心脏 ICU 患者，以医师裁决的心源性或混合性休克为结局开发动态风险评分，并在另一心脏 ICU 队列进行外部验证。[3]")
+    add_paragraph(doc, "Beer 等采用单中心前瞻性急性心衰队列，分别考察 worsening heart failure 和新发心源性休克，提示肾功能、三尖瓣反流及 pro-adrenomedullin 等信息与住院期恶化相关。[4]")
+    add_paragraph(doc, "Rahman 等在大规模急性失代偿性心衰住院人群中，利用常规生命体征、实验室和用药记录持续更新风险，证明模型能够在临床团队诊断休克之前识别部分高风险患者。[5]")
+    add_paragraph(doc, "上述研究支持使用时间更新的临床信息进行早期预警，但研究对象分别覆盖心脏 ICU 混合人群、单中心急性心衰队列和宽口径住院心衰人群，结局也包括医师裁决休克、worsening heart failure 或新发休克。因此，其人群、起始时间和结局定义不能未经重建就直接移植到成人 index ICU 的 DHF 预测问题。")
+    add_paragraph(doc, "常规医疗数据研究还存在可追溯性和测量误差问题。RECORD 要求明确报告数据来源、人群选择算法、链接和清洗过程。[9] NegEx 说明否定范围会改变临床概念的阳性判定，[10] CheXpert 则展示了影像报告中阳性、阴性和不确定标签需要分开处理。[11] 本研究仅借鉴这些思想；中文规则与 AI 预审核仍需独立临床参照校准，不能自称已验证诊断工具。")
+    add_paragraph(doc, "在统计设计上，活着离开 ICU 会改变后续 ICU 内恶化或死亡的可观察机会，因而本研究以竞争风险框架估计累积发生风险。[12] 在报告和质量评价上，TRIPOD+AI 要求透明说明参与者、预测器、结局、开发和验证过程，[13] PROBAST+AI 则重点审查选择、预测器测量、结局测量及分析偏倚。[14]")
+    add_paragraph(doc, "基于上述差距，本课题将科学问题依次拆解为候选分母、ICU 时间轴、DHF 多域表型、T12 风险集、三态结局和预测验证。每一步只使用前一步输出，最终模型性能不能反向修改人群、时间窗、变量或阈值。")
 
     add_main_heading(doc, "3. 主要参考文献")
     references = [
@@ -619,7 +648,16 @@ def add_body_content(doc):
         "[18] Steyerberg EW. Clinical Prediction Models. 2nd ed. Cham: Springer; 2019.",
     ]
     for ref in references:
-        add_paragraph(doc, ref, size=10.5, first_line=False, line=1.2, after=1.5, align=WD_ALIGN_PARAGRAPH.LEFT)
+        add_paragraph(
+            doc,
+            ref,
+            size=10.5,
+            first_line=False,
+            line=1.2,
+            after=1.5,
+            align=WD_ALIGN_PARAGRAPH.LEFT,
+            superscript_citations=False,
+        )
 
     add_main_heading(doc, "（二）研究方案")
     add_main_heading(doc, "1. 研究目标、内容和拟解决的关键问题")
@@ -702,7 +740,7 @@ def add_body_content(doc):
     add_numbered(doc, "⑤ AI 使用边界可审计：", "AI 用于证据预审核和工作排序，保留原文锚点与 provenance，不把 AI 自我一致性写成临床金标准或独立阅片性能。")
 
     add_main_heading(doc, "4. 研究计划及预计进展")
-    add_numbered(doc, "前期基础（截至 2026.09.20）：", "完成研究问题重构、双库角色与 T0/T12/T60 时间轴确定、DHF 操作性表型和统计方案、院内候选时间门控、MIMIC 主窗口影像导出、实验室数据合同及 PostgreSQL/BigQuery 聚合 QC。正式队列、三态结局和模型尚未冻结。")
+    add_numbered(doc, "前期基础（截至 2026.09.20）：", "完成研究问题重构、双库角色与 T0/T12/T60 时间轴确定、DHF 操作性表型和统计方案、院内候选时间门控、MIMIC 主窗口影像导出、实验室数据合同及 PostgreSQL/BigQuery 聚合 QC；建立 29 项实验室特征来源矩阵，并以 063A v3 修复 sample/availability 同窗错位。项目与可分发 skill 全量回归 120/120，SQL/manifest 登记与扫描 181/181，现有 107 条历史/审计 finding、0 blocker；这些数字均为内部 QC。正式队列、三态结局和模型尚未冻结。")
     add_numbered(doc, "第一阶段（2026.09–2026.10）：", "完成 MIMIC 300 条临床确认及必要的 60 条第二标注者盲法复核；完成院内优先病例、T12 观察链、HF 锚点与规则阴性抽样裁决；冻结双库 DHF 表型。")
     add_numbered(doc, "第二阶段（2026.10–2026.11）：", "冻结 T12 风险集、三态结局与紧凑候选变量；完成事件数和模型复杂度评估，运行 Fine–Gray 开发与严格内部验证。")
     add_numbered(doc, "第三阶段（2026.11–2026.12）：", "完成 1 h person-period、缺失/时间/表型/结局敏感性分析；封存模型并在本院进行原样外部验证和适用性评估。")
@@ -723,7 +761,7 @@ def add_body_content(doc):
     add_numbered(doc, "④ 双库衔接基础：", "已完成院内成人候选的初步整合、时间门控和病例复核工作台，并提前识别心超选择、报告时间和医嘱代理对外部验证的影响。")
 
     add_subheading(doc, "1.2 与本项目相关的前期研究结果")
-    add_paragraph(doc, "截至 2026-09-20，前期工作已完成双库候选分母和数据源的首轮核对，形成 MIMIC 影像标注包、院内证据链与病例复核清单；实验室 raw 合同已在 PostgreSQL 全库和 BigQuery 固定审计快照上通过聚合质量门。上述成果证明数据路径、时间审计和清洗规则可执行，并揭示了 T12 后才可用结果、错误体液和 episode 错配等潜在偏倚来源。")
+    add_paragraph(doc, "截至 2026-09-20，前期工作已完成双库候选分母和数据源的首轮核对，形成 MIMIC 影像标注包、院内证据链与病例复核清单；实验室 raw 合同已在 PostgreSQL 全库和 BigQuery 固定审计快照上通过聚合质量门。进一步建立了 29 项实验室特征来源矩阵，以 raw 合同层为主源、derived 仅用于对账；063A v3 已修复乳酸 sample/availability 分窗不一致造成的潜在 landmark 信息泄漏。项目与可分发 skill 全量回归为 120/120，SQL/manifest 登记与扫描为 181/181，现有 107 条历史/审计 finding、0 blocker。")
     add_paragraph(doc, "这些数字均属于候选分母、数据覆盖或质量控制。最终 DHF 人数、T12 风险集、三态结局、模型系数与性能必须来自同一冻结运行；当前 AI 预审核不是临床金标准，旧模型不是正式结果。该边界已写入项目复现合同和正式运行门控。")
 
     add_main_heading(doc, "2. 已具备的实验、资料等条件，尚缺少的条件和拟解决途径")

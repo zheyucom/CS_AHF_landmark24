@@ -93,7 +93,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [MIMIC新300条临床复核包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round1_codex_draft.csv) / [独立60条盲法包](bigquery/controlled_annotation_20260904_landmark12_complete_v2/dhf_radiology_annotation_round2_blinded.csv)
 - [MIMIC完整主窗口审计](bigquery/landmark12_audit_20260904/DHF_MULTIDOMAIN_AUDIT_LANDMARK12_2026-09-04.md) / [MIMIC回连QC](bigquery/review_linkage_20260915/qc.json)
 - [最新实质任务报告](task_reports/TASK_REPORT_20260920_MIMIC_LAB_WINDOW_ALIGNMENT_GATE.md) / [实验室特征来源与时间合同](task_reports/TASK_REPORT_2026-09-20_MIMIC_LAB_FEATURE_SOURCE_CONTRACT.md) / [MIMIC BigQuery 阶段 C](task_reports/TASK_REPORT_20260920_MIMIC_BIGQUERY_PHASE_C.md) / [MIMIC来源登记](MIMIC_DHF_SOURCE_COVERAGE_LEDGER_20260916.md) / [旧总览归档](reports/RESEARCH_DASHBOARD_ARCHIVE_20260915_BEFORE_SIMPLIFICATION.md)
-- [2026-09-20 新版开题报告及可编辑图示](../deliverables/opening_proposal_20260920/)
+- [2026-09-20 新版开题报告及可编辑图示](../deliverables/opening_proposal_20260920/)；精修版已完成逐论断引文、Word 上标与最新内部 QC 进展同步，原版未覆盖。
 - [院内变量字典](INTERNAL_DHF_VARIABLE_DICTIONARY_V1.csv) / [语义规则词典](DHF_SEMANTIC_RULE_DICTIONARY_V1.md) / [MIMIC实验室语义审计V2](MIMIC_LABEVENTS_SEMANTIC_AUDIT_V2.md) / [候选发现SQL](MIMIC_LABITEM_CANDIDATE_DISCOVERY_V1.sql) / [AI provenance](internal_validation/20260916_case_review/AI_REVIEW_PROVENANCE.json)
 
 
@@ -118,6 +118,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - 2026-09-20：按当前研究逻辑链重写学校开题报告，更新 T0/T12/T60 时间轴与双库技术路线；候选分母、AI 预审核、实验室 QC 和历史模型均按边界表述，未改变正式研究定义或冻结状态。
 - 2026-09-20：建立 29 行实验室特征来源矩阵；新增 063A v3 和 122 聚合审计，修复 pre-T12 乳酸采样时间与可用时间不在同窗的泄漏风险；事务回滚验证后仍保持正式运行阻断。
 - 2026-09-20：新增 landmark 实验室窗口自动对齐规则 `MIMIC010` / `LAB_WINDOW_ALIGNMENT_MISSING`；真实 v2 触发、v3 通过，全库 181 SQL 扫描无 blocker，并同步更新本机 MIMIC cleaning skill。
+- 2026-09-20：精修开题报告 `2.1/2.2` 的证据对应关系，Hu、Beer、Rahman 分别引用；全文正文数字引文改为 Word 上标，参考文献编号保持基线；同步 29 项来源矩阵、063A v3、120/120 和 181/181 内部 QC 状态，未覆盖原版。
 
 更新规则：总览只保留主线、可核验证据、当前阻塞和下一交付。最终论文人数、事件数和性能必须来自同一冻结run。
 
@@ -137,6 +138,7 @@ MIMIC用于开发/内部验证，本院用于锁模外部验证。院内8,385是
 - [MIMIC 实验室 landmark 窗口自动对齐质量门（2026-09-20）](task_reports/TASK_REPORT_20260920_MIMIC_LAB_WINDOW_ALIGNMENT_GATE.md)
 - [MIMIC 实验室特征来源与时间合同（2026-09-20）](task_reports/TASK_REPORT_2026-09-20_MIMIC_LAB_FEATURE_SOURCE_CONTRACT.md)
 - [开题报告按当前研究主线重写与图示更新（2026-09-20）](task_reports/TASK_REPORT_20260920_PROPOSAL_REPORT_REFRESH.md)
+- [开题报告引文、格式与研究进展精修（2026-09-20）](task_reports/TASK_REPORT_20260920_PROPOSAL_CITATION_AND_PROGRESS_REFINEMENT.md)
 
 - [变量筛选与 Prompt 审计（2026-09-17）](task_reports/TASK_REPORT_20260917_VARIABLE_SELECTION_PROMPT_AUDIT.md)
 - [任务报告机制与文件整理（2026-09-17）](task_reports/TASK_REPORT_20260917_REPORTING_WORKFLOW.md)
