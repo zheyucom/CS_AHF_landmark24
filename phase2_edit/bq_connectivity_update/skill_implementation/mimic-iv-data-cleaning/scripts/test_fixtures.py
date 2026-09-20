@@ -19,6 +19,7 @@ SKILL_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = SKILL_ROOT / "scripts"
 RULE_PACK = SKILL_ROOT / "references" / "mimic-iv-lab-rules.json"
 DERIVED_REFERENCE = SKILL_ROOT / "references" / "derived-reconciliation.md"
+WORKFLOW_REFERENCE = SKILL_ROOT / "references" / "workflow.md"
 
 
 def load_script(name: str):
@@ -97,6 +98,17 @@ class DerivedReconciliationReferenceTests(unittest.TestCase):
             "same `specimen_id`",
             "GREATEST(charttime, COALESCE(storetime, charttime))",
             "proposed",
+        ):
+            self.assertIn(token, text)
+
+    def test_pre_post_windows_gate_sample_and_availability_without_reclassification(self):
+        text = WORKFLOW_REFERENCE.read_text(encoding="utf-8")
+        for token in (
+            "sample time and availability time",
+            "same analysis window",
+            "must not be reclassified as a post-landmark sample",
+            "last - first",
+            "charttime, labevent_id",
         ):
             self.assertIn(token, text)
 

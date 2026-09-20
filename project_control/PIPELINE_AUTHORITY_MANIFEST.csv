@@ -133,6 +133,7 @@ sql_v3_3/executable/061A_create_ahf_evidence_table_12h_v2.sql,phenotype,LEGACY_B
 sql_v3_3/executable/061C_create_pre12_overt_cs_flags_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过且乳酸 episode 多匹配为零；正式结局与依赖未冻结，仍禁止最终运行。,2026-09-19
 sql_v3_3/executable/061E_create_post12_overt_cs_future48h_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过且乳酸 episode 多匹配为零；正式结局与依赖未冻结，仍禁止最终运行。,2026-09-19
 sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v2.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,阶段 C 修复历史字段重名后 PostgreSQL 执行通过；候选结局不得视为论文冻结结果。,2026-09-19
+sql_v3_3/executable/063A_create_candidate_hd_outcomes_overall_v3.sql,outcome,LEGACY_BLOCKED,historical,postgres,,false,版本化修复 pre-T12 乳酸可用时间门；数据库聚合 QC 与正式研究定义尚未冻结，禁止最终运行。,2026-09-20
 sql_v3_3/modeling/090B_create_compact_predictors_v34.sql,feature,LEGACY_BLOCKED,historical,postgres,,false,阶段 C PostgreSQL 执行通过，5555 行与建模 base 一致且 episode 多匹配为零；正式特征冻结未完成。,2026-09-19
 sql_v3_3/audits/116_audit_raw_lab_contract_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw 实验室合同硬门；只输出聚合 QC，不生成正式队列、特征或结局。,2026-09-19
 sql_v3_3/audits/117_audit_raw_vs_derived_phase_c.sql,audit,AUDIT_ONLY,audit,postgres,,false,阶段 C raw-vs-derived 聚合差异与结构审计；结果仅供验证，不自动晋级正式路径。,2026-09-19
@@ -140,6 +141,7 @@ sql_v3_3/bigquery/audits/118_audit_raw_lab_contract_phase_c_bq.sql,audit,AUDIT_O
 sql_v3_3/bigquery/audits/119_audit_raw_vs_derived_cause_phase_c_bq.sql,audit,AUDIT_ONLY,audit,bigquery,,false,BigQuery raw-vs-derived 原因分层聚合审计；仅输出 BUN/肌酐/乳酸原因计数且不自动晋级正式路径。,2026-09-20
 sql_v3_3/bigquery/audits/120_audit_raw_vs_derived_unequal_phase_c_bq.sql,audit,AUDIT_ONLY,audit,bigquery,,false,BigQuery both-unequal 第二层聚合分解；仅输出互斥原因与值集合 membership 且不自动晋级正式路径。,2026-09-20
 sql_v3_3/bigquery/audits/121_audit_lactate_raw_only_phase_c_bq.sql,audit,AUDIT_ONLY,audit,bigquery,,false,BigQuery lactate raw-only 第二层聚合分解；重建官方 BG specimen 选择与时间窗且不自动晋级正式路径。,2026-09-20
+sql_v3_3/audits/122_audit_lactate_window_contract_v3.sql,audit,AUDIT_ONLY,audit,postgres,,false,063A v2→v3 乳酸时间合同聚合比较；仅输出迟到排除与标志变化计数，不自动晋级正式路径。,2026-09-20
 sql_v4/audits/092_audit_final_t0_cohort_definition.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/audits_091_audit_t0_ahf_earlysepsis_feasibility.sql,audit,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19
 sql_v4/executable/001_create_schema_and_manifest.sql,config,LEGACY_BLOCKED,historical,postgres,,false,历史 SQL 原件保留用于追溯；未通过当前权威与实验室合同，正式运行 fail-closed。,2026-09-19

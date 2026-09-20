@@ -57,6 +57,12 @@ GREATEST(le.charttime, COALESCE(le.storetime, le.charttime))
 
 默认要求该时间严格早于窗口终点。另行审计 `storetime IS NULL`、`storetime < charttime` 和跨 episode 连接。
 
+对于 landmark 前后分窗，sample time and availability time 必须同时落在
+same analysis window。T12 前采样但 T12 后才可用的结果属于迟到结果，
+must not be reclassified as a post-landmark sample，也不得进入 pre-landmark 特征。first/last
+按 `charttime, labevent_id` 确定性排序；delta 必须显式定义方向，例如
+`last - first`。可用时间决定资格，采样时间决定合格记录之间的生理顺序。
+
 在聚合前检查 `specimen_id × itemid`。若选择 first、last、min 或 max，记录选择服务于基线状态、最差状态、治疗反应还是其他预注册目标。
 
 核心变量必须在相同 cohort、键和时间窗下进行双向覆盖：
