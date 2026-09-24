@@ -5,6 +5,7 @@
 ## 已删除
 
 - 6 个 macOS `.DS_Store` 元数据文件；
+- 项目根目录 1 个 `.DS_Store` 元数据文件；
 - `RESEARCH_DASHBOARD.md.orig`；
 - `RESEARCH_DASHBOARD.md.rej.orig`；
 - `TASK_REPORT_20260921_MIMIC_DHF_ALGORITHMIC_COHORT_FREEZE_V1.md.orig`；
