@@ -127,6 +127,7 @@
 ## 8. 本轮修改文件
 
 - `runs/20260924_internal_stage1_g3_phenotype/clinical_review_290_dropdown_v2_20260927.xlsx`
+- `runs/20260924_internal_stage1_g3_phenotype/low_ntprobnp_under300_targeted_review_v1.csv`（5例定向复核，不属于原290例）
 - `internal_validation/20260927_manual_review/t0_manual_corrections_v1.csv`
 - `designs/HOSPITAL_ONSET_AHF_RESEARCH_CONCEPT_V1_20260927.md`
 - `task_reports/TASK_REPORT_20260927_FIRST30_PHENOTYPE_REVIEW_AND_HOSPITAL_ONSET_AHF.md`
