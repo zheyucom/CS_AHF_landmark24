@@ -130,6 +130,9 @@
 - `internal_validation/20260927_manual_review/t0_manual_corrections_v1.csv`
 - `designs/HOSPITAL_ONSET_AHF_RESEARCH_CONCEPT_V1_20260927.md`
 - `task_reports/TASK_REPORT_20260927_FIRST30_PHENOTYPE_REVIEW_AND_HOSPITAL_ONSET_AHF.md`
+- `../literature_review/zotero_hospital_onset_ahf_manifest_20260927.csv`
+
+Zotero已核验6篇核心文献：4篇新导入“短期恶化动态预警/方法学”，2篇为既有条目；item key见manifest。Obsidian已新增主题综述和6张证据卡，位置为`notes/literature/hospital_onset_ahf/`。
 
 ## 9. 可重复性信息
 
