@@ -60,6 +60,7 @@ HEADERS = {
     "counter_evidence_excerpt": "反证/替代证据",
     "late_HF_signal_after_T12": "T12后HF信号",
     "physician_adjudication_needed": "需医生裁决",
+    "physician_review_batch": "医生审核批次",
     "physician_selection_reason": "入选医生审核原因",
     "physician_dhf_label": "医生DHF总标签",
     "physician_A_domain": "医生A域",
@@ -72,7 +73,7 @@ HEADERS = {
 
 ALL_FIELDS = list(HEADERS)
 REVIEW_FIELDS = [
-    "case_no", "physician_selection_reason", "patient_id", "visit_id", "sex", "age",
+    "case_no", "physician_review_batch", "physician_selection_reason", "patient_id", "visit_id", "sex", "age",
     "t0_time", "sample_stratum", "c_support_type", "ai_second_pass_label", "ai_confidence",
     "review_A_current_hf", "review_B_acute_decompensation", "review_C_support",
     "dominant_alternative", "false_positive_or_uncertainty_mechanism", "ai_reason",
@@ -98,12 +99,12 @@ def main() -> None:
     all_sheet = make_sheet(all_rows, ALL_FIELDS)
     all_widths = [
         8, 28, 12, 18, 7, 8, 20, 25, 10, 10, 14, 18, 12, 20, 20, 22, 22,
-        35, 48, 65, 55, 55, 55, 55, 14, 14, 35, 18, 14, 14, 14, 16, 60,
+        35, 48, 65, 55, 55, 55, 55, 14, 14, 18, 35, 18, 14, 14, 14, 16, 60,
     ]
 
     review_sheet = make_sheet(subset_rows, REVIEW_FIELDS)
     review_widths = [
-        8, 32, 12, 18, 7, 8, 20, 28, 25, 18, 12, 20, 20, 22, 35, 48, 65,
+        8, 18, 32, 12, 18, 7, 8, 20, 28, 25, 18, 12, 20, 20, 22, 35, 48, 65,
         55, 55, 55, 55, 14, 20, 14, 14, 14, 16, 65,
     ]
     col = {field: column_name(index + 1) for index, field in enumerate(REVIEW_FIELDS)}

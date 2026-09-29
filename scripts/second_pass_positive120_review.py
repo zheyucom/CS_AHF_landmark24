@@ -248,6 +248,10 @@ def main() -> None:
             "counter_evidence_excerpt": compact(row.get("alternative_evidence") or row.get("negative_or_uncertain_evidence")),
             "late_HF_signal_after_T12": "yes" if row.get("late_hf_signal_after_T12") else "no",
             "physician_adjudication_needed": "yes" if must_review else "no",
+            "physician_review_batch": (
+                "T1_疑难必审" if must_review and label == "indeterminate" else
+                "T2_一致性质控" if must_review else "not_selected"
+            ),
             "physician_selection_reason": selection_reason,
             "physician_dhf_label": "",
             "physician_A_domain": "",
@@ -264,7 +268,14 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(reviewed)
 
-    physician_rows = [row for row in reviewed if row["physician_adjudication_needed"] == "yes"]
+    physician_rows = sorted(
+        (row for row in reviewed if row["physician_adjudication_needed"] == "yes"),
+        key=lambda row: (
+            0 if row["physician_review_batch"] == "T1_疑难必审" else 1,
+            row["sample_stratum"],
+            int(row["case_no"]),
+        ),
+    )
     with PHYSICIAN_OUTPUT.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
